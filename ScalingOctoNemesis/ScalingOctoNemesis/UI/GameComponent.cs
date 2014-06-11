@@ -1,15 +1,17 @@
-namespace PrismUI 
+using Microsoft.Xna.Framework;
+namespace ScalingOctoNemesis.UI 
 {
-	public class GameComponent
+	public abstract class GameComponent
 	{
 		public Vector2 Position { get; set; }
 		public string Name { get; set; }
+        public string Id { get; private set; }
 		public GameComponent(string id)
 		{
-			_id = id;
+			Id = id;
 		}
 
-		public abstract void Update(GameTime);
+		public abstract void Update(GameTime gameTime);
 		public abstract void Draw();	
 	}
 }

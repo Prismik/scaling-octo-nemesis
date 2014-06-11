@@ -1,6 +1,6 @@
-namespace PrismUI 
+namespace ScalingOctoNemesis.UI 
 {
-	public class GameItem : GameComponent
+	public abstract class GameItem : GameComponent
 	{
 		public GameItem(string id)
 			: base(id)

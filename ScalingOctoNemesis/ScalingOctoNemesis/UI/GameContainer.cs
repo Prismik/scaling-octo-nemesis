@@ -1,7 +1,9 @@
-namespace PrismUI
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+namespace ScalingOctoNemesis.UI
 {
-	public class GameContainer : GameComponent
-	{
+	public abstract class GameContainer : GameComponent
+	{ 
 		List<GameComponent> _components = new List<GameComponent>();
 		public GameContainer(string id)
 			: base(id)
@@ -11,12 +13,12 @@ namespace PrismUI
 
 		public void Add(GameComponent component)
 		{
-			_components.add(component);
+			_components.Add(component);
 		}
 
-		public GameComponent Remove(GameComponent component)
+		public bool Remove(GameComponent component)
 		{
-			_components.remove(component);
+			return _components.Remove(component);
 		}
 
 		public GameComponent Find(string id, bool recursive)
@@ -33,8 +35,8 @@ namespace PrismUI
 			foreach (GameComponent gc in _components)
 				if (gc.Name == id)
 					return gc;
-				else if (typeof(gc) == GameContainer)
-					return gc.FindRecursive(id);
+				else if (gc.GetType() == typeof(GameContainer))
+					return ((GameContainer)gc).FindRecursive(id);
 
 			return null;
 		}

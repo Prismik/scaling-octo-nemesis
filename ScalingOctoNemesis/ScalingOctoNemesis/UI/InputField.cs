@@ -7,7 +7,9 @@
  * computer games (i.e. non-console specific).
  */ 
 
-namespace PrismUI
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
+namespace ScalingOctoNemesis.UI
 {
 	public class InputField : GameItem
 	{
@@ -18,22 +20,22 @@ namespace PrismUI
 		public bool Active { get; set; }
 		public string Value { get; set; }
 
-		public InputField(InputState input, string default, string id)
+		public InputField(InputState input, string placeholder, string id)
 			: base(id)
 		{
-			_input = input;
-			Value = default;
-			cursor = default.length();
+			//_input = input;
+			Value = placeholder;
+			cursor = placeholder.Length;
 		}
 
 		private void RemoveChar()
 		{
-			Value.removeAt(--cursor);
+			Value.Remove(--cursor, 1);
 		}
 		
 		private void InsertChar(char c)
 		{
-			Value.insert(cursor++, c);
+			Value.Insert(cursor++, c.ToString());
 		}
 
 		private char KeyInAscii(Keys key)
@@ -41,7 +43,7 @@ namespace PrismUI
 			// Returns a char if the key pressed
 			// is a character in the ascii table.
 			// Otherwise, returns an empty char.
-			return '';
+			return ' ';
 		}
 
 		public void Update()
@@ -59,7 +61,7 @@ namespace PrismUI
 				if (_input.IsNewKeyPress())
 				{
 					Keys key = _input.LastKeyPress;
-					if (key == Keys.Backspace)
+					if (key == Keys.Back)
 						RemoveChar();
 					else if (key == Keys.Enter)
 					{
@@ -76,7 +78,15 @@ namespace PrismUI
 
 		public void Draw(SpriteBatch sb)
 		{
-			
+			DrawBorder();
+            DrawBackground();
+            DrawText();
+            DrawCursor();
 		}
+
+        public abstract void DrawBorder();
+        public abstract void DrawBackground();
+        public abstract void DrawText();
+        public abstract void DrawCursor();
 	}
 }

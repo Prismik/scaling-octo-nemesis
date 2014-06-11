@@ -1,4 +1,4 @@
-namespace PrismUI 
+namespace ScalingOctoNemesis.UI 
 {
 	public class TextBox : InputField
 	{
