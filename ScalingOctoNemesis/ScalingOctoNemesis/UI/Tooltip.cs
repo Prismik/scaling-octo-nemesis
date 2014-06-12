@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ScalingOctoNemesis.UI
 {
-    class Tooltip : GameItem
+    class Tooltip : UIItem
     {
         
     }

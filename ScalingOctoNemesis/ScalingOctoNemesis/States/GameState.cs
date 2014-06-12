@@ -16,6 +16,7 @@ namespace States
             Manager = manager;
             InputState = new InputState();
             RequireUpdate = true;
+            LoadContent();
         }
 
         public virtual void LoadContent()

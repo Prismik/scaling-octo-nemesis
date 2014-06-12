@@ -17,6 +17,7 @@ namespace ScalingOctoNemesis
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
+        StateManager _stateManager;
         SpriteBatch spriteBatch;
 
         public Game1()
@@ -46,7 +47,7 @@ namespace ScalingOctoNemesis
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            _stateManager = new StateManager(this, spriteBatch);
             // TODO: use this.Content to load your game content here
         }
 
@@ -70,7 +71,7 @@ namespace ScalingOctoNemesis
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
+            _stateManager.Update(gameTime);
 
             base.Update(gameTime);
         }
@@ -83,7 +84,7 @@ namespace ScalingOctoNemesis
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            _stateManager.Draw();
 
             base.Draw(gameTime);
         }

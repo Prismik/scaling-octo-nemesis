@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 namespace ScalingOctoNemesis.UI
 {
-	public abstract class GameContainer : GameComponent
+	public abstract class UIContainer : UIComponent
 	{ 
 		List<GameComponent> _components = new List<GameComponent>();
 		public GameContainer(string id)

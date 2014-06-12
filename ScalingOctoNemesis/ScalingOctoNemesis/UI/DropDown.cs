@@ -1,11 +1,11 @@
 using Microsoft.Xna.Framework.Graphics;
 namespace ScalingOctoNemesis.UI
 {
-	public class DropDown : GameContainer
+	public class DropDown : UIContainer
 	{
 		Action OnSelect { get; set; }
         public bool Expanded { get; set; } 
-		public DropDown(InputState input, string id, float width, float height)
+		public DropDown(string id, float width, float height)
 			: base(id)
 		{
             

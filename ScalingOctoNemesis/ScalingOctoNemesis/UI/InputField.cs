@@ -9,33 +9,50 @@
 
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+
 namespace ScalingOctoNemesis.UI
 {
-	public class InputField : GameItem
+	public class InputField : UIItem
 	{
-		InputState _input;
-		int cursor;
+		int _cursor;
+		int _maxLen;
 
 		public bool Focused { get; set; }
-		public bool Active { get; set; }
+		public bool Active 	{ get; set; }
 		public string Value { get; set; }
 
-		public InputField(InputState input, string placeholder, string id)
-			: base(id)
+		public InputField(string placeholder, string id, int maxLen,
+			float x, float y, float width, float height)
+			: base(id, x, y, width, height)
 		{
 			//_input = input;
 			Value = placeholder;
-			cursor = placeholder.Length;
+			_cursor = placeholder.Length;
+			_maxLen = maxLen;
 		}
 
 		private void RemoveChar()
 		{
-			Value.Remove(--cursor, 1);
+			if (Value.Length != 0)
+				Value.Remove(--_cursor, 1);
 		}
 		
 		private void InsertChar(char c)
 		{
-			Value.Insert(cursor++, c.ToString());
+			if (Value.Length != _maxLen)
+				Value.Insert(_cursor++, c.ToString());
+		}
+
+		private void IncrementCursor()
+		{
+			if (cursor <= Value.Length)
+				cursor++;
+		}
+
+		private void DecrementCursor()
+		{
+			if (cursor > 0)
+				cursor--:
 		}
 
 		private char KeyInAscii(Keys key)
@@ -48,31 +65,16 @@ namespace ScalingOctoNemesis.UI
 
 		public void Update()
 		{
-			if (Focused)
-				if (_input.IsNewKeyPress())
-					if (_input.LastKeyPress == Keys.Enter)
-					{
-						Focused = false;
-					 	Active = true;
-					}
-
-			if (Active) 
-			{
-				if (_input.IsNewKeyPress())
-				{
-					Keys key = _input.LastKeyPress;
-					if (key == Keys.Back)
-						RemoveChar();
-					else if (key == Keys.Enter)
-					{
-						Focused = true;
-						Active = false;
-					}
-					else if ((char c = KeyInAscii(key)) != '')
-					{
-						InsertChar(c);
-					}
-				}
+			if (Focused && _input.IsNewKeyPress()) 
+				Keys key = _input.LastKeyPress;
+				if (key == Keys.Back)
+					RemoveChar();
+				else if ((char c = KeyInAscii(key)) != '')
+					InsertChar(c);
+				else if (key == Keys.left)
+					DecrementCursor();
+				else if (key == Keys.right)
+					IncrementCursor();
 			}
 		}
 
@@ -81,12 +83,28 @@ namespace ScalingOctoNemesis.UI
 			DrawBorder();
             DrawBackground();
             DrawText();
-            DrawCursor();
+            if (Focused)
+            	DrawCursor();
 		}
 
-        public abstract void DrawBorder();
-        public abstract void DrawBackground();
-        public abstract void DrawText();
-        public abstract void DrawCursor();
+        public virtual void DrawBorder()
+        {
+
+        }
+
+        public virtual void DrawBackground()
+        {
+
+        }
+
+        public virtual void DrawText()
+        {
+
+        }
+
+        public abstract void DrawCursor()
+        {
+
+        }
 	}
 }

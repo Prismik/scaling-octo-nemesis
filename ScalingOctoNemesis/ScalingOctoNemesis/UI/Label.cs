@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework.Graphics;
 namespace ScalingOctoNemesis.UI 
 {
-	public class Label : GameItem
+	public class Label : UIItem
 	{
         public Label(string id, string text)
 			: base(id)
