@@ -31,6 +31,16 @@ namespace ScalingOctoNemesis.UI
 			_maxLen = maxLen;
 		}
 
+		public InputField(string placeholder, string id, int maxLen,
+			float x, float y)
+			: base(id, x, y, 100, 20)
+		{
+			//_input = input;
+			Value = placeholder;
+			_cursor = placeholder.Length;
+			_maxLen = maxLen;
+		}
+
 		private void RemoveChar()
 		{
 			if (Value.Length != 0)
@@ -80,29 +90,42 @@ namespace ScalingOctoNemesis.UI
 
 		public void Draw(SpriteBatch sb)
 		{
-			DrawBorder();
-            DrawBackground();
-            DrawText();
+			DrawBorder(sb);
+            DrawBackground(sb);
+            DrawText(sb);
             if (Focused)
-            	DrawCursor();
+            	DrawCursor(sb);
 		}
 
-        public virtual void DrawBorder()
+/*
+ t = new Texture2D(GraphicsDevice, 1, 1);
+        t.SetData<Color>(
+            new Color[] { Color.White });// fill the texture with white
+*/
+        public virtual void DrawBorder(SpriteBatch sb)
         {
-
+        	DrawingTools.DrawLine(sb, new Vector2(Position.X, Position.Y), 
+        		new Vector2(Position.X+Size.X, Position.Y), Color.Red);
+        	DrawingTools.DrawLine(sb, new Vector2(Position.X+Size.X, Position.Y), 
+        		new Vector2(Position.X+Size.X, Position.Y+Size.Y), Color.Red);
+        	DrawingTools.DrawLine(sb, new Vector2(Position.X+Size.X, Position.Y+Size.Y), 
+        		new Vector2(Position.X, Position.Y+Size.Y), Color.Red);
+        	DrawingTools.DrawLine(sb, new Vector2(Position.X, Position.Y+Size.Y), 
+        		new Vector2(Position.X+Size.X, Position.Y), Color.Red);
         }
 
-        public virtual void DrawBackground()
+        public virtual void DrawBackground(SpriteBatch sb)
         {
-
+        	DrawingTools.DrawRectangle(sb, 
+        		new Rectangle(Position.X, Position.Y, Size.X, Size.Y), Color.Chocolate);
         }
 
-        public virtual void DrawText()
+        public virtual void DrawText(SpriteBatch sb)
         {
-
+        	sb.DrawString(_font, Value, Position + new Vector2(5, 2), Color.White);
         }
 
-        public abstract void DrawCursor()
+        public abstract void DrawCursor(SpriteBatch sb)
         {
 
         }
