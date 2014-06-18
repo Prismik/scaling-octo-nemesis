@@ -26,7 +26,7 @@ namespace States
 
         public virtual void Update(GameTime gameTime)
         {
-            InputState.Update();
+            
         }
 
         public abstract void Draw();

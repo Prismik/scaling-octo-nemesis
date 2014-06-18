@@ -13,6 +13,15 @@ namespace ScalingOctoNemesis.UI
 		public string Name 		{ get; set; }
         public string Id 		{ get; private set; }
 
+        public bool Visible 	{ get; set; }
+        // An idea to resolve cross-components input handling
+        // would be to add a list of bound components
+        // public List<UIComponent> BoundComponents { get; set; }
+        // OR
+        // Add a parent handler such as chaine de commande
+        // public UIComponent ParentHandler { get; set; }
+        // Main view points to bottom panel. Bottom panel
+        // points to top panel
 		public GameComponent(string id, float x, float y,
 			float width, float height)
 		{

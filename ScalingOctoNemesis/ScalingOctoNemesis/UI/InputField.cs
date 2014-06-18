@@ -17,8 +17,11 @@ namespace ScalingOctoNemesis.UI
 		int _cursor;
 		int _maxLen;
 
+		// Determines if the InputField has the focus
 		public bool Focused { get; set; }
+		// TBD
 		public bool Active 	{ get; set; }
+		// Textual value held in the input field
 		public string Value { get; set; }
 
 		public InputField(string placeholder, string id, int maxLen,
@@ -39,6 +42,20 @@ namespace ScalingOctoNemesis.UI
 			Value = placeholder;
 			_cursor = placeholder.Length;
 			_maxLen = maxLen;
+		}
+
+		public void Focus()
+		{
+			if (!Focused)
+				_cursor = Value.Length;
+		}
+
+		// Specify the position of the mouse click
+		// that initiated a focus event
+		public void Focus(Vector2 pos)
+		{
+			if (!Focused)
+				_cursor = GetCharAt(pos.X);
 		}
 
 		private void RemoveChar()
@@ -63,6 +80,23 @@ namespace ScalingOctoNemesis.UI
 		{
 			if (cursor > 0)
 				cursor--:
+		}
+
+		// Returns the array's position of the char
+		private int GetCharAt(float x)
+		{
+			int width= 0;
+			for (int i = 0; i != Value.Length; ++i)
+			{
+				width += SpriteFont.MeasureString((string)c).X;
+				if (width >= x)
+					return i;
+			}
+		}
+
+		private Rectangle GetCharRectangle(int indicator)
+		{
+			return SpriteFont.MeasureString((string)Value[indicator]);
 		}
 
 		private char KeyInAscii(Keys key)
@@ -97,11 +131,6 @@ namespace ScalingOctoNemesis.UI
             	DrawCursor(sb);
 		}
 
-/*
- t = new Texture2D(GraphicsDevice, 1, 1);
-        t.SetData<Color>(
-            new Color[] { Color.White });// fill the texture with white
-*/
         public virtual void DrawBorder(SpriteBatch sb)
         {
         	DrawingTools.DrawLine(sb, new Vector2(Position.X, Position.Y), 
