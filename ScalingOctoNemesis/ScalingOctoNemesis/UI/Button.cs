@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Xna.Framework;
 using System.Timers;
+using Microsoft.Xna.Framework.Graphics;
 namespace ScalingOctoNemesis.UI
 {
 	public class Button : UIItem
@@ -13,7 +14,7 @@ namespace ScalingOctoNemesis.UI
         
 		public Button(Action action, string value, string id, 
             float width, float height, float x, float y)
-			: base(id, x, y)
+			: base(id, x, y, width, height)
 		{
 			_action = action;
 		}
@@ -28,18 +29,18 @@ namespace ScalingOctoNemesis.UI
             _pressed = false;
         }
 
-        public void Update(GameTime timer)
+        public override void Update(GameTime timer)
         {
 
         }
 
-        public void Draw()
+        public override void Draw(SpriteBatch sb)
         {
             DrawBorder();
             if (!_pressed)
             {
                 DrawInner();
-                Tooltip.Draw();
+                Tooltip.Draw(sb);
             }
             else
                 DrawInnerPressed();

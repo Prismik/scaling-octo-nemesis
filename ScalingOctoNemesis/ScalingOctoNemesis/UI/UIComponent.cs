@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 namespace ScalingOctoNemesis.UI 
 {
 	public abstract class UIComponent
@@ -22,7 +23,7 @@ namespace ScalingOctoNemesis.UI
         // public UIComponent ParentHandler { get; set; }
         // Main view points to bottom panel. Bottom panel
         // points to top panel
-		public GameComponent(string id, float x, float y,
+		public UIComponent(string id, float x, float y,
 			float width, float height)
 		{
 			Id = id;
@@ -31,6 +32,6 @@ namespace ScalingOctoNemesis.UI
 		}
 
 		public abstract void Update(GameTime gameTime);
-		public abstract void Draw();	
+		public abstract void Draw(SpriteBatch sb);	
 	}
 }

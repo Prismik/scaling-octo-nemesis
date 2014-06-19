@@ -1,10 +1,13 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 public static class DrawingTools
 {
 	private static Texture2D t;
-	public static void Init()
+	public static void Init(GraphicsDevice gc)
 	{
         // create 1x1 texture for line drawing
-        t = new Texture2D(GraphicsDevice, 1, 1);
+        t = new Texture2D(gc, 1, 1);
         t.SetData<Color>(new Color[] { Color.White });// fill the texture with white
 	}
 

@@ -9,6 +9,7 @@
 
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace ScalingOctoNemesis.UI
 {
@@ -16,6 +17,7 @@ namespace ScalingOctoNemesis.UI
 	{
 		int _cursor;
 		int _maxLen;
+        SpriteFont _font;
 
 		// Determines if the InputField has the focus
 		public bool Focused { get; set; }
@@ -24,7 +26,7 @@ namespace ScalingOctoNemesis.UI
 		// Textual value held in the input field
 		public string Value { get; set; }
 
-		public InputField(string placeholder, string id, int maxLen,
+		public InputField(string placeholder, SpriteFont font, string id, int maxLen,
 			float x, float y, float width, float height)
 			: base(id, x, y, width, height)
 		{
@@ -32,6 +34,7 @@ namespace ScalingOctoNemesis.UI
 			Value = placeholder;
 			_cursor = placeholder.Length;
 			_maxLen = maxLen;
+            _font = font;
 		}
 
 		public InputField(string placeholder, string id, int maxLen,
@@ -55,7 +58,7 @@ namespace ScalingOctoNemesis.UI
 		public void Focus(Vector2 pos)
 		{
 			if (!Focused)
-				_cursor = GetCharAt(pos.X);
+				_cursor = StringHelper.GetCharPositionAt(_font, Value, pos.X);
 		}
 
 		private void RemoveChar()
@@ -72,31 +75,14 @@ namespace ScalingOctoNemesis.UI
 
 		private void IncrementCursor()
 		{
-			if (cursor <= Value.Length)
-				cursor++;
+			if (_cursor <= Value.Length)
+				_cursor++;
 		}
 
 		private void DecrementCursor()
 		{
-			if (cursor > 0)
-				cursor--:
-		}
-
-		// Returns the array's position of the char
-		private int GetCharAt(float x)
-		{
-			int width= 0;
-			for (int i = 0; i != Value.Length; ++i)
-			{
-				width += SpriteFont.MeasureString((string)c).X;
-				if (width >= x)
-					return i;
-			}
-		}
-
-		private Rectangle GetCharRectangle(int indicator)
-		{
-			return SpriteFont.MeasureString((string)Value[indicator]);
+            if (_cursor > 0)
+                _cursor--;
 		}
 
 		private char KeyInAscii(Keys key)
@@ -107,22 +93,23 @@ namespace ScalingOctoNemesis.UI
 			return ' ';
 		}
 
-		public void Update()
+		public override void Update(GameTime timer)
 		{
-			if (Focused && _input.IsNewKeyPress()) 
-				Keys key = _input.LastKeyPress;
+			if (Focused/* && _input.IsNewKeyPress()*/) 
+            {
+                Keys key = Keys.None;//_input.LastKeyPress;
 				if (key == Keys.Back)
 					RemoveChar();
-				else if ((char c = KeyInAscii(key)) != '')
-					InsertChar(c);
-				else if (key == Keys.left)
+				else if (KeyInAscii(key) != 'c')
+					InsertChar(KeyInAscii(key));
+				else if (key == Keys.Left)
 					DecrementCursor();
-				else if (key == Keys.right)
+				else if (key == Keys.Right)
 					IncrementCursor();
 			}
 		}
 
-		public void Draw(SpriteBatch sb)
+		public override void Draw(SpriteBatch sb)
 		{
 			DrawBorder(sb);
             DrawBackground(sb);
@@ -146,7 +133,7 @@ namespace ScalingOctoNemesis.UI
         public virtual void DrawBackground(SpriteBatch sb)
         {
         	DrawingTools.DrawRectangle(sb, 
-        		new Rectangle(Position.X, Position.Y, Size.X, Size.Y), Color.Chocolate);
+        		new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y), Color.Chocolate);
         }
 
         public virtual void DrawText(SpriteBatch sb)
@@ -154,7 +141,7 @@ namespace ScalingOctoNemesis.UI
         	sb.DrawString(_font, Value, Position + new Vector2(5, 2), Color.White);
         }
 
-        public abstract void DrawCursor(SpriteBatch sb)
+        public virtual void DrawCursor(SpriteBatch sb)
         {
 
         }

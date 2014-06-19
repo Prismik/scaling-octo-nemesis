@@ -1,12 +1,13 @@
 using Microsoft.Xna.Framework.Graphics;
+using System;
 namespace ScalingOctoNemesis.UI
 {
-	public class DropDown : UIContainer
+	public abstract class DropDown : UIContainer
 	{
 		Action OnSelect { get; set; }
         public bool Expanded { get; set; } 
-		public DropDown(string id, float width, float height)
-			: base(id)
+		public DropDown(string id, float x, float y, float width, float height)
+			: base(id, x, y, width, height)
 		{
             
 		}
@@ -16,7 +17,7 @@ namespace ScalingOctoNemesis.UI
 			
 		}
 
-        public void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb)
         {
             DrawBorder();
             DrawBackground();

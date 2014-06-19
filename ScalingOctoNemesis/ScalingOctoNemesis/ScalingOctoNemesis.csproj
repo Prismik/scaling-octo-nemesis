@@ -110,6 +110,23 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="States\GameState.cs" />
+    <Compile Include="States\StateManager.cs" />
+    <Compile Include="UI\Button.cs" />
+    <Compile Include="UI\DrawingTools.cs" />
+    <Compile Include="UI\DropDown.cs" />
+    <Compile Include="UI\InputField.cs" />
+    <Compile Include="UI\Label.cs" />
+    <Compile Include="UI\StringHelper.cs" />
+    <Compile Include="UI\TextBox.cs" />
+    <Compile Include="UI\Tooltip.cs" />
+    <Compile Include="UI\UIComponent.cs" />
+    <Compile Include="UI\UIContainer.cs" />
+    <Compile Include="UI\UIItem.cs" />
+    <Compile Include="UI\UIManager.cs" />
+    <Compile Include="Util\AudioManager.cs" />
+    <Compile Include="Util\IAudioManager.cs" />
+    <Compile Include="Util\InputManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
