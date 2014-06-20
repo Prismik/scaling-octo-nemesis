@@ -111,6 +111,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="States\GameState.cs" />
+    <Compile Include="States\InnerGame.cs" />
     <Compile Include="States\StateManager.cs" />
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\DrawingTools.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="UI\UIManager.cs" />
     <Compile Include="Util\AudioManager.cs" />
     <Compile Include="Util\IAudioManager.cs" />
+    <Compile Include="Util\InputHook.cs" />
     <Compile Include="Util\InputManager.cs" />
   </ItemGroup>
   <ItemGroup>

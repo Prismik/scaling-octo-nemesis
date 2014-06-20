@@ -22,23 +22,26 @@ public static class StringHelper
         return CharInfo.Empty;
 	}
 
-	// Helper to get just the area
-	public static Rectangle GetCharAreaAt(SpriteFont sf, string t, float x)
-	{
-		return GetCharInfoAt(sf, t, x).area;
-	}
+    public static CharInfo GetCharInfoFrom(SpriteFont sf, string t, int pos, int y, float scale)
+    {
+        if (t.Length == 0)
+            return CharInfo.Empty;
 
-	// Helper to get just the location
-	public static Vector2 GetCharLocationAt(SpriteFont sf, string t, float x)
-	{
-		return GetCharInfoAt(sf, t, x).location;
-	}
+        int width = 0;
+        Vector2 measure = Vector2.Zero;
+        for (int i = 0; i != t.Length; ++i)
+        {
+            measure = sf.MeasureString(t[i].ToString()) * scale;
+            if (i >= pos)
+                return new CharInfo(i,
+                    new Vector2(width, 0),
+                    new Rectangle(width, 0, (int)measure.X, (int)measure.Y));
 
-	// Helper to get just the position
-	public static int GetCharPositionAt(SpriteFont sf, string t, float x)
-	{
-		return GetCharInfoAt(sf, t, x).position;
-	}
+            width += (int)measure.X;
+        }
+
+        return new CharInfo(t.Length, new Vector2(width, 0), new Rectangle(width, 0, (int)measure.X, (int)measure.Y));
+    }
 }
 
 public struct CharInfo
@@ -57,5 +60,19 @@ public struct CharInfo
     public static CharInfo Empty
     {
         get { return new CharInfo(-1, Vector2.Zero, Rectangle.Empty); }
+    }
+
+    // Equality operator. Returns null if either operand is null, 
+    // otherwise returns true or false:
+    public static bool operator ==(CharInfo x, CharInfo y)
+    {
+        return x.area == y.area && x.location == y.location && x.position == y.position;
+    }
+
+    // Equality operator. Returns null if either operand is null, 
+    // otherwise returns true or false:
+    public static bool operator !=(CharInfo x, CharInfo y)
+    {
+        return !(x == y);
     }
 }

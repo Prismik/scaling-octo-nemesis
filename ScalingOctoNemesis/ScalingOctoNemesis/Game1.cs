@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using States;
+using ScalingOctoNemesis.States;
 
 namespace ScalingOctoNemesis
 {
@@ -20,10 +21,10 @@ namespace ScalingOctoNemesis
         GraphicsDeviceManager graphics;
         StateManager _stateManager;
         SpriteBatch spriteBatch;
-
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            InputSystem.Initialize(this.Window);
             Content.RootDirectory = "Content";
         }
 
@@ -49,6 +50,8 @@ namespace ScalingOctoNemesis
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _stateManager = new StateManager(this, spriteBatch);
+            _stateManager.AddState(new InnerGame(_stateManager));
+            DrawingTools.Init(GraphicsDevice);
             // TODO: use this.Content to load your game content here
         }
 

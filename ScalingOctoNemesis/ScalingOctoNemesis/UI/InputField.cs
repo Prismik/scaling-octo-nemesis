@@ -30,89 +30,109 @@ namespace ScalingOctoNemesis.UI
 			float x, float y, float width, float height)
 			: base(id, x, y, width, height)
 		{
-			//_input = input;
-			Value = placeholder;
-			_cursor = placeholder.Length;
-			_maxLen = maxLen;
-            _font = font;
+            Initialize(placeholder, maxLen, font);
 		}
 
-		public InputField(string placeholder, string id, int maxLen,
+		public InputField(string placeholder, SpriteFont sf, string id, int maxLen,
 			float x, float y)
-			: base(id, x, y, 100, 20)
+			: base(id, x, y, 100, 30)
 		{
-			//_input = input;
-			Value = placeholder;
-			_cursor = placeholder.Length;
-			_maxLen = maxLen;
+            Initialize(placeholder, maxLen, sf);
 		}
 
-		public void Focus()
+        private void Initialize(string placeholder, int maxLen, SpriteFont sf)
+        {
+            Value = placeholder;
+            _cursor = placeholder.Length;
+            _maxLen = maxLen;
+            _font = sf;
+        }
+
+		public void OnFocus()
 		{
-			if (!Focused)
-				_cursor = Value.Length;
+            if (!Focused)
+            {
+                Focused = true;
+                _cursor = Value.Length;
+                InputSystem.CharEntered += HandleInput;
+                InputSystem.KeyDown += HandleKeys;
+            }
 		}
+
+        public void OnLostFocus()
+        {
+            if (Focused)
+            {
+                InputSystem.CharEntered -= HandleInput;
+                InputSystem.KeyDown -= HandleKeys;
+            }
+        }
 
 		// Specify the position of the mouse click
 		// that initiated a focus event
 		public void Focus(Vector2 pos)
 		{
 			if (!Focused)
-				_cursor = StringHelper.GetCharPositionAt(_font, Value, pos.X);
+				_cursor = StringHelper.GetCharInfoAt(_font, Value, pos.X).position;
 		}
 
 		private void RemoveChar()
 		{
-			if (Value.Length != 0)
-				Value.Remove(--_cursor, 1);
+			if (Value.Length != 0 && _cursor != 0)
+				Value = Value.Remove(--_cursor, 1);
 		}
-		
+
 		private void InsertChar(char c)
 		{
-			if (Value.Length != _maxLen)
-				Value.Insert(_cursor++, c.ToString());
+            if (Value.Length != _maxLen)
+            {
+                string str = c.ToString();
+                Value = Value.Insert(_cursor++, str);
+            }
 		}
 
-		private void IncrementCursor()
+		private int IncrementCursor()
 		{
-			if (_cursor <= Value.Length)
+			if (_cursor < Value.Length)
 				_cursor++;
+
+            return _cursor;
 		}
 
-		private void DecrementCursor()
+		private int DecrementCursor()
 		{
             if (_cursor > 0)
                 _cursor--;
+
+            return _cursor;
 		}
 
-		private char KeyInAscii(Keys key)
-		{
-			// Returns a char if the key pressed
-			// is a character in the ascii table.
-			// Otherwise, returns an empty char.
-			return ' ';
-		}
+        private void HandleInput(object sender, CharacterEventArgs e)
+        {
+            if (e.Character != '\b')
+                InsertChar(e.Character);
+        }
+
+        private void HandleKeys(object sender, KeyEventArgs e)
+        {
+            Keys key = e.KeyCode;
+            if (key == Keys.Back)
+                RemoveChar();
+            else if (key == Keys.Left)
+                DecrementCursor();
+            else if (key == Keys.Right)
+                IncrementCursor();
+        }
 
 		public override void Update(GameTime timer)
 		{
-			if (Focused/* && _input.IsNewKeyPress()*/) 
-            {
-                Keys key = Keys.None;//_input.LastKeyPress;
-				if (key == Keys.Back)
-					RemoveChar();
-				else if (KeyInAscii(key) != 'c')
-					InsertChar(KeyInAscii(key));
-				else if (key == Keys.Left)
-					DecrementCursor();
-				else if (key == Keys.Right)
-					IncrementCursor();
-			}
+           
 		}
 
 		public override void Draw(SpriteBatch sb)
 		{
-			DrawBorder(sb);
             DrawBackground(sb);
+            DrawBorder(sb);
             DrawText(sb);
             if (Focused)
             	DrawCursor(sb);
@@ -127,7 +147,7 @@ namespace ScalingOctoNemesis.UI
         	DrawingTools.DrawLine(sb, new Vector2(Position.X+Size.X, Position.Y+Size.Y), 
         		new Vector2(Position.X, Position.Y+Size.Y), Color.Red);
         	DrawingTools.DrawLine(sb, new Vector2(Position.X, Position.Y+Size.Y), 
-        		new Vector2(Position.X+Size.X, Position.Y), Color.Red);
+        		new Vector2(Position.X, Position.Y), Color.Red);
         }
 
         public virtual void DrawBackground(SpriteBatch sb)
@@ -138,12 +158,22 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawText(SpriteBatch sb)
         {
-        	sb.DrawString(_font, Value, Position + new Vector2(5, 2), Color.White);
+        	sb.DrawString(_font, Value, Position + new Vector2(5, 2), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
         }
 
         public virtual void DrawCursor(SpriteBatch sb)
         {
-
+            CharInfo info = StringHelper.GetCharInfoFrom(_font, Value, _cursor, (int)Position.Y, 1f);
+           // if (info == CharInfo.Empty)
+            //{
+            //    info = new CharInfo(0, Vector2.Zero, new Rectangle(
+           // }
+            //else
+            //{
+                info.area.X += (int)Position.X + 5;
+                info.area.Y += (int)Position.Y;
+            //}
+            DrawingTools.DrawRectangle(sb, info.area, new Color(0, 0, 0, 0.8f));
         }
 	}
 }
