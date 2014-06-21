@@ -128,7 +128,7 @@
     <Compile Include="Util\AudioManager.cs" />
     <Compile Include="Util\IAudioManager.cs" />
     <Compile Include="Util\InputHook.cs" />
-    <Compile Include="Util\InputManager.cs" />
+    <Compile Include="Util\Timer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

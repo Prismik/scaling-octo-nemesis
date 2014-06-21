@@ -27,6 +27,7 @@ namespace ScalingOctoNemesis.UI
 			float width, float height)
 		{
 			Id = id;
+            Visible = true;
 			Position = new Vector2(x, y);
 			Size = new Vector2(width, height);
 		}

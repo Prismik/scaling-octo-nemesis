@@ -22,7 +22,7 @@ public static class StringHelper
         return CharInfo.Empty;
 	}
 
-    public static CharInfo GetCharInfoFrom(SpriteFont sf, string t, int pos, int y, float scale)
+    public static CharInfo GetCharInfoFrom(SpriteFont sf, string t, int pos, Vector2 startLocation, float scale)
     {
         if (t.Length == 0)
             return CharInfo.Empty;
@@ -34,13 +34,14 @@ public static class StringHelper
             measure = sf.MeasureString(t[i].ToString()) * scale;
             if (i >= pos)
                 return new CharInfo(i,
-                    new Vector2(width, 0),
-                    new Rectangle(width, 0, (int)measure.X, (int)measure.Y));
+                    new Vector2(width + startLocation.X, startLocation.Y),
+                    new Rectangle(width + (int)startLocation.X, (int)startLocation.Y, (int)measure.X, (int)measure.Y));
 
             width += (int)measure.X;
         }
 
-        return new CharInfo(t.Length, new Vector2(width, 0), new Rectangle(width, 0, (int)measure.X, (int)measure.Y));
+        return new CharInfo(t.Length, new Vector2(width + startLocation.X, startLocation.Y), 
+            new Rectangle(width + (int)startLocation.X, (int)startLocation.Y, (int)measure.X, (int)measure.Y));
     }
 }
 
