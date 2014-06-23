@@ -13,8 +13,8 @@ namespace ScalingOctoNemesis.UI
         public Tooltip Tooltip  { get; set; }
         
 		public Button(Action action, string value, string id, 
-            float width, float height, float x, float y)
-			: base(id, x, y, width, height)
+            float width, float height, float x, float y, float paddingX, float paddingY)
+			: base(id, x, y, width, height, paddingX, paddingY)
 		{
 			_action = action;
 		}

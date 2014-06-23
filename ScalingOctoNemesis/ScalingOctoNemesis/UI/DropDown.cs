@@ -6,8 +6,8 @@ namespace ScalingOctoNemesis.UI
 	{
 		Action OnSelect { get; set; }
         public bool Expanded { get; set; } 
-		public DropDown(string id, float x, float y, float width, float height)
-			: base(id, x, y, width, height)
+		public DropDown(string id, float x, float y, float width, float height, float paddingX, float paddingY)
+			: base(id, x, y, width, height, paddingX, paddingY)
 		{
             
 		}

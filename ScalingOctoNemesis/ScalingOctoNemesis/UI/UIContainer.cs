@@ -7,8 +7,8 @@ namespace ScalingOctoNemesis.UI
 	{ 
 		List<UIComponent> _components = new List<UIComponent>();
 		public UIContainer(string id, float x, float y,
-            float width, float height)
-			: base(id, x, y, width, height)
+            float width, float height, float paddingX, float paddingY)
+			: base(id, x, y, width, height, paddingX, paddingY)
 		{
 
 		}

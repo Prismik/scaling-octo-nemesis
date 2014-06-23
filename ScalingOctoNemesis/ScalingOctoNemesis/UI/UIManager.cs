@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ScalingOctoNemesis.UI
 {
@@ -23,16 +24,14 @@ namespace ScalingOctoNemesis.UI
 
     	public void Update()
     	{
-    		// If (Left click just happened)
-    			// Get position of new click
-    			// comp = GetComponentAtPosition(position of click) 
-    			// if (comp != null)
-    				// handle click on the component
-
-    		// NOT SURE ABOUT THIS
-    		// Get new key presses
-    		// handle key press on the focused component
-    		// if no handler, search for other components with a handler
+    		
     	}
+
+        public void Draw(SpriteBatch sb)
+        {
+            foreach (UIComponent c in _components)
+                if (c.Visible)
+                    c.Draw(sb);
+        }
     }
 }

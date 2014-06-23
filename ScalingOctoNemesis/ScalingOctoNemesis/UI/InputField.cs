@@ -27,18 +27,18 @@ namespace ScalingOctoNemesis.UI
 		// TBD
 		public bool Active 	{ get; set; }
 		// Textual value held in the input field
-		public string Value { get; set; }
+		public string Value { get; private set; }
 
 		public InputField(string placeholder, SpriteFont font, string id, int maxLen,
-			float x, float y, float width, float height)
-			: base(id, x, y, width, height)
+			float x, float y, float width, float height, float paddingX, float paddingY)
+			: base(id, x, y, width, height, paddingX, paddingY)
 		{
             Initialize(placeholder, maxLen, font);
 		}
 
 		public InputField(string placeholder, SpriteFont sf, string id, int maxLen,
-			float x, float y)
-			: base(id, x, y, 100, 30)
+			Vector2 pos, Vector2 size, Vector2 padding)
+			: base(id, pos, size, padding)
 		{
             Initialize(placeholder, maxLen, sf);
 		}
@@ -59,6 +59,8 @@ namespace ScalingOctoNemesis.UI
                 _cursor = Value.Length;
                 InputSystem.CharEntered += HandleInput;
                 InputSystem.KeyDown += HandleKeys;
+                foreach (KeyEventHandler h in _handlers)
+                    InputSystem.KeyDown += h;
             }
 		}
 
@@ -68,6 +70,8 @@ namespace ScalingOctoNemesis.UI
             {
                 InputSystem.CharEntered -= HandleInput;
                 InputSystem.KeyDown -= HandleKeys;
+                foreach (KeyEventHandler h in _handlers)
+                    InputSystem.KeyDown -= h;
             }
         }
 
@@ -78,6 +82,14 @@ namespace ScalingOctoNemesis.UI
 			if (!Focused)
 				_cursor = StringHelper.GetCharInfoAt(_font, Value, pos.X).position;
 		}
+
+        public string Clear()
+        {
+            _cursor = 0;
+            string value = Value;
+            Value = "";
+            return value;
+        }
 
 		private void RemoveChar()
 		{
@@ -122,7 +134,7 @@ namespace ScalingOctoNemesis.UI
 
         private void HandleInput(object sender, CharacterEventArgs e)
         {
-            if (e.Character != '\b')
+            if (e.Character != '\b' && e.Character != '\r')
                 InsertChar(e.Character);
         }
 
@@ -158,32 +170,32 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawBorder(SpriteBatch sb)
         {
-        	DrawingTools.DrawLine(sb, new Vector2(Position.X, Position.Y), 
-        		new Vector2(Position.X+Size.X, Position.Y), Color.LightGray);
-        	DrawingTools.DrawLine(sb, new Vector2(Position.X+Size.X, Position.Y), 
-        		new Vector2(Position.X+Size.X, Position.Y+Size.Y), Color.LightGray);
-        	DrawingTools.DrawLine(sb, new Vector2(Position.X+Size.X, Position.Y+Size.Y),
-                new Vector2(Position.X, Position.Y + Size.Y), Color.LightGray);
-        	DrawingTools.DrawLine(sb, new Vector2(Position.X, Position.Y+Size.Y),
-                new Vector2(Position.X, Position.Y), Color.LightGray);
+            Vector2 topLeft     = new Vector2(Position.X, Position.Y);
+            Vector2 topRight    = new Vector2(Position.X + Size.X + Padding.X * 2, Position.Y);
+            Vector2 bottomRight = new Vector2(Position.X + Size.X + Padding.X * 2, Position.Y + Size.Y + Padding.Y * 2);
+            Vector2 bottomLeft  = new Vector2(Position.X, Position.Y + Size.Y + Padding.Y * 2); 
+        	DrawingTools.DrawLine(sb, topLeft, topRight, Color.LightGray);
+        	DrawingTools.DrawLine(sb, topRight, bottomRight, Color.LightGray);
+        	DrawingTools.DrawLine(sb, bottomRight, bottomLeft, Color.LightGray);
+        	DrawingTools.DrawLine(sb, bottomLeft, topLeft, Color.LightGray);
         }
 
         public virtual void DrawBackground(SpriteBatch sb)
         {
         	DrawingTools.DrawRectangle(sb, 
-        		new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y), Color.DarkSlateGray);
+        		new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X + (int)Padding.X * 2, (int)Size.Y + (int)Padding.Y * 2), Color.DarkSlateGray);
         }
 
         public virtual void DrawText(SpriteBatch sb)
         {
-        	sb.DrawString(_font, Value, Position + new Vector2(5, 2), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+        	sb.DrawString(_font, Value, Position + Padding, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
         }
 
         public virtual void DrawCursor(SpriteBatch sb)
         {
-            CharInfo info = StringHelper.GetCharInfoFrom(_font, Value, _cursor, Position + new Vector2(5, 2), 1f);
+            CharInfo info = StringHelper.GetCharInfoFrom(_font, Value, _cursor, Position + Padding, 1f);
             if (info == CharInfo.Empty)
-                info = StringHelper.GetCharInfoFrom(_font, " ", 0, Position + new Vector2(5, 2), 1f);
+                info = StringHelper.GetCharInfoFrom(_font, " ", 0, Position + Padding, 1f);
             
             DrawingTools.DrawRectangle(sb, info.area, new Color(0, 0, 0, 0.5f));
         }

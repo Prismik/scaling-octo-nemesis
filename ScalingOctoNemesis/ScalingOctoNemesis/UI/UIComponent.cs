@@ -9,6 +9,7 @@ namespace ScalingOctoNemesis.UI
 		// In all cases, it is the top-left point
 		// of the component.
 		public Vector2 Position { get; set; }
+        public Vector2 Padding  { get; set; }
 		public Vector2 Size 	{ get; set; }
 
 		public string Name 		{ get; set; }
@@ -24,13 +25,22 @@ namespace ScalingOctoNemesis.UI
         // Main view points to bottom panel. Bottom panel
         // points to top panel
 		public UIComponent(string id, float x, float y,
-			float width, float height)
+			float width, float height, float paddingX, float paddingY)
 		{
 			Id = id;
             Visible = true;
 			Position = new Vector2(x, y);
 			Size = new Vector2(width, height);
+            Padding = new Vector2(paddingX, paddingY);
 		}
+
+        public UIComponent(string id, Vector2 pos, Vector2 size, Vector2 padding)
+        {
+            Id = id;
+            Position = pos;
+            Size = size;
+            Padding = padding;
+        }
 
 		public abstract void Update(GameTime gameTime);
 		public abstract void Draw(SpriteBatch sb);	

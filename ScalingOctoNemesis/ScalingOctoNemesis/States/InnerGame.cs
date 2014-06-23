@@ -5,6 +5,7 @@ using System.Text;
 using States;
 using ScalingOctoNemesis.UI;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace ScalingOctoNemesis.States
 {
@@ -15,8 +16,16 @@ namespace ScalingOctoNemesis.States
         public InnerGame(StateManager manager)
             : base(manager)
         {
-             input = new InputField("Test", _font, "input1", 12, 75, 75);
-             input.OnFocus();
+            input = new InputField("Test", _font, "input1", 12, 75, 75, 100, 30, 5, 5);
+            input.AddKeyHandler(delegate(object o, KeyEventArgs args) {
+                if (args.KeyCode == Keys.Enter)
+                {
+                    string val = input.Value;
+                    input.Clear();
+                }
+            });
+
+            input.OnFocus();
         }
 
         public override void LoadContent()

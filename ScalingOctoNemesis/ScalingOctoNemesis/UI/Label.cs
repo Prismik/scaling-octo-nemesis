@@ -3,8 +3,8 @@ namespace ScalingOctoNemesis.UI
 {
 	public class Label : UIItem
 	{
-        public Label(string id, string text, float x, float y, float width, float height)
-			: base(id, x, y, width, height)
+        public Label(string id, string text, float x, float y, float width, float height, float paddingX, float paddingY)
+			: base(id, x, y, width, height, paddingX, paddingY)
 		{
 			
 		}
