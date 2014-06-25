@@ -127,6 +127,7 @@
     <Compile Include="UI\UIItem.cs" />
     <Compile Include="UI\UIManager.cs" />
     <Compile Include="Util\AudioManager.cs" />
+    <Compile Include="Util\Delay.cs" />
     <Compile Include="Util\IAudioManager.cs" />
     <Compile Include="Util\InputHook.cs" />
     <Compile Include="Util\Timer.cs" />

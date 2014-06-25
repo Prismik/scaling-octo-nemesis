@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using States;
 using ScalingOctoNemesis.States;
+using ScalingOctoNemesis.Util;
 
 namespace ScalingOctoNemesis
 {
@@ -76,7 +77,7 @@ namespace ScalingOctoNemesis
                 this.Exit();
 
             _stateManager.Update(gameTime);
-
+            Delay.Update(gameTime);
             base.Update(gameTime);
         }
 
