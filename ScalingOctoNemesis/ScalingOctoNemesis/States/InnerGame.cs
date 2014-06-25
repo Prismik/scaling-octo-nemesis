@@ -6,22 +6,27 @@ using States;
 using ScalingOctoNemesis.UI;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ScalingOctoNemesis.UIComponents;
+using Microsoft.Xna.Framework;
 
 namespace ScalingOctoNemesis.States
 {
     class InnerGame : GameState
     {
         InputField input;
+        ChatBox chat;
         SpriteFont _font;
         public InnerGame(StateManager manager)
             : base(manager)
-        {
+        {            
+            chat = new ChatBox("ChatBox", new Vector2(50, 150), new Vector2(100, 300), Vector2.Zero, _font);
             input = new InputField("Test", _font, "input1", 12, 75, 75, 100, 30, 5, 5);
             input.AddKeyHandler(delegate(object o, KeyEventArgs args) {
                 if (args.KeyCode == Keys.Enter)
                 {
                     string val = input.Value;
                     input.Clear();
+                    chat.AddMessage(val, "Prismik");
                 }
             });
 
@@ -38,12 +43,14 @@ namespace ScalingOctoNemesis.States
         {
             base.Update(gameTime);
             input.Update(gameTime);
+            chat.Update(gameTime);
         }
 
         public override void Draw()
         {
             Manager.SpriteBatch.Begin();
             input.Draw(Manager.SpriteBatch);
+            chat.Draw(Manager.SpriteBatch);
             Manager.SpriteBatch.End();
         }
     }

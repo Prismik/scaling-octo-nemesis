@@ -5,7 +5,8 @@ namespace ScalingOctoNemesis.UI
 {
 	public abstract class UIContainer : UIComponent
 	{ 
-		List<UIComponent> _components = new List<UIComponent>();
+		public List<UIComponent> _components = new List<UIComponent>();
+        public int ComponentsCount { get { return _components.Count; } }
 		public UIContainer(string id, float x, float y,
             float width, float height, float paddingX, float paddingY)
 			: base(id, x, y, width, height, paddingX, paddingY)
@@ -13,8 +14,15 @@ namespace ScalingOctoNemesis.UI
 
 		}
 
+        public UIContainer(string id, Vector2 pos, Vector2 size, Vector2 padding)
+            : base(id, pos, size, padding)
+        {
+
+        }
+
 		public void Add(UIComponent component)
 		{
+            component.Position += this.Position;
 			_components.Add(component);
 		}
 
