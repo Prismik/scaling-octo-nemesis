@@ -22,8 +22,6 @@ namespace ScalingOctoNemesis.UI
 		int _maxLen;
         SpriteFont _font;
 
-		// Determines if the InputField has the focus
-		public bool Focused { get; set; }
 		// TBD
 		public bool Active 	{ get; set; }
 		// Textual value held in the input field

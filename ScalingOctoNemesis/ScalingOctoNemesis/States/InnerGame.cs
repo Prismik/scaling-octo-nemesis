@@ -15,10 +15,12 @@ namespace ScalingOctoNemesis.States
     {
         InputField input;
         ChatBox chat;
+        DropDown choice;
         SpriteFont _font;
         public InnerGame(StateManager manager)
             : base(manager)
-        {            
+        {
+            choice = new DropDown("dropdown", 350, 50, 150, 15, 5, 5, _font);
             chat = new ChatBox("ChatBox", new Vector2(50, 150), new Vector2(100, 300), Vector2.Zero, _font);
             input = new InputField("Test", _font, "input1", 12, 75, 75, 100, 30, 5, 5);
             input.AddKeyHandler(delegate(object o, KeyEventArgs args) {
@@ -44,6 +46,7 @@ namespace ScalingOctoNemesis.States
             base.Update(gameTime);
             input.Update(gameTime);
             chat.Update(gameTime);
+            choice.Update(gameTime);
         }
 
         public override void Draw()
@@ -51,6 +54,7 @@ namespace ScalingOctoNemesis.States
             Manager.SpriteBatch.Begin();
             input.Draw(Manager.SpriteBatch);
             chat.Draw(Manager.SpriteBatch);
+            choice.Draw(Manager.SpriteBatch);
             Manager.SpriteBatch.End();
         }
     }

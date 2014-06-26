@@ -27,6 +27,7 @@ namespace ScalingOctoNemesis
             graphics = new GraphicsDeviceManager(this);
             InputSystem.Initialize(this.Window);
             Content.RootDirectory = "Content";
+            this.IsMouseVisible = true;
         }
 
         /// <summary>

@@ -6,6 +6,8 @@ namespace ScalingOctoNemesis.UI
 	public abstract class UIItem : UIComponent
 	{
         internal List<KeyEventHandler> _handlers = new List<KeyEventHandler>();
+        // Determines if the InputField has the focus
+        public bool Focused { get; set; }
 		public UIItem(string id, float x, float y,
 			float width, float height, float paddingX, float paddingY)
 			: base(id, x, y, width, height, paddingX, paddingY)
