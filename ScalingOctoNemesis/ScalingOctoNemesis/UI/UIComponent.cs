@@ -42,6 +42,12 @@ namespace ScalingOctoNemesis.UI
             Padding = padding;
         }
 
+        public bool PointInComponent(int x, int y)
+        {
+            Rectangle rec = new Rectangle(Position.X, Position.Y, Size.X + Padding.X*2, Size.Y + Padding.Y*2)
+            return rec.Contains(x, y);
+        }
+
 		public abstract void Update(GameTime gameTime);
 		public abstract void Draw(SpriteBatch sb);	
 	}

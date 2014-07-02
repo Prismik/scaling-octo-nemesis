@@ -14,13 +14,17 @@ namespace ScalingOctoNemesis.States
     class InnerGame : GameState
     {
         InputField input;
+        Button up;
+        Button down;
         ChatBox chat;
         DropDown choice;
         SpriteFont _font;
         public InnerGame(StateManager manager)
             : base(manager)
         {
-            choice = new DropDown("dropdown", 350, 50, 150, 15, 5, 5, _font);
+            //choice = new DropDown("dropdown", 350, 50, 150, 15, 5, 5, _font);
+            up = new Button("U", "U", );
+            down = new Button("D", "D",);
             chat = new ChatBox("ChatBox", new Vector2(50, 150), new Vector2(100, 300), Vector2.Zero, _font);
             input = new InputField("Test", _font, "input1", 12, 75, 75, 100, 30, 5, 5);
             input.AddKeyHandler(delegate(object o, KeyEventArgs args) {

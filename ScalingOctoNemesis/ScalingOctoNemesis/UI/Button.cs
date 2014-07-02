@@ -4,29 +4,53 @@ using System.Timers;
 using Microsoft.Xna.Framework.Graphics;
 namespace ScalingOctoNemesis.UI
 {
-	public class Button : UIItem
+	public class Button : UIItem, IDisposable
 	{
-		Action _action;
         bool _pressed = false;
 
+        public Action Action;   { get; set; }
         public bool Enabled     { get; set; }
         public Tooltip Tooltip  { get; set; }
         
-		public Button(Action action, string value, string id, 
+		public Button(string value, string id, 
             float width, float height, float x, float y, float paddingX, float paddingY)
 			: base(id, x, y, width, height, paddingX, paddingY)
 		{
-			_action = action;
+            Initialize();
 		}
+
+        public Button(string value, string id, 
+            Vector2 size, Vector2 pos, Vector2 padding)
+            : base(id, pos, size, padding)
+        {
+            Initialize();
+        }
 		
-		public virtual void Press()
+        private void Initialize()
+        {
+            InputSystem.MouseDown += Press;
+            InputSystem.MouseUp += Release;
+        }
+
+        public void Dispose()
+        {
+            InputSystem.MouseDown  -= Press;
+            InputSystem.MouseUp -= Release;
+        }
+
+		public virtual void Press(object o, MouseEventArgs args)
 		{
             _pressed = true;
 		}
 
-        public virtual void Release()
+        public virtual void Release(object o, MouseEventArgs args)
         {
-            _pressed = false;
+            if (_pressed)
+            {
+                _pressed = false;
+                if (PointInComponent(args.X, args.Y))
+                    Action();
+            }
         }
 
         public override void Update(GameTime timer)

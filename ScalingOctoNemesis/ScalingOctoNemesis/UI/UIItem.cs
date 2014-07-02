@@ -30,5 +30,16 @@ namespace ScalingOctoNemesis.UI
         {
             _handlers.Remove(func);
         }
+        /* Choose between internal actions or Handlers with functions
+        public void AddMouseHandler(MouseEventHandler func)
+        {
+            _handlers.Add(func);
+        }
+
+        public void RemoveMouseHandler(MouseEventHandler func)
+        {
+            _handlers.Remove(func);
+        }
+        */
 	}
 }
