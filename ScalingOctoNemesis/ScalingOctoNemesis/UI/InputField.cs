@@ -1,12 +1,3 @@
-/* There are two choices
- *	1. Have a UI library with Inputs, SelectList and such	
- *  2. Have the UI inputs be part of the menu architecture
- * 
- * We probably need to be able to handle mouse / pointer selection
- * as it enhance the UI and makes it possible to use inputs in standard
- * computer games (i.e. non-console specific).
- */ 
-
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
@@ -168,20 +159,15 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawBorder(SpriteBatch sb)
         {
-            Vector2 topLeft     = new Vector2(Position.X, Position.Y);
-            Vector2 topRight    = new Vector2(Position.X + Size.X + Padding.X * 2, Position.Y);
-            Vector2 bottomRight = new Vector2(Position.X + Size.X + Padding.X * 2, Position.Y + Size.Y + Padding.Y * 2);
-            Vector2 bottomLeft  = new Vector2(Position.X, Position.Y + Size.Y + Padding.Y * 2); 
-        	DrawingTools.DrawLine(sb, topLeft, topRight, Color.LightGray);
-        	DrawingTools.DrawLine(sb, topRight, bottomRight, Color.LightGray);
-        	DrawingTools.DrawLine(sb, bottomRight, bottomLeft, Color.LightGray);
-        	DrawingTools.DrawLine(sb, bottomLeft, topLeft, Color.LightGray);
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding*2, Color.LightGray)
         }
 
         public virtual void DrawBackground(SpriteBatch sb)
         {
         	DrawingTools.DrawRectangle(sb, 
-        		new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X + (int)Padding.X * 2, (int)Size.Y + (int)Padding.Y * 2), Color.DarkSlateGray);
+        		new Rectangle((int)Position.X, (int)Position.Y, 
+                    (int)Size.X + (int)Padding.X * 2, (int)Size.Y + (int)Padding.Y * 2), 
+                Color.DarkSlateGray);
         }
 
         public virtual void DrawText(SpriteBatch sb)

@@ -29,4 +29,16 @@ public static class DrawingTools
 	{
 		sb.Draw(t, rect, c);
 	}
+
+	public static void DrawEmptyRectangle(SpriteBatch sb, Vector2 pos, Vector2 size, Color c)
+	{
+        Vector2 topLeft     = pos;
+        Vector2 topRight    = new Vector2(pos.X + size.X, pos.Y);
+        Vector2 bottomRight = new Vector2(pos.X + size.X, pos.Y + size.Y);
+        Vector2 bottomLeft  = new Vector2(pos.X, pos.Y + size.Y); 
+    	DrawingTools.DrawLine(sb, topLeft, topRight, c);
+    	DrawingTools.DrawLine(sb, topRight, bottomRight, c);
+    	DrawingTools.DrawLine(sb, bottomRight, bottomLeft, c);
+    	DrawingTools.DrawLine(sb, bottomLeft, topLeft, c);
+	}
 }
