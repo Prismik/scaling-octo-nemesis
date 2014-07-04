@@ -2,13 +2,15 @@ using System;
 using Microsoft.Xna.Framework;
 using System.Timers;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 namespace ScalingOctoNemesis.UI
 {
 	public class Button : UIItem, IDisposable
 	{
         bool _pressed = false;
         SpriteFont _font;
-        public Action Action;   { get; set; }
+        public Action Action    { get; set; }
+        public string Value     { get; set; }
         public bool Enabled     { get; set; }
         public bool Hover       { get; set; }
         public Tooltip Tooltip  { get; set; }
@@ -20,19 +22,20 @@ namespace ScalingOctoNemesis.UI
             SpriteFont font) 
 			: base(id, x, y, width, height, paddingX, paddingY)
 		{
-            Initialize(font);
+            Initialize(font, value);
 		}
 
         public Button(string value, string id, 
             Vector2 size, Vector2 pos, Vector2 padding, SpriteFont font)
             : base(id, pos, size, padding)
         {
-            Initialize(font);
+            Initialize(font, value);
         }
 		
-        private void Initialize(SpriteFont font)
+        private void Initialize(SpriteFont font, string value)
         {
             _font = font;
+            Value = value;
             InputSystem.MouseDown += Press;
             InputSystem.MouseUp += Release;
             InputSystem.MouseMove += Move;
@@ -76,17 +79,17 @@ namespace ScalingOctoNemesis.UI
 
         public override void Draw(SpriteBatch sb)
         {
-            DrawInner();
-            DrawBorder();
-            DrawText();
+            DrawInner(sb);
+            DrawBorder(sb);
+            DrawText(sb);
         }
 
-        public virtual void DrawBorder()
+        public virtual void DrawBorder(SpriteBatch sb)
         {
-            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding*2, Color.LightGray)
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.LightGray);
         }
 
-        public virtual void DrawInner()
+        public virtual void DrawInner(SpriteBatch sb)
         {
             Color c = Color.DarkSlateGray;
             if (Hover)
@@ -98,7 +101,7 @@ namespace ScalingOctoNemesis.UI
                 c);
         }
 
-        public virtual void DrawText()
+        public virtual void DrawText(SpriteBatch sb)
         {
             sb.DrawString(_font, Value, Position + Padding, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
         }

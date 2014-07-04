@@ -44,7 +44,7 @@ namespace ScalingOctoNemesis.UI
 
         public bool PointInComponent(int x, int y)
         {
-            Rectangle rec = new Rectangle(Position.X, Position.Y, Size.X + Padding.X*2, Size.Y + Padding.Y*2)
+            Rectangle rec = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X + (int)Padding.X * 2, (int)Size.Y + (int)Padding.Y * 2);
             return rec.Contains(x, y);
         }
 

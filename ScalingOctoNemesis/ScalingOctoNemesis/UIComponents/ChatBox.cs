@@ -19,14 +19,14 @@ namespace ScalingOctoNemesis.UIComponents
         // Replaced by vector be cause we need direct access
         // Or any collection that allows the behaviours
         // of both Vector and Queue (Direct access + FIFO)
-        Queue<UIComponent> _messages = new Queue<UIComponent>();
+        List<UIComponent> _messages = new List<UIComponent>();
         Timer _timer = new Timer();
         public ChatBox(string id, Vector2 pos, Vector2 size, Vector2 padding, SpriteFont font)
             : base(id, pos, size, padding)
         {
             _font = font;
             _lineHeight = _font.MeasureString(" ").Y;
-            _maxLines = (Size.Y - Padding.Y * 2) / _lineHeight;
+            _maxLines = (int)((Size.Y - Padding.Y * 2) / _lineHeight);
         }
 
         public void UpIndex()
@@ -37,7 +37,7 @@ namespace ScalingOctoNemesis.UIComponents
 
         public void DownIndex()
         {
-            if (_index != _maxLines-1)
+            if (_index != _maxLines - 1 && _index + 1 <= _messages.Count)
                 ++_index;
         }
 
@@ -46,13 +46,17 @@ namespace ScalingOctoNemesis.UIComponents
             Label label = new Label(ComponentsCount.ToString(), from + ": " + message, 0, 0, 0, 0, 0, 0, _font);
             //label.Position = new Vector2(Position.X + Padding.X, Position.Y + Padding.Y + ComponentsCount * 20);
             _components.Add(label);
-            _messages.Enqueue(label);
+            _messages.Add(label);
             //Delay.AddOps(new DelayOps(RemoveMessage, new Timer(), 3000));
         }
 
         private void RemoveMessage()
         {
-            _components.Remove(_messages.Dequeue());
+            if (_messages.Count != 0)
+            {
+                _components.Remove(_messages[0]);
+                _messages.RemoveAt(0);
+            }
             if (_components.Count != 0)
                 foreach (UIComponent c in _components)
                     c.Position -= new Vector2(0, 20);
@@ -65,11 +69,13 @@ namespace ScalingOctoNemesis.UIComponents
 
         public override void Draw(SpriteBatch sb)
         {
-            if (_messages.Length == 0)
+            if (_messages.Count == 0)
                 return;
 
-            for (int i = _index, j = 0; i != _messages.Length && j != _lines; ++i)
+
+            for (int i = _index, j = 0; i != _messages.Count && j != _maxLines; ++i, ++j)
             {
+                _messages[i].Visible = true;
                 _messages[i].Position = Position + Padding + new Vector2(0, j * _lineHeight);
                 _messages[i].Draw(sb);
             }

@@ -9,7 +9,7 @@ namespace ScalingOctoNemesis.UI
 	{
         List<Object> _objects = new List<Object>();
         SpriteFont _font;
-        public Object Selected { get; }
+        public Object Selected { get; set; }
 		Action OnSelect { get; set; }
         public bool Expanded { get; set; }
 
