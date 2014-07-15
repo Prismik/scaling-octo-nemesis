@@ -12,7 +12,7 @@ namespace ScalingOctoNemesis.UI
         Timer _blinkTimer = new Timer();
 		int _maxLen;
         SpriteFont _font;
-
+        bool Hover { get; set; }
 		// TBD
 		public bool Active 	{ get; set; }
 		// Textual value held in the input field
@@ -38,6 +38,37 @@ namespace ScalingOctoNemesis.UI
             _cursor = placeholder.Length;
             _maxLen = maxLen;
             _font = sf;
+            InputSystem.MouseDown += Press;
+            InputSystem.MouseUp += Release;
+            InputSystem.MouseMove += Move;
+        }
+
+        public void Dispose()
+        {
+            InputSystem.MouseDown -= Press;
+            InputSystem.MouseUp -= Release;
+            InputSystem.MouseMove -= Move;
+        }
+
+        public virtual void Press(object o, MouseEventArgs args)
+        {
+            if (PointInComponent(args.X, args.Y))
+                OnFocus();
+            else
+                OnLostFocus();
+        }
+
+        public virtual void Release(object o, MouseEventArgs args)
+        {
+
+        }
+
+        public virtual void Move(object o, MouseEventArgs args)
+        {
+            if (PointInComponent(args.X, args.Y))
+                Hover = true;
+            else
+                Hover = false;
         }
 
 		public void OnFocus()
@@ -61,6 +92,8 @@ namespace ScalingOctoNemesis.UI
                 InputSystem.KeyDown -= HandleKeys;
                 foreach (KeyEventHandler h in _handlers)
                     InputSystem.KeyDown -= h;
+
+                Focused = false;
             }
         }
 
