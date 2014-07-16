@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using States;
 using ScalingOctoNemesis.States;
 using ScalingOctoNemesis.Util;
+using ScalingOctoNemesis.UI;
 
 namespace ScalingOctoNemesis
 {
@@ -24,10 +25,14 @@ namespace ScalingOctoNemesis
         SpriteBatch spriteBatch;
         public Game1()
         {
+            
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = 768;
             InputSystem.Initialize(this.Window);
+            Cursor.Current = Cursors.POINTER;
             Content.RootDirectory = "Content";
-            this.IsMouseVisible = true;
+            //this.IsMouseVisible = true;
         }
 
         /// <summary>
@@ -54,6 +59,7 @@ namespace ScalingOctoNemesis
             _stateManager = new StateManager(this, spriteBatch);
             _stateManager.AddState(new InnerGame(_stateManager));
             DrawingTools.Init(GraphicsDevice);
+            Cursor.Pointer = Content.Load<Texture2D>("pointer");
             // TODO: use this.Content to load your game content here
         }
 
@@ -73,12 +79,9 @@ namespace ScalingOctoNemesis
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
             _stateManager.Update(gameTime);
             Delay.Update(gameTime);
+            Cursor.Update(InputSystem.MouseLocation);
             base.Update(gameTime);
         }
 
@@ -89,8 +92,11 @@ namespace ScalingOctoNemesis
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             _stateManager.Draw();
+
+            spriteBatch.Begin();
+            Cursor.Draw(spriteBatch);
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

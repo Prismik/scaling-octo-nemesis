@@ -66,7 +66,10 @@ namespace ScalingOctoNemesis.UI
         public virtual void Move(object o, MouseEventArgs args)
         {
             if (PointInComponent(args.X, args.Y))
+            {
+                // change the cursor
                 Hover = true;
+            }
             else
                 Hover = false;
         }
