@@ -17,6 +17,7 @@ namespace ScalingOctoNemesis
             Name = n;
             Color = c;
             Civ = civ;
+            Team = 0;
         }
     }
 }

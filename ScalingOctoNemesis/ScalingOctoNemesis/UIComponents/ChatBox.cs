@@ -37,7 +37,7 @@ namespace ScalingOctoNemesis.UIComponents
 
         public void DownIndex()
         {
-            if (_index != _maxLines - 1 && _index + 1 <= _messages.Count)
+            if (_index != _maxLines - 1 && _index + 1 < _messages.Count && _messages.Count >= _maxLines)
                 ++_index;
         }
 
@@ -67,11 +67,15 @@ namespace ScalingOctoNemesis.UIComponents
             base.Update(elapsedTime);
         }
 
-        public override void Draw(SpriteBatch sb)
+        public virtual void DrawBorder(SpriteBatch sb)
+        {
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.Black);
+        }
+
+        public virtual void DrawMessages(SpriteBatch sb)
         {
             if (_messages.Count == 0)
                 return;
-
 
             for (int i = _index, j = 0; i != _messages.Count && j != _maxLines; ++i, ++j)
             {
@@ -79,7 +83,12 @@ namespace ScalingOctoNemesis.UIComponents
                 _messages[i].Position = Position + Padding + new Vector2(0, j * _lineHeight);
                 _messages[i].Draw(sb);
             }
+        }
 
+        public override void Draw(SpriteBatch sb)
+        {
+            DrawBorder(sb);
+            DrawMessages(sb);
         }
     }
 }

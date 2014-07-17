@@ -20,16 +20,20 @@ namespace ScalingOctoNemesis.States
         ChatBox chat;
         DropDown choice;
         SpriteFont _font;
-        List<GameSlot> _slots = new List<GameSlot>();
+        GameSlot[] _slots = new GameSlot[8];
         public InnerGame(StateManager manager)
             : base(manager)
         {
             //choice = new DropDown("dropdown", 350, 50, 150, 15, 5, 5, _font);
-            Player p = new Player("Prismik", Color.Blue, "Yamato");
-            _slots.Add(new GameSlot(_font));
+            for (int i = 0; i != _slots.Length; ++i)
+            {
+                _slots[i] = new GameSlot(_font);
+                _slots[i].Position = new Vector2(10, i * 30 + 10);
+            }
+
             populate = new Button("Populate", "populate", new Vector2(100, 25), new Vector2(500, 50), new Vector2(5, 5), _font);
-            populate.Action = delegate { _slots[0].Populate(p); };
-            chat = new ChatBox("ChatBox", new Vector2(50, 450), new Vector2(100, 300), Vector2.Zero, _font);
+            populate.Action = delegate { Populate("Player"); };
+            chat = new ChatBox("ChatBox", new Vector2(50, 450), new Vector2(600, 300), Vector2.Zero, _font);
             up = new Button("U", "U", 25, 25, 350, 350, 5, 5, _font);
             up.Action = chat.UpIndex;
             down = new Button("D", "D", 25, 25, 350, 400, 5, 5, _font);
@@ -45,6 +49,17 @@ namespace ScalingOctoNemesis.States
             });
 
             input.OnFocus();
+        }
+
+        private void Populate(string name)
+        {
+            Player p = new Player(name, Color.Blue, "Yamato");
+            foreach (GameSlot g in _slots)
+                if (g.Available && g.Open)
+                {
+                    g.Populate(p);
+                    break;
+                }
         }
 
         public override void LoadContent()
