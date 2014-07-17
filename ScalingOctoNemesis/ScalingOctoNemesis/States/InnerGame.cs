@@ -28,7 +28,6 @@ namespace ScalingOctoNemesis.States
             for (int i = 0; i != 4; ++i)
                 choice.AddItem("Object " + i.ToString());
 
-            
             for (int i = 0; i != _slots.Length; ++i)
             {
                 _slots[i] = new GameSlot(_font);

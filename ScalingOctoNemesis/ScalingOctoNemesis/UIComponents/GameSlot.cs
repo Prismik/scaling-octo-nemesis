@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,10 +16,15 @@ namespace ScalingOctoNemesis.UIComponents
         public Vector2 Position { get; set; }
 
         Button _teamButton;
+        DropDown _civChoice;
         Player _p = null;
         SpriteFont _f;
         public GameSlot(SpriteFont sf)
         {
+            _civChoice = new DropDown("dropdown", 650, 50, 100, 25, 5, 5, sf);
+            for (int i = 0; i != 4; ++i)
+                _civChoice.AddItem("Object " + i.ToString());
+
             Open = true;
             Available = true;
             _f = sf;
@@ -30,6 +36,7 @@ namespace ScalingOctoNemesis.UIComponents
             {
                 _p = player;
                 Available = false;
+                _civChoice.Position = Position + new Vector2(100, 10);
                 _teamButton = new Button(_p.Team.ToString(), "teamButton", new Vector2(20,20), Position + new Vector2(300, 10), new Vector2(5, 5), _f);
                 _teamButton.Action = delegate {
                     _p.Team++;
@@ -58,10 +65,13 @@ namespace ScalingOctoNemesis.UIComponents
             else
             {
                 sb.DrawString(_f, _p.Name, Position + new Vector2(10, 10), Color.White);
-                sb.DrawString(_f, _p.Civ, Position + new Vector2(100, 10), Color.Chocolate);
+                _civChoice.Draw(sb);
+                // if (Player != self)
+                //sb.DrawString(_f, _p.Civ, Position + new Vector2(100, 10), Color.Chocolate);
                 DrawingTools.DrawRectangle(sb, new Rectangle(200, (int)Position.X + 10, 10, 10), _p.Color);
                 _teamButton.Draw(sb);
-                //sb.DrawString(_f, _p.Team.ToString(), Position + new Vector2(300, 10), Color.Chocolate);
+                // if (Player != self)
+                // sb.DrawString(_f, _p.team.toString(), Position + new Vector(200, 10), Color.White);
             }
         }
     }
