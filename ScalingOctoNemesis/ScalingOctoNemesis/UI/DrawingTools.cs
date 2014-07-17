@@ -30,6 +30,13 @@ public static class DrawingTools
 		sb.Draw(t, rect, c);
 	}
 
+    public static void DrawRectangle(SpriteBatch sb, Vector2 position, Vector2 size, Color c)
+    {
+        Rectangle r = new Rectangle((int)position.X, (int)position.Y, // position
+                                    (int)size.X, (int)size.Y);
+        DrawRectangle(sb, r, c);
+    }
+
 	public static void DrawEmptyRectangle(SpriteBatch sb, Vector2 pos, Vector2 size, Color c)
 	{
         Vector2 topLeft     = pos;

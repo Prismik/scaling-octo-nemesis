@@ -8,6 +8,7 @@ namespace ScalingOctoNemesis
 {
     class Player
     {
+        public bool Host    { get; set; }
         public string Name  { get; set; }
         public Color Color  { get; set; }
         public string Civ   { get; set; }

@@ -24,7 +24,11 @@ namespace ScalingOctoNemesis.States
         public InnerGame(StateManager manager)
             : base(manager)
         {
-            //choice = new DropDown("dropdown", 350, 50, 150, 15, 5, 5, _font);
+            choice = new DropDown("dropdown", 650, 50, 150, 25, 5, 5, _font);
+            for (int i = 0; i != 4; ++i)
+                choice.Objects.Add("Object " + i.ToString());
+
+            choice.Selected = choice.Objects[0];
             for (int i = 0; i != _slots.Length; ++i)
             {
                 _slots[i] = new GameSlot(_font);
@@ -76,7 +80,7 @@ namespace ScalingOctoNemesis.States
             input.Update(gameTime);
             chat.Update(gameTime);
             populate.Update(gameTime);
-            //choice.Update(gameTime);
+            choice.Update(gameTime);
         }
 
         public override void Draw()
@@ -89,7 +93,8 @@ namespace ScalingOctoNemesis.States
             populate.Draw(Manager.SpriteBatch);
             foreach (GameSlot g in _slots)
                 g.Draw(Manager.SpriteBatch);
-            //choice.Draw(Manager.SpriteBatch);
+            
+            choice.Draw(Manager.SpriteBatch);
             Manager.SpriteBatch.End();
         }
     }

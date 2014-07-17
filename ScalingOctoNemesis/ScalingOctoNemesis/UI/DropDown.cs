@@ -7,7 +7,8 @@ namespace ScalingOctoNemesis.UI
 {
 	public class DropDown : UIItem
 	{
-        List<Object> _objects = new List<Object>();
+        public List<Object> Objects { get; set; }
+        List<DropDownItem> _items = new List<DropDownItem>();
         SpriteFont _font;
         public Object Selected { get; set; }
 		Action OnSelect { get; set; }
@@ -30,7 +31,28 @@ namespace ScalingOctoNemesis.UI
 
         private void Initialize()
         {
+            Objects = new List<Object>();
             _expandRectangle = new Rectangle((int)Position.X + (int)Size.X + (int)Padding.X - 20, (int)Position.Y, 20 + (int)Padding.X, (int)Size.Y + (int)Padding.Y * 2);
+            Expanded = false;
+
+            InputSystem.MouseDown += Press;
+        }
+
+        public void Dispose()
+        {
+            InputSystem.MouseDown -= Press;
+        }
+
+        public void AddItem(Object o)
+        {
+            DropDownItem i = new DropDownItem(o, _font);
+            i.Click = delegate { SetSelected(i); };
+            _items.Add(i);
+        }
+
+        public void SetSelected(DropDownItem i)
+        {
+            Selected = i;
         }
 
         public void OnFocus()
@@ -49,12 +71,14 @@ namespace ScalingOctoNemesis.UI
             }
         }
 
-        private void HandleClicks(object sender, MouseEventArgs e)
+        private void Press(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButton.Left)
             {
-                //if (_expandRectangle.Contains(e.X, e.Y))
-                // do stuff
+                if (PointInComponent(e.X, e.Y))
+                    Expanded = true;
+                else
+                    Expanded = false;
             }
         }
 
@@ -75,25 +99,18 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawBorder(SpriteBatch sb)
         {
-            Vector2 topLeft = new Vector2(Position.X, Position.Y);
-            Vector2 topRight = new Vector2(Position.X + Size.X + Padding.X * 2, Position.Y);
-            Vector2 bottomRight = new Vector2(Position.X + Size.X + Padding.X * 2, Position.Y + Size.Y + Padding.Y * 2);
-            Vector2 bottomLeft = new Vector2(Position.X, Position.Y + Size.Y + Padding.Y * 2);
-            DrawingTools.DrawLine(sb, topLeft, topRight, Color.LightGray);
-            DrawingTools.DrawLine(sb, topRight, bottomRight, Color.LightGray);
-            DrawingTools.DrawLine(sb, bottomRight, bottomLeft, Color.LightGray);
-            DrawingTools.DrawLine(sb, bottomLeft, topLeft, Color.LightGray);
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.LightGray);
         }
 
         public virtual void DrawBackground(SpriteBatch sb)
         {
-            DrawingTools.DrawRectangle(sb,
-                new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X + (int)Padding.X * 2, (int)Size.Y + (int)Padding.Y * 2), Color.DarkSlateGray);
+            DrawingTools.DrawRectangle(sb, Position, Size + Padding * 2, Color.DarkSlateGray);
         }
 
         public virtual void DrawSelectedItem(SpriteBatch sb)
         {
-            sb.DrawString(_font, Selected.ToString(), Position + Padding, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+            if (Selected != null)
+                sb.DrawString(_font, Selected.ToString(), Position + Padding, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
         }
 
         public virtual void DrawExpandButton(SpriteBatch sb)
@@ -103,7 +120,8 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawExpandedList(SpriteBatch sb)
         {
-
+            for (int i = 0; i != Objects.Count; ++i)
+                sb.DrawString(_font, Objects[i].ToString(), Position + new Vector2(Padding.X, Size.Y + Padding.Y + i * 22), Color.White); 
         }
 	}
 }
