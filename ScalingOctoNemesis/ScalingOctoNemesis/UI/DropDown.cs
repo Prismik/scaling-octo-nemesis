@@ -7,10 +7,23 @@ namespace ScalingOctoNemesis.UI
 {
 	public class DropDown : UIItem
 	{
-        public List<Object> Objects { get; set; }
         List<DropDownItem> _items = new List<DropDownItem>();
         SpriteFont _font;
         public Object Selected { get; set; }
+
+        public override Vector2 Position
+        {
+            get
+            {
+                return base.Position;
+            }
+            set
+            {
+                base.Position = value;
+                for (int i = 0; i != _items.Count; ++i)
+                    _items[i].Position = Position + new Vector2(Padding.X, Size.Y + Padding.Y + i * 30);
+            }
+        }
 		Action OnSelect { get; set; }
         public bool Expanded { get; set; }
 
@@ -31,7 +44,6 @@ namespace ScalingOctoNemesis.UI
 
         private void Initialize()
         {
-            Objects = new List<Object>();
             _expandRectangle = new Rectangle((int)Position.X + (int)Size.X + (int)Padding.X - 20, (int)Position.Y, 20 + (int)Padding.X, (int)Size.Y + (int)Padding.Y * 2);
             Expanded = false;
 

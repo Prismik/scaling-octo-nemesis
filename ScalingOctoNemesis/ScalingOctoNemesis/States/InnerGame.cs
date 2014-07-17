@@ -18,21 +18,13 @@ namespace ScalingOctoNemesis.States
         Button down;
         Button populate;
         ChatBox chat;
-        DropDown choice;
         SpriteFont _font;
         GameSlot[] _slots = new GameSlot[8];
         public InnerGame(StateManager manager)
             : base(manager)
         {
-            choice = new DropDown("dropdown", 650, 50, 150, 25, 5, 5, _font);
-            for (int i = 0; i != 4; ++i)
-                choice.AddItem("Object " + i.ToString());
-
             for (int i = 0; i != _slots.Length; ++i)
-            {
-                _slots[i] = new GameSlot(_font);
-                _slots[i].Position = new Vector2(10, i * 30 + 10);
-            }
+                _slots[i] = new GameSlot(_font, new Vector2(10, i * 30 + 10), new Vector2(600, 25), new Vector2(5, 5));
 
             populate = new Button("Populate", "populate", new Vector2(100, 25), new Vector2(500, 50), new Vector2(5, 5), _font);
             populate.Action = delegate { Populate("Player"); };
@@ -79,7 +71,6 @@ namespace ScalingOctoNemesis.States
             input.Update(gameTime);
             chat.Update(gameTime);
             populate.Update(gameTime);
-            choice.Update(gameTime);
         }
 
         public override void Draw()
@@ -93,7 +84,6 @@ namespace ScalingOctoNemesis.States
             foreach (GameSlot g in _slots)
                 g.Draw(Manager.SpriteBatch);
             
-            choice.Draw(Manager.SpriteBatch);
             Manager.SpriteBatch.End();
         }
     }

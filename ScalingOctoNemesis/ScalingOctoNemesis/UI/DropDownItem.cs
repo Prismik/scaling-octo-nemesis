@@ -14,6 +14,28 @@ namespace ScalingOctoNemesis.UI
         Object _item = null;
         SpriteFont font;
         public bool Hover { get; set; }
+        public override bool Visible
+        {
+            get
+            {
+                return base.Visible;
+            }
+            set
+            {
+                base.Visible = value;
+                if (Visible)
+                {
+                    InputSystem.MouseDown += Press;
+                    InputSystem.MouseMove += Move;
+                }
+                else
+                {
+                    InputSystem.MouseDown -= Press;
+                    InputSystem.MouseMove -= Move;
+                }
+            }
+        }
+
         public DropDownItem(Object o, SpriteFont f)
             : base("id", Vector2.Zero, Vector2.Zero, Vector2.Zero)
         {
@@ -22,8 +44,6 @@ namespace ScalingOctoNemesis.UI
             Visible = false;
             font = f;
             Hover = false;
-            InputSystem.MouseDown += Press;
-            InputSystem.MouseMove += Move;
         }
 
         public void Dispose()

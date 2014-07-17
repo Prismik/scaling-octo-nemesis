@@ -8,14 +8,14 @@ namespace ScalingOctoNemesis.UI
 		// Or relative to the main container ?
 		// In all cases, it is the top-left point
 		// of the component.
-		public Vector2 Position { get; set; }
-        public Vector2 Padding  { get; set; }
-		public Vector2 Size 	{ get; set; }
+		public virtual Vector2 Position { get; set; }
+        public virtual Vector2 Padding  { get; set; }
+		public virtual Vector2 Size 	{ get; set; }
 
 		public string Name 		{ get; set; }
         public string Id 		{ get; private set; }
 
-        public bool Visible 	{ get; set; }
+        public virtual bool Visible 	{ get; set; }
         // An idea to resolve cross-components input handling
         // would be to add a list of bound components
         // public List<UIComponent> BoundComponents { get; set; }

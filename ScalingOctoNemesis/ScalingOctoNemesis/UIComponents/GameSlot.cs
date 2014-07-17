@@ -9,19 +9,19 @@ using ScalingOctoNemesis.UI;
 
 namespace ScalingOctoNemesis.UIComponents
 {
-    class GameSlot
+    class GameSlot : UIContainer
     {
         public bool Open        { get; private set; }
         public bool Available   { get; private set; }
-        public Vector2 Position { get; set; }
 
         Button _teamButton;
         DropDown _civChoice;
         Player _p = null;
         SpriteFont _f;
-        public GameSlot(SpriteFont sf)
+        public GameSlot(SpriteFont sf, Vector2 pos, Vector2 size, Vector2 padding)
+            : base("id", pos, size, padding)
         {
-            _civChoice = new DropDown("dropdown", 650, 50, 100, 25, 5, 5, sf);
+            _civChoice = new DropDown("dropdown", pos, new Vector2(100, 25), Vector2.Zero, sf);
             for (int i = 0; i != 4; ++i)
                 _civChoice.AddItem("Object " + i.ToString());
 
@@ -55,7 +55,12 @@ namespace ScalingOctoNemesis.UIComponents
             _teamButton = null;
         }
 
-        public void Draw(SpriteBatch sb)
+        public override void Update(GameTime elapsedTime)
+        {
+            //base.Update(elapsedTime);
+        }
+
+        public override void Draw(SpriteBatch sb)
         {
             if (Available)
                 if (Open)
@@ -68,7 +73,7 @@ namespace ScalingOctoNemesis.UIComponents
                 _civChoice.Draw(sb);
                 // if (Player != self)
                 //sb.DrawString(_f, _p.Civ, Position + new Vector2(100, 10), Color.Chocolate);
-                DrawingTools.DrawRectangle(sb, new Rectangle(200, (int)Position.X + 10, 10, 10), _p.Color);
+                DrawingTools.DrawRectangle(sb, new Rectangle(250, (int)Position.Y + 10, 10, 10), _p.Color);
                 _teamButton.Draw(sb);
                 // if (Player != self)
                 // sb.DrawString(_f, _p.team.toString(), Position + new Vector(200, 10), Color.White);
