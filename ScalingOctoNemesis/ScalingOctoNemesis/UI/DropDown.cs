@@ -46,7 +46,8 @@ namespace ScalingOctoNemesis.UI
         public void AddItem(Object o)
         {
             DropDownItem i = new DropDownItem(o, _font);
-            i.Click = delegate { SetSelected(i); };
+            i.Position =  Position + new Vector2(Padding.X, Size.Y + Padding.Y + _items.Count * 30);
+            i.Action = delegate { SetSelected(i); };
             _items.Add(i);
         }
 
@@ -76,9 +77,17 @@ namespace ScalingOctoNemesis.UI
             if (e.Button == MouseButton.Left)
             {
                 if (PointInComponent(e.X, e.Y))
+                {
                     Expanded = true;
+                    foreach (DropDownItem i in _items)
+                        i.Visible = true;
+                }
                 else
+                {
                     Expanded = false;
+                    foreach (DropDownItem i in _items)
+                        i.Visible = false;
+                }
             }
         }
 
@@ -120,8 +129,9 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawExpandedList(SpriteBatch sb)
         {
-            for (int i = 0; i != Objects.Count; ++i)
-                sb.DrawString(_font, Objects[i].ToString(), Position + new Vector2(Padding.X, Size.Y + Padding.Y + i * 22), Color.White); 
+            for (int i = 0; i != _items.Count; ++i)
+                _items[i].Draw(sb);
+                //sb.DrawString(_font, Objects[i].ToString(), Position + new Vector2(Padding.X, Size.Y + Padding.Y + i * 22), Color.White); 
         }
 	}
 }

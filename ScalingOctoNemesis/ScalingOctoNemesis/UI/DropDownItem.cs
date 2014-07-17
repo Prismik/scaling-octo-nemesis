@@ -4,21 +4,56 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace ScalingOctoNemesis.UI
 {
-    class DropDownItem
+    public class DropDownItem: UIItem, IDisposable
     {
-        public Action Click { get; set; }
+        public Action Action { get; set; }
         Object _item = null;
-        public bool Visible { get; set; }
-        public Vector2 Position { get; set; }
         SpriteFont font;
+        public bool Hover { get; set; }
         public DropDownItem(Object o, SpriteFont f)
+            : base("id", Vector2.Zero, Vector2.Zero, Vector2.Zero)
         {
             _item = o;
+            Size = f.MeasureString(o.ToString());
             Visible = false;
             font = f;
+            Hover = false;
+            InputSystem.MouseDown += Press;
+            InputSystem.MouseMove += Move;
+        }
+
+        public void Dispose()
+        {
+            InputSystem.MouseDown -= Press;
+            InputSystem.MouseMove -= Move;
+        }
+
+        public virtual void Press(object o, MouseEventArgs args)
+        {
+            if (PointInComponent(args.X, args.Y))
+                Action();
+        }
+
+        public virtual void Release(object o, MouseEventArgs args)
+        {
+            //if (_pressed)
+            //{
+            //    _pressed = false;
+            //    if (PointInComponent(args.X, args.Y))
+            //        Action();
+           // }
+        }
+
+        public virtual void Move(object o, MouseEventArgs args)
+        {
+            if (PointInComponent(args.X, args.Y))
+                Hover = true;
+            else
+                Hover = false;
         }
 
         public virtual void DrawText(SpriteBatch sb)
@@ -26,9 +61,20 @@ namespace ScalingOctoNemesis.UI
             sb.DrawString(font, _item.ToString(), Position, Color.White);
         }
 
-        public void Draw(SpriteBatch sb)
+        public override void Update(GameTime gameTime)
         {
-            DrawText(sb);
+         //   throw new NotImplementedException();
+        }
+
+        public override void Draw(SpriteBatch sb)
+        {
+            if (Visible)
+            {
+                if (Hover)
+                    DrawingTools.DrawRectangle(sb, Position, Size, Color.Black);
+                
+                DrawText(sb);
+            }
         }
 
         public override string ToString()

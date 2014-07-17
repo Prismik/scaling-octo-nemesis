@@ -26,9 +26,9 @@ namespace ScalingOctoNemesis.States
         {
             choice = new DropDown("dropdown", 650, 50, 150, 25, 5, 5, _font);
             for (int i = 0; i != 4; ++i)
-                choice.Objects.Add("Object " + i.ToString());
+                choice.AddItem("Object " + i.ToString());
 
-            choice.Selected = choice.Objects[0];
+            
             for (int i = 0; i != _slots.Length; ++i)
             {
                 _slots[i] = new GameSlot(_font);

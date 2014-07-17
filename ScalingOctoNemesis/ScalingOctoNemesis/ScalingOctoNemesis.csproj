@@ -120,6 +120,7 @@
     <Compile Include="UI\Cursor.cs" />
     <Compile Include="UI\DrawingTools.cs" />
     <Compile Include="UI\DropDown.cs" />
+    <Compile Include="UI\DropDownItem.cs" />
     <Compile Include="UI\InputField.cs" />
     <Compile Include="UI\Label.cs" />
     <Compile Include="UI\ScrollBar.cs" />
