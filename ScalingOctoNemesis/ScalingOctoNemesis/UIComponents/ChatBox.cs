@@ -69,7 +69,7 @@ namespace ScalingOctoNemesis.UIComponents
 
         public virtual void DrawBorder(SpriteBatch sb)
         {
-            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.Black);
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.Black, 0.1f);
         }
 
         public virtual void DrawMessages(SpriteBatch sb)

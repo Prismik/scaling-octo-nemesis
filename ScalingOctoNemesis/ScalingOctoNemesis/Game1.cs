@@ -56,6 +56,7 @@ namespace ScalingOctoNemesis
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            
             _stateManager = new StateManager(this, spriteBatch);
             _stateManager.AddState(new InnerGame(_stateManager));
             DrawingTools.Init(GraphicsDevice);

@@ -15,13 +15,17 @@ namespace ScalingOctoNemesis.UIComponents
         public bool Available   { get; private set; }
 
         Button _teamButton;
+        DropDown _closeChoice;
         DropDown _civChoice;
         Player _p = null;
         SpriteFont _f;
         public GameSlot(SpriteFont sf, Vector2 pos, Vector2 size, Vector2 padding)
             : base("id", pos, size, padding)
         {
-            _civChoice = new DropDown("dropdown", pos, new Vector2(100, 25), Vector2.Zero, sf);
+            _closeChoice = new DropDown("CloseDD", pos, new Vector2(80, 25), Vector2.Zero, sf);
+            _closeChoice.AddItem("Open");
+            _closeChoice.AddItem("Closed");
+            _civChoice = new DropDown("dropdown", pos, new Vector2(130, 25), Vector2.Zero, sf);
             for (int i = 0; i != 4; ++i)
                 _civChoice.AddItem("Object " + i.ToString());
 
@@ -36,7 +40,8 @@ namespace ScalingOctoNemesis.UIComponents
             {
                 _p = player;
                 Available = false;
-                _civChoice.Position = Position + new Vector2(100, 10);
+               // _closeChoice.Position =
+                _civChoice.Position = Position + new Vector2(100, 10); 
                 _teamButton = new Button(_p.Team.ToString(), "teamButton", new Vector2(20,20), Position + new Vector2(300, 10), new Vector2(5, 5), _f);
                 _teamButton.Action = delegate {
                     _p.Team++;
@@ -64,16 +69,16 @@ namespace ScalingOctoNemesis.UIComponents
         {
             if (Available)
                 if (Open)
-                    sb.DrawString(_f, "Open", Position + new Vector2(10, 10), Color.Green);
+                    sb.DrawString(_f, "Open", Position + new Vector2(10, 10), Color.Green, 0, Vector2.Zero, 1, SpriteEffects.None, 0.01f);
                 else
-                    sb.DrawString(_f, "Closed", Position + new Vector2(10, 10), Color.Red);
+                    sb.DrawString(_f, "Closed", Position + new Vector2(10, 10), Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, 0.01f);
             else
             {
-                sb.DrawString(_f, _p.Name, Position + new Vector2(10, 10), Color.White);
+                sb.DrawString(_f, _p.Name, Position + new Vector2(10, 10), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.01f);
                 _civChoice.Draw(sb);
                 // if (Player != self)
                 //sb.DrawString(_f, _p.Civ, Position + new Vector2(100, 10), Color.Chocolate);
-                DrawingTools.DrawRectangle(sb, new Rectangle(250, (int)Position.Y + 10, 10, 10), _p.Color);
+                DrawingTools.DrawRectangle(sb, new Rectangle(250, (int)Position.Y + 10, 20, 20), _p.Color, 0.01f);
                 _teamButton.Draw(sb);
                 // if (Player != self)
                 // sb.DrawString(_f, _p.team.toString(), Position + new Vector(200, 10), Color.White);

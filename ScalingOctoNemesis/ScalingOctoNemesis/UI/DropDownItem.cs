@@ -10,10 +10,11 @@ namespace ScalingOctoNemesis.UI
 {
     public class DropDownItem: UIItem, IDisposable
     {
-        public Action Action { get; set; }
         Object _item = null;
         SpriteFont font;
-        public bool Hover { get; set; }
+
+        public Action Action    { get; set; }
+        public bool Hover       { get; set; }
         public override bool Visible
         {
             get
@@ -78,7 +79,7 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawText(SpriteBatch sb)
         {
-            sb.DrawString(font, _item.ToString(), Position, Color.White);
+            sb.DrawString(font, _item.ToString(), Position, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
         }
 
         public override void Update(GameTime gameTime)
@@ -91,7 +92,9 @@ namespace ScalingOctoNemesis.UI
             if (Visible)
             {
                 if (Hover)
-                    DrawingTools.DrawRectangle(sb, Position, Size, Color.Black);
+                    DrawingTools.DrawRectangle(sb, Position, Size, Color.Black, 0.01f);
+                else
+                    DrawingTools.DrawRectangle(sb, Position, Size, Color.DarkSlateGray, 0.01f);
                 
                 DrawText(sb);
             }

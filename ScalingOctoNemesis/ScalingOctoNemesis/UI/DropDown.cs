@@ -20,6 +20,7 @@ namespace ScalingOctoNemesis.UI
             set
             {
                 base.Position = value;
+                _expandRectangle = new Rectangle((int)Position.X + (int)Size.X + (int)Padding.X - 20, (int)Position.Y, 20 + (int)Padding.X, (int)Size.Y + (int)Padding.Y * 2);
                 for (int i = 0; i != _items.Count; ++i)
                     _items[i].Position = Position + new Vector2(Padding.X, Size.Y + Padding.Y + i * 30);
             }
@@ -120,23 +121,23 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawBorder(SpriteBatch sb)
         {
-            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.LightGray);
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.LightGray, 0.1f);
         }
 
         public virtual void DrawBackground(SpriteBatch sb)
         {
-            DrawingTools.DrawRectangle(sb, Position, Size + Padding * 2, Color.DarkSlateGray);
+            DrawingTools.DrawRectangle(sb, Position, Size + Padding * 2, Color.DarkSlateGray, 0.2f);
         }
 
         public virtual void DrawSelectedItem(SpriteBatch sb)
         {
             if (Selected != null)
-                sb.DrawString(_font, Selected.ToString(), Position + Padding, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+                sb.DrawString(_font, Selected.ToString(), Position + Padding, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.01f);
         }
 
         public virtual void DrawExpandButton(SpriteBatch sb)
         {
-            DrawingTools.DrawRectangle(sb, _expandRectangle, Color.Coral);
+            DrawingTools.DrawRectangle(sb, _expandRectangle, Color.Coral, 0);
         }
 
         public virtual void DrawExpandedList(SpriteBatch sb)

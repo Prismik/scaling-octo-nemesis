@@ -75,15 +75,15 @@ namespace ScalingOctoNemesis.States
 
         public override void Draw()
         {
-            Manager.SpriteBatch.Begin();
+            Manager.SpriteBatch.Begin(SpriteSortMode.BackToFront, null);
             up.Draw(Manager.SpriteBatch);
             down.Draw(Manager.SpriteBatch);
             input.Draw(Manager.SpriteBatch);
             chat.Draw(Manager.SpriteBatch);
             populate.Draw(Manager.SpriteBatch);
+            
             foreach (GameSlot g in _slots)
                 g.Draw(Manager.SpriteBatch);
-            
             Manager.SpriteBatch.End();
         }
     }
