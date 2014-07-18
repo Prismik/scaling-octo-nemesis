@@ -79,7 +79,7 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawText(SpriteBatch sb)
         {
-            sb.DrawString(font, _item.ToString(), Position, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            sb.DrawString(font, _item.ToString(), Position, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.FRONT);
         }
 
         public override void Update(GameTime gameTime)
@@ -92,9 +92,9 @@ namespace ScalingOctoNemesis.UI
             if (Visible)
             {
                 if (Hover)
-                    DrawingTools.DrawRectangle(sb, Position, Size, Color.Black, 0.01f);
+                    DrawingTools.DrawRectangle(sb, Position, Size, Color.Black, LayerDepths.POST_FRONT);
                 else
-                    DrawingTools.DrawRectangle(sb, Position, Size, Color.DarkSlateGray, 0.01f);
+                    DrawingTools.DrawRectangle(sb, Position, Size, Color.DarkSlateGray, LayerDepths.POST_FRONT);
                 
                 DrawText(sb);
             }

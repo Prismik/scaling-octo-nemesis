@@ -25,7 +25,7 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawText(SpriteBatch sb)
         {
-            sb.DrawString(_font, value, Position, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+            sb.DrawString(_font, value, Position, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
         }
 	}
 }

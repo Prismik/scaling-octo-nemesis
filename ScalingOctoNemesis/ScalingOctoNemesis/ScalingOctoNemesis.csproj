@@ -123,6 +123,7 @@
     <Compile Include="UI\DropDownItem.cs" />
     <Compile Include="UI\InputField.cs" />
     <Compile Include="UI\Label.cs" />
+    <Compile Include="UI\LayerDepths.cs" />
     <Compile Include="UI\ScrollBar.cs" />
     <Compile Include="UI\StringHelper.cs" />
     <Compile Include="UI\TextBox.cs" />

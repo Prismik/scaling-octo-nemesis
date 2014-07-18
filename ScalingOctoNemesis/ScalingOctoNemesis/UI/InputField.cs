@@ -195,17 +195,17 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawBorder(SpriteBatch sb)
         {
-            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.LightGray, 0.1f);
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.LightGray, LayerDepths.D2);
         }
 
         public virtual void DrawBackground(SpriteBatch sb)
         {
-        	DrawingTools.DrawRectangle(sb, Position, Size + Padding * 2, Color.DarkSlateGray, 0.2f);
+        	DrawingTools.DrawRectangle(sb, Position, Size + Padding * 2, Color.DarkSlateGray, LayerDepths.D3);
         }
 
         public virtual void DrawText(SpriteBatch sb)
         {
-        	sb.DrawString(_font, Value, Position + Padding, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+        	sb.DrawString(_font, Value, Position + Padding, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
         }
 
         public virtual void DrawCursor(SpriteBatch sb)
@@ -214,7 +214,7 @@ namespace ScalingOctoNemesis.UI
             if (info == CharInfo.Empty)
                 info = StringHelper.GetCharInfoFrom(_font, " ", 0, Position + Padding, 1f);
             
-            DrawingTools.DrawRectangle(sb, info.area, new Color(0, 0, 0, 0.5f), 0f);
+            DrawingTools.DrawRectangle(sb, info.area, new Color(0, 0, 0, 0.5f), LayerDepths.FRONT);
         }
 	}
 }

@@ -69,16 +69,16 @@ namespace ScalingOctoNemesis.UIComponents
         {
             if (Available)
                 if (Open)
-                    sb.DrawString(_f, "Open", Position + new Vector2(10, 10), Color.Green, 0, Vector2.Zero, 1, SpriteEffects.None, 0.01f);
+                    sb.DrawString(_f, "Open", Position + new Vector2(10, 10), Color.Green, 0, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.D1);
                 else
-                    sb.DrawString(_f, "Closed", Position + new Vector2(10, 10), Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, 0.01f);
+                    sb.DrawString(_f, "Closed", Position + new Vector2(10, 10), Color.Red, 0, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.D1);
             else
             {
-                sb.DrawString(_f, _p.Name, Position + new Vector2(10, 10), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0.01f);
+                sb.DrawString(_f, _p.Name, Position + new Vector2(10, 10), Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.D1);
                 _civChoice.Draw(sb);
                 // if (Player != self)
                 //sb.DrawString(_f, _p.Civ, Position + new Vector2(100, 10), Color.Chocolate);
-                DrawingTools.DrawRectangle(sb, new Rectangle(250, (int)Position.Y + 10, 20, 20), _p.Color, 0.01f);
+                DrawingTools.DrawRectangle(sb, new Rectangle(250, (int)Position.Y + 10, 20, 20), _p.Color, LayerDepths.D1);
                 _teamButton.Draw(sb);
                 // if (Player != self)
                 // sb.DrawString(_f, _p.team.toString(), Position + new Vector(200, 10), Color.White);
