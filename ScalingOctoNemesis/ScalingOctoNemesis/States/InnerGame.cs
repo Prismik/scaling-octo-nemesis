@@ -18,6 +18,7 @@ namespace ScalingOctoNemesis.States
         Button down;
         Button populate;
         ChatBox chat;
+        ScrollBar scroll;
         SpriteFont _font;
         GameSlot[] _slots = new GameSlot[8];
         public InnerGame(StateManager manager)
@@ -33,6 +34,11 @@ namespace ScalingOctoNemesis.States
             up.Action = chat.UpIndex;
             down = new Button("D", "D", 25, 25, 350, 400, 5, 5, _font);
             down.Action = chat.DownIndex;
+            scroll = new ScrollBar("Scroll", 12, (int)(chat.Size.Y),
+                                    (int)(chat.Position.X + chat.size.X + chat.Padding.X * 2),
+                                    chat.Position.Y,
+                                    chat.Padding.X, chat.Padding.Y, 
+                                    up, down);
             input = new InputField("Test", _font, "input1", 12, 75, 375, 100, 30, 5, 5);
             input.AddKeyHandler(delegate(object o, KeyEventArgs args) {
                 if (args.KeyCode == Keys.Enter)
@@ -40,6 +46,7 @@ namespace ScalingOctoNemesis.States
                     string val = input.Value;
                     input.Clear();
                     chat.AddMessage(val, "Prismik");
+                    scroll.InnerLength = chat.InnerLength;
                 }
             });
 
