@@ -11,10 +11,9 @@ namespace States
     {
         List<GameState> _states = new List<GameState>();
         List<GameState> _statesCopy = new List<GameState>();
-        //InputState _input = new InputState();
 
-        public Game Game { get; private set; }
-        public SpriteBatch SpriteBatch { get; private set; }
+        public Game Game                { get; private set; }
+        public SpriteBatch SpriteBatch  { get; private set; }
 
         public StateManager(Game game, SpriteBatch sb)
         {

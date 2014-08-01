@@ -7,15 +7,16 @@ namespace ScalingOctoNemesis.UI
 {
 	public class InputField : UIItem
 	{
-        int _cursor;
         bool _cursorVisible = true;
         Timer _blinkTimer = new Timer();
+
+        int _cursor;
 		int _maxLen;
         SpriteFont _font;
+
         bool Hover { get; set; }
-		// TBD
+
 		public bool Active 	{ get; set; }
-		// Textual value held in the input field
 		public string Value { get; private set; }
 
 		public InputField(string placeholder, SpriteFont font, string id, int maxLen,
@@ -66,10 +67,7 @@ namespace ScalingOctoNemesis.UI
         public virtual void Move(object o, MouseEventArgs args)
         {
             if (PointInComponent(args.X, args.Y))
-            {
-                // change the cursor
                 Hover = true;
-            }
             else
                 Hover = false;
         }

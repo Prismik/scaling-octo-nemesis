@@ -9,8 +9,12 @@ namespace ScalingOctoNemesis.UI
 	{
         List<DropDownItem> _items = new List<DropDownItem>();
         SpriteFont _font;
-        public Object Selected { get; set; }
+        Rectangle _expandRectangle;
 
+		Action OnSelect { get; set; }
+
+        public Object Selected { get; set; }
+        public bool Expanded   { get; set; }
         public override Vector2 Position
         {
             get
@@ -20,15 +24,13 @@ namespace ScalingOctoNemesis.UI
             set
             {
                 base.Position = value;
-                _expandRectangle = new Rectangle((int)Position.X + (int)Size.X + (int)Padding.X - 20, (int)Position.Y, 20 + (int)Padding.X, (int)Size.Y + (int)Padding.Y * 2);
+                _expandRectangle = new Rectangle((int)Position.X + (int)Size.X + (int)Padding.X - 20, (int)Position.Y, 
+                                                    20 + (int)Padding.X, (int)Size.Y + (int)Padding.Y * 2);
                 for (int i = 0; i != _items.Count; ++i)
                     _items[i].Position = Position + new Vector2(Padding.X, Size.Y + Padding.Y + i * 30);
             }
         }
-		Action OnSelect { get; set; }
-        public bool Expanded { get; set; }
 
-        Rectangle _expandRectangle;
         public DropDown(string id, Vector2 pos, Vector2 size, Vector2 padding, SpriteFont font)
             : base(id, pos, size, padding)
         {
@@ -36,7 +38,8 @@ namespace ScalingOctoNemesis.UI
             Initialize();
         }
 
-		public DropDown(string id, float x, float y, float width, float height, float paddingX, float paddingY, SpriteFont font)
+		public DropDown(string id, float x, float y, float width, float height, 
+                        float paddingX, float paddingY, SpriteFont font)
 			: base(id, x, y, width, height, paddingX, paddingY)
 		{
             _font = font;
@@ -45,7 +48,8 @@ namespace ScalingOctoNemesis.UI
 
         private void Initialize()
         {
-            _expandRectangle = new Rectangle((int)Position.X + (int)Size.X + (int)Padding.X - 20, (int)Position.Y, 20 + (int)Padding.X, (int)Size.Y + (int)Padding.Y * 2);
+            _expandRectangle = new Rectangle((int)Position.X + (int)Size.X + (int)Padding.X - 20, (int)Position.Y, 
+                                                20 + (int)Padding.X, (int)Size.Y + (int)Padding.Y * 2);
             Expanded = false;
 
             InputSystem.MouseDown += Press;
@@ -132,7 +136,8 @@ namespace ScalingOctoNemesis.UI
         public virtual void DrawSelectedItem(SpriteBatch sb)
         {
             if (Selected != null)
-                sb.DrawString(_font, Selected.ToString(), Position + Padding, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
+                sb.DrawString(_font, Selected.ToString(), Position + Padding, Color.White, 0, 
+                                Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
         }
 
         public virtual void DrawExpandButton(SpriteBatch sb)
@@ -144,7 +149,8 @@ namespace ScalingOctoNemesis.UI
         {
             for (int i = 0; i != _items.Count; ++i)
                 _items[i].Draw(sb);
-                //sb.DrawString(_font, Objects[i].ToString(), Position + new Vector2(Padding.X, Size.Y + Padding.Y + i * 22), Color.White); 
+                //sb.DrawString(_font, Objects[i].ToString(), 
+                //Position + new Vector2(Padding.X, Size.Y + Padding.Y + i * 22), Color.White); 
         }
 	}
 }

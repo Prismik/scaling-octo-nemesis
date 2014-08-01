@@ -8,7 +8,9 @@ namespace ScalingOctoNemesis.UI
 	public class Button : UIItem, IDisposable
 	{
         bool _pressed = false;
+        
         SpriteFont _font;
+
         public Action Action    { get; set; }
         public string Value     { get; set; }
         public bool Enabled     { get; set; }
