@@ -2,11 +2,14 @@ using System;
 using Microsoft.Xna.Framework;
 using System.Timers;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 namespace ScalingOctoNemesis.UI
 {
-	public class ScrollBar : UIItem
+    public class ScrollBar : UIItem, IDisposable
 	{
         bool _pressed = false;
+
+        Rectangle _scrollRectangle;
         Button _up;
         Button _down;
 
@@ -19,18 +22,18 @@ namespace ScalingOctoNemesis.UI
             set
             {
                 base.Position = value;
-                _expandRectangle = new Rectangle((int)Position.X + (int)Size.X / 2, (int)Position.Y, 12, 64);
+                _scrollRectangle = new Rectangle((int)Position.X + (int)Size.X / 2, (int)Position.Y, 12, 64);
 
                 // Set _up position
                 // Set _down position
             }
         }
 
+        bool Hover              { get; set; }
+
         public int InnerLength  { get; set; }
         public bool Enabled     { get; set; }
         public Tooltip Tooltip  { get; set; }
-
-        Rectangle _scrollRectangle;
         public ScrollBar(string id, float width, float height, 
                             float x, float y, float paddingX, float paddingY,
                             Button up, Button down)
@@ -39,12 +42,27 @@ namespace ScalingOctoNemesis.UI
             _up = up;
             _down = down;
             InnerLength = 0;
-            _expandRectangle = new Rectangle((int)Position.X + (int)Size.X / 2, (int)Position.Y, 12, 64);
+            _scrollRectangle = new Rectangle((int)Position.X + (int)Size.X / 2, (int)Position.Y, 12, 64);
+            Initialize();
 		}
+
+        private void Initialize()
+        {
+            InputSystem.MouseDown += Press;
+            InputSystem.MouseUp += Release;
+            InputSystem.MouseMove += Move;
+        }
+
+        public void Dispose()
+        {
+            InputSystem.MouseDown -= Press;
+            InputSystem.MouseUp -= Release;
+            InputSystem.MouseMove -= Move;
+        }
 
         public virtual void Press(object o, MouseEventArgs args)
         {
-            if (PointInComponent(args.X, args.Y))
+            if (_scrollRectangle.Contains(args.Location))
                 _pressed = true;
         }
 
@@ -53,32 +71,32 @@ namespace ScalingOctoNemesis.UI
             if (_pressed)
             {
                 _pressed = false;
-                if (PointInComponent(args.X, args.Y))
-                    Action();
-            }
+                move = 0;
+            } 
         }
 
+        int move = 0;
         public virtual void Move(object o, MouseEventArgs args)
         {
-            if (PointInComponent(args.X, args.Y))
-            {
+            if (_scrollRectangle.Contains(args.Location))
                 Hover = true;
-                if (e.Button == MouseButton.Left)
-                {
-                    // Calculate move ammount
-                    // Convert to Scroller Move ammount
-                    // If the scroller can move in the desired direction
-                    // Then move it
-                    // Otherwise, stay in place
-                    MoveScroller();
-                }
-            }
             else
                 Hover = false;
+
+            if (_pressed)
+                    MoveScroller(args.Y);
         }
 
-        private void MoveScroller()
+        private void MoveScroller(int y)
         {
+            int delta = y - move;
+            
+            // Maybe think of a better way to do this. It makes it impossible to have a scroller
+            // That starts at y = 0
+            if (move != 0 && _scrollRectangle.Y + delta >= Position.Y && _scrollRectangle.Y + delta + _scrollRectangle.Height <= Position.Y + Size.Y + Padding.Y * 2)
+                _scrollRectangle.Offset(0, delta);
+
+            move = y;
 
         }
 
@@ -89,14 +107,17 @@ namespace ScalingOctoNemesis.UI
 
         public override void Draw(SpriteBatch sb)
         {
-            DrawBar();
-            DrawScroller();
-            DrawButtons();
+            DrawBar(sb);
+            DrawScroller(sb);
+            DrawButtons(sb);
         }
 
         public virtual void DrawScroller(SpriteBatch sb)
         {
-            DrawingTools.DrawRectangle(sb, _scrollRectangle, Color.Coral, LayerDepths.FRONT);
+            Color c = Hover ? Color.Coral : Color.BlueViolet;
+            if (Hover)
+                c = _pressed ? Color.BurlyWood : Color.Coral;
+            DrawingTools.DrawRectangle(sb, _scrollRectangle, c, LayerDepths.FRONT);
         }
 
         public virtual void DrawBar(SpriteBatch sb)

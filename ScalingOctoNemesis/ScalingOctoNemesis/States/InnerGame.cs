@@ -35,7 +35,7 @@ namespace ScalingOctoNemesis.States
             down = new Button("D", "D", 25, 25, 350, 400, 5, 5, _font);
             down.Action = chat.DownIndex;
             scroll = new ScrollBar("Scroll", 12, (int)(chat.Size.Y),
-                                    (int)(chat.Position.X + chat.size.X + chat.Padding.X * 2),
+                                    (int)(chat.Position.X + chat.Size.X + chat.Padding.X * 2),
                                     chat.Position.Y,
                                     chat.Padding.X, chat.Padding.Y, 
                                     up, down);
@@ -78,6 +78,7 @@ namespace ScalingOctoNemesis.States
             input.Update(gameTime);
             chat.Update(gameTime);
             populate.Update(gameTime);
+            scroll.Update(gameTime);
         }
 
         public override void Draw()
@@ -88,7 +89,8 @@ namespace ScalingOctoNemesis.States
             input.Draw(Manager.SpriteBatch);
             chat.Draw(Manager.SpriteBatch);
             populate.Draw(Manager.SpriteBatch);
-            
+            scroll.Draw(Manager.SpriteBatch);
+
             foreach (GameSlot g in _slots)
                 g.Draw(Manager.SpriteBatch);
             Manager.SpriteBatch.End();

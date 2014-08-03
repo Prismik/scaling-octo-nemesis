@@ -16,6 +16,7 @@ namespace ScalingOctoNemesis.UIComponents
         float _lineHeight; // Height of each message lines
         SpriteFont _font;
 
+        public int InnerLength { get; set; }
         // Replaced by vector be cause we need direct access
         // Or any collection that allows the behaviours
         // of both Vector and Queue (Direct access + FIFO)
