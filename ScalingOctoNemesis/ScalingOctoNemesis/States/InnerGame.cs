@@ -17,6 +17,7 @@ namespace ScalingOctoNemesis.States
         Button up;
         Button down;
         Button populate;
+        Button exit;
         ChatBox chat;
         ScrollBar scroll;
         SpriteFont _font;
@@ -51,6 +52,9 @@ namespace ScalingOctoNemesis.States
             });
 
             input.OnFocus();
+
+            exit = new Button ("X", "X", 24, 24, 990, 0, 5, 5, _font);
+            exit.Action = delegate { Manager.Game.Exit(); };
         }
 
         private void Populate(string name)
@@ -79,6 +83,7 @@ namespace ScalingOctoNemesis.States
             chat.Update(gameTime);
             populate.Update(gameTime);
             scroll.Update(gameTime);
+            exit.Update(gameTime);
         }
 
         public override void Draw()
@@ -90,6 +95,7 @@ namespace ScalingOctoNemesis.States
             chat.Draw(Manager.SpriteBatch);
             populate.Draw(Manager.SpriteBatch);
             scroll.Draw(Manager.SpriteBatch);
+            exit.Draw(Manager.SpriteBatch);
 
             foreach (GameSlot g in _slots)
                 g.Draw(Manager.SpriteBatch);

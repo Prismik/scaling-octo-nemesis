@@ -27,6 +27,7 @@ namespace ScalingOctoNemesis
         {
             
             graphics = new GraphicsDeviceManager(this);
+            graphics.IsFullScreen = true;
             graphics.PreferredBackBufferWidth = 1024;
             graphics.PreferredBackBufferHeight = 768;
             InputSystem.Initialize(this.Window);
