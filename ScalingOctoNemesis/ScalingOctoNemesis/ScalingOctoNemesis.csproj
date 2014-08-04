@@ -115,6 +115,7 @@
     <Compile Include="States\InnerGame.cs" />
     <Compile Include="States\StateManager.cs" />
     <Compile Include="UIComponents\ChatBox.cs" />
+    <Compile Include="UIComponents\ColorButton.cs" />
     <Compile Include="UIComponents\GameSlot.cs" />
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\Cursor.cs" />

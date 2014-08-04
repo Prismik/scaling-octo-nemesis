@@ -8,7 +8,7 @@ namespace ScalingOctoNemesis.UI
 	public class Button : UIItem, IDisposable
 	{
         bool _pressed = false;
-        
+        bool _handleHover = false;
         SpriteFont _font;
 
         public Action Action    { get; set; }
@@ -21,33 +21,36 @@ namespace ScalingOctoNemesis.UI
             float width,    float height,   // size
             float x,        float y,        // position
             float paddingX, float paddingY, // padding
-            SpriteFont font) 
+            SpriteFont font, bool handleHover = true) 
 			: base(id, x, y, width, height, paddingX, paddingY)
 		{
-            Initialize(font, value);
+            Initialize(font, value, handleHover);
 		}
 
         public Button(string value, string id, 
-            Vector2 size, Vector2 pos, Vector2 padding, SpriteFont font)
+            Vector2 size, Vector2 pos, Vector2 padding, SpriteFont font, bool handleHover = true)
             : base(id, pos, size, padding)
         {
-            Initialize(font, value);
+            Initialize(font, value, handleHover);
         }
 		
-        private void Initialize(SpriteFont font, string value)
+        public void Initialize(SpriteFont font, string value, bool handleHover)
         {
             _font = font;
             Value = value;
+            _handleHover = handleHover;
             InputSystem.MouseDown += Press;
             InputSystem.MouseUp += Release;
-            InputSystem.MouseMove += Move;
+            if (_handleHover)
+                InputSystem.MouseMove += Move;
         }
 
         public void Dispose()
         {
             InputSystem.MouseDown  -= Press;
             InputSystem.MouseUp -= Release;
-            InputSystem.MouseMove -= Move;
+            if (_handleHover)
+                InputSystem.MouseMove -= Move;
         }
 
 		public virtual void Press(object o, MouseEventArgs args)

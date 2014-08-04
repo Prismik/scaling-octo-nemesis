@@ -13,6 +13,7 @@ namespace ScalingOctoNemesis.States
 {
     class InnerGame : GameState
     {
+        Texture2D _background = null;
         InputField input;
         Button up;
         Button down;
@@ -59,11 +60,11 @@ namespace ScalingOctoNemesis.States
 
         private void Populate(string name)
         {
-            Player p = new Player(name, Color.Blue, "Yamato");
-            foreach (GameSlot g in _slots)
-                if (g.Available && g.Open)
+            for (int i= 0; i != _slots.Length; ++i)
+                if (_slots[i].Available && _slots[i].Open)
                 {
-                    g.Populate(p);
+                    Player p = new Player(name, GameSlot.Colors[i], "Yamato");
+                    _slots[i].Populate(p);
                     break;
                 }
         }
@@ -72,6 +73,7 @@ namespace ScalingOctoNemesis.States
         {
             base.LoadContent();
             _font = Manager.Game.Content.Load<SpriteFont>("monospace");
+            _background = Manager.Game.Content.Load<Texture2D>("bg");
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
@@ -89,6 +91,7 @@ namespace ScalingOctoNemesis.States
         public override void Draw()
         {
             Manager.SpriteBatch.Begin(SpriteSortMode.BackToFront, null);
+            Manager.SpriteBatch.Draw(_background, new Rectangle(0, 0, 1366, 768), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, LayerDepths.BACK);  
             up.Draw(Manager.SpriteBatch);
             down.Draw(Manager.SpriteBatch);
             input.Draw(Manager.SpriteBatch);
