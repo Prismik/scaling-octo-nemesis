@@ -16,7 +16,11 @@ namespace ScalingOctoNemesis.UIComponents
         float _lineHeight; // Height of each message lines
         SpriteFont _font;
 
-        public int InnerLength { get; set; }
+        public int Index { get { return _index; } }
+        public int InnerLength { get { return Messages * (int)_lineHeight; } }
+        public bool Full { get { return Messages >= _maxLines; } }
+        public int Messages     { get { return _messages.Count; } }
+        public int MaxMsg { get { return _maxLines; } }
         // Replaced by vector be cause we need direct access
         // Or any collection that allows the behaviours
         // of both Vector and Queue (Direct access + FIFO)
@@ -38,7 +42,7 @@ namespace ScalingOctoNemesis.UIComponents
 
         public void DownIndex()
         {
-            if (_index != _maxLines - 1 && _index + 1 < _messages.Count && _messages.Count >= _maxLines)
+            if (_index != Messages - 1 && _index + 1 < _messages.Count && _messages.Count >= _maxLines)
                 ++_index;
         }
 

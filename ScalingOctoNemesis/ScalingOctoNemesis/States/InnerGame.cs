@@ -41,6 +41,38 @@ namespace ScalingOctoNemesis.States
                                     chat.Position.Y,
                                     chat.Padding.X, chat.Padding.Y, 
                                     up, down);
+            scroll.ScrollUp = delegate {
+                if (!chat.Full)
+                    return;
+
+                int topMsg = (int)(scroll.ScrollPct * chat.Messages);
+                if (chat.Index == topMsg)
+                    return;
+
+                if (chat.Index > topMsg/* - chat.MaxMsg*/)
+                {
+                    while (chat.Index != topMsg)
+                        chat.UpIndex();
+                }
+                
+            };
+            scroll.ScrollDown = delegate {
+                if (!chat.Full)
+                    return;
+
+                int topMsg = (int)(scroll.ScrollPct * chat.Messages);
+                if (scroll.ScrollPct == 1.0f)
+                    topMsg--;
+                if (chat.Index == topMsg)
+                    return;
+
+                if (chat.Index < topMsg/* - chat.MaxMsg*/)
+                {
+                    while (chat.Index != topMsg)
+                        chat.DownIndex();
+                }
+            };
+
             input = new InputField("Test", _font, "input1", 12, 75, 375, 100, 30, 5, 5);
             input.AddKeyHandler(delegate(object o, KeyEventArgs args) {
                 if (args.KeyCode == Keys.Enter)
@@ -49,6 +81,8 @@ namespace ScalingOctoNemesis.States
                     input.Clear();
                     chat.AddMessage(val, "Prismik");
                     scroll.InnerLength = chat.InnerLength;
+                    if (chat.Full)
+                        chat.DownIndex();
                 }
             });
 

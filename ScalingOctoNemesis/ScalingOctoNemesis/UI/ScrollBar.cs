@@ -31,7 +31,10 @@ namespace ScalingOctoNemesis.UI
 
         bool Hover              { get; set; }
 
+        public Action ScrollUp   { get; set; }
+        public Action ScrollDown { get; set; }
         public int InnerLength  { get; set; }
+        public float ScrollPct  { get { return (_scrollRectangle.Y - Position.Y) / (Size.Y - _scrollRectangle.Height); } }
         public bool Enabled     { get; set; }
         public Tooltip Tooltip  { get; set; }
         public ScrollBar(string id, float width, float height, 
@@ -42,7 +45,7 @@ namespace ScalingOctoNemesis.UI
             _up = up;
             _down = down;
             InnerLength = 0;
-            _scrollRectangle = new Rectangle((int)Position.X + (int)Size.X / 2, (int)Position.Y, 12, 64);
+            _scrollRectangle = new Rectangle((int)Position.X + (int)Size.X / 2, (int)Position.Y + (int)Size.Y - 64, 12, 64);
             Initialize();
 		}
 
@@ -90,7 +93,11 @@ namespace ScalingOctoNemesis.UI
         private void MoveScroller(int y)
         {
             int delta = y - move;
-            
+            if (delta < 0)
+                ScrollUp();
+            else
+                ScrollDown();
+
             // Maybe think of a better way to do this. It makes it impossible to have a scroller
             // That starts at y = 0
             if (move != 0 && _scrollRectangle.Y + delta >= Position.Y && _scrollRectangle.Y + delta + _scrollRectangle.Height <= Position.Y + Size.Y + Padding.Y * 2)
