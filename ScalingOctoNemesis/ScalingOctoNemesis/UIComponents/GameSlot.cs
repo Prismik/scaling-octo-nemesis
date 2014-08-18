@@ -46,8 +46,8 @@ namespace ScalingOctoNemesis.UIComponents
                 index = Colors.ToList<Color>().FindIndex(c => c == _p.Color);
                 Available = false;
                // _closeChoice.Position =
-                _civChoice.Position = Position + new Vector2(100, 10); 
-                _teamButton = new Button(_p.Team.ToString(), "teamButton", new Vector2(20,20), Position + new Vector2(300, 10), new Vector2(5, 5), _f);
+                _civChoice.Position = Position + new Vector2(250, 10);
+                _teamButton = new Button(_p.Team.ToString(), "teamButton", new Vector2(20,20), Position + new Vector2(450, 10), new Vector2(5, 5), _f);
                 _teamButton.Action = delegate {
                     _p.Team++;
                     if (_p.Team > 4)
@@ -55,7 +55,7 @@ namespace ScalingOctoNemesis.UIComponents
 
                     _teamButton.Value = _p.Team.ToString();
                 };
-                _colorButton = new ColorButton("", "colorButton", new Vector2(20, 20), Position + new Vector2(250, 10), new Vector2(5, 5), _f, false);
+                _colorButton = new ColorButton("", "colorButton", new Vector2(20, 20), Position + new Vector2(550, 10), new Vector2(5, 5), _f, false);
                 _colorButton.Color = _p.Color;
                 _colorButton.Action = delegate {
                     index++;

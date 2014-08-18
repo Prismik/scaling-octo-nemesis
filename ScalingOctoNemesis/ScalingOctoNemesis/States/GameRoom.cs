@@ -11,9 +11,15 @@ using Microsoft.Xna.Framework;
 
 namespace ScalingOctoNemesis.States
 {
-    class InnerGame : GameState
+    class GameRoom : GameState
     {
         Texture2D _background = null;
+
+        Label _name;
+        Label _civ;
+        Label _player;
+        Label _team;
+
         InputField input;
         Button up;
         Button down;
@@ -23,18 +29,23 @@ namespace ScalingOctoNemesis.States
         ScrollBar scroll;
         SpriteFont _font;
         GameSlot[] _slots = new GameSlot[8];
-        public InnerGame(StateManager manager)
+        public GameRoom(StateManager manager, string player)
             : base(manager)
         {
-            for (int i = 0; i != _slots.Length; ++i)
-                _slots[i] = new GameSlot(_font, new Vector2(10, i * 30 + 10), new Vector2(600, 25), new Vector2(5, 5));
+            _name = new Label("name", "Name", 45, 5, 120, 20, 0, 0, _font);
+            _civ = new Label("civ", "Civ", 250, 5, 120, 20, 0, 0, _font);
+            _player = new Label("player", "Player", 450, 5, 120, 20, 0, 0, _font);
+            _team = new Label("team", "Team", 550, 5, 120, 20, 0, 0, _font);
 
-            populate = new Button("Populate", "populate", new Vector2(100, 25), new Vector2(500, 50), new Vector2(5, 5), _font);
+            for (int i = 0; i != _slots.Length; ++i)
+                _slots[i] = new GameSlot(_font, new Vector2(40, i * 30 + 50), new Vector2(600, 25), new Vector2(5, 5));
+
+            populate = new Button("Populate", "populate", new Vector2(100, 25), new Vector2(800, 50), new Vector2(5, 5), _font);
             populate.Action = delegate { Populate("Player"); };
-            chat = new ChatBox("ChatBox", new Vector2(50, 450), new Vector2(600, 300), Vector2.Zero, _font);
-            up = new Button("U", "U", 25, 25, 350, 350, 5, 5, _font);
+            chat = new ChatBox("ChatBox", new Vector2(50, 400), new Vector2(600, 300), Vector2.Zero, _font);
+            up = new Button("U", "U", 25, 25, 650, 350, 5, 5, _font);
             up.Action = chat.UpIndex;
-            down = new Button("D", "D", 25, 25, 350, 400, 5, 5, _font);
+            down = new Button("D", "D", 25, 25, 650, 720, 5, 5, _font);
             down.Action = chat.DownIndex;
             scroll = new ScrollBar("Scroll", 12, (int)(chat.Size.Y),
                                     (int)(chat.Position.X + chat.Size.X + chat.Padding.X * 2),
@@ -73,7 +84,7 @@ namespace ScalingOctoNemesis.States
                 }
             };
 
-            input = new InputField("Test", _font, "input1", 12, 75, 375, 100, 30, 5, 5);
+            input = new InputField("Test", _font, "input1", 12, 50, 710, 590, 30, 5, 5);
             input.AddKeyHandler(delegate(object o, KeyEventArgs args) {
                 if (args.KeyCode == Keys.Enter)
                 {
@@ -90,6 +101,8 @@ namespace ScalingOctoNemesis.States
 
             exit = new Button ("X", "X", 24, 24, 990, 0, 5, 5, _font);
             exit.Action = delegate { Manager.Game.Exit(); };
+
+            Populate(player);
         }
 
         private void Populate(string name)
@@ -133,7 +146,10 @@ namespace ScalingOctoNemesis.States
             populate.Draw(Manager.SpriteBatch);
             scroll.Draw(Manager.SpriteBatch);
             exit.Draw(Manager.SpriteBatch);
-
+            _name.Draw(Manager.SpriteBatch);
+            _civ.Draw(Manager.SpriteBatch);
+            _player.Draw(Manager.SpriteBatch);
+            _team.Draw(Manager.SpriteBatch);
             foreach (GameSlot g in _slots)
                 g.Draw(Manager.SpriteBatch);
             Manager.SpriteBatch.End();

@@ -111,8 +111,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="States\ConnectTo.cs" />
     <Compile Include="States\GameState.cs" />
-    <Compile Include="States\InnerGame.cs" />
+    <Compile Include="States\GameRoom.cs" />
     <Compile Include="States\StateManager.cs" />
     <Compile Include="UIComponents\ChatBox.cs" />
     <Compile Include="UIComponents\ColorButton.cs" />

@@ -28,8 +28,8 @@ namespace ScalingOctoNemesis
             
             graphics = new GraphicsDeviceManager(this);
             //graphics.IsFullScreen = true;
-            //graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1024;//1920;
+            graphics.PreferredBackBufferHeight = 768;//1080;
             InputSystem.Initialize(this.Window);
             Cursor.Current = Cursors.POINTER;
             Content.RootDirectory = "Content";
@@ -59,7 +59,7 @@ namespace ScalingOctoNemesis
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
             _stateManager = new StateManager(this, spriteBatch);
-            _stateManager.AddState(new InnerGame(_stateManager));
+            _stateManager.AddState(new ConnectTo(_stateManager));
             DrawingTools.Init(GraphicsDevice);
             Cursor.Pointer = Content.Load<Texture2D>("pointer");
             // TODO: use this.Content to load your game content here

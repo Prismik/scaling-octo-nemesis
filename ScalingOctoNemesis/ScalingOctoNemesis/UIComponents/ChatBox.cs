@@ -72,9 +72,14 @@ namespace ScalingOctoNemesis.UIComponents
             base.Update(elapsedTime);
         }
 
+        public virtual void DrawInner(SpriteBatch sb)
+        {
+            DrawingTools.DrawRectangle(sb, Position, Size + Padding * 2, new Color(0, 0, 0, 0.3f), LayerDepths.D1);
+        }
+
         public virtual void DrawBorder(SpriteBatch sb)
         {
-            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.Black, LayerDepths.D1);
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.Black, LayerDepths.D2);
         }
 
         public virtual void DrawMessages(SpriteBatch sb)
@@ -92,6 +97,7 @@ namespace ScalingOctoNemesis.UIComponents
 
         public override void Draw(SpriteBatch sb)
         {
+            DrawInner(sb);
             DrawBorder(sb);
             DrawMessages(sb);
         }
