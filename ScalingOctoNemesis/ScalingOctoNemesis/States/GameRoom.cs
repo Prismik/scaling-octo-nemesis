@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using ScalingOctoNemesis.UIComponents;
 using Microsoft.Xna.Framework;
+using ScalingOctoNemesis.Util;
 
 namespace ScalingOctoNemesis.States
 {
@@ -137,7 +138,7 @@ namespace ScalingOctoNemesis.States
 
         public override void Draw()
         {
-            Manager.SpriteBatch.Begin(SpriteSortMode.BackToFront, null);
+            Manager.SpriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, Resolution.TransformMatrix);
             Manager.SpriteBatch.Draw(_background, new Rectangle(0, 0, 1366, 768), null, Color.White, 0, Vector2.Zero, SpriteEffects.None, LayerDepths.BACK);  
             up.Draw(Manager.SpriteBatch);
             down.Draw(Manager.SpriteBatch);

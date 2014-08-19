@@ -138,6 +138,7 @@
     <Compile Include="Util\Delay.cs" />
     <Compile Include="Util\IAudioManager.cs" />
     <Compile Include="Util\InputHook.cs" />
+    <Compile Include="Util\Resolution.cs" />
     <Compile Include="Util\Timer.cs" />
   </ItemGroup>
   <ItemGroup>

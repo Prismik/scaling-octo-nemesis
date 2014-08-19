@@ -25,11 +25,9 @@ namespace ScalingOctoNemesis
         SpriteBatch spriteBatch;
         public Game1()
         {
-            
+
             graphics = new GraphicsDeviceManager(this);
-            //graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferWidth = 1024;//1920;
-            graphics.PreferredBackBufferHeight = 768;//1080;
+            graphics.IsFullScreen = true;
             InputSystem.Initialize(this.Window);
             Cursor.Current = Cursors.POINTER;
             Content.RootDirectory = "Content";
@@ -57,12 +55,12 @@ namespace ScalingOctoNemesis
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+            Resolution.Initialize(this.GraphicsDevice);
+            Resolution.ChangeResolution(1920, 1080);
             _stateManager = new StateManager(this, spriteBatch);
             _stateManager.AddState(new ConnectTo(_stateManager));
             DrawingTools.Init(GraphicsDevice);
             Cursor.Pointer = Content.Load<Texture2D>("pointer");
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>

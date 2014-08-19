@@ -7,6 +7,7 @@ using ScalingOctoNemesis.UI;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using ScalingOctoNemesis.UIComponents;
+using ScalingOctoNemesis.Util;
 
 namespace ScalingOctoNemesis.States
 {
@@ -26,12 +27,12 @@ namespace ScalingOctoNemesis.States
         {
             _title = new Label("tit", "Connect To Game", 450, 20, 200, 20, 0, 0, _font);
 
-            _inputLabel = new Label("inp", "IP Address", 500, 275, 200, 20, 0, 0, _font);
-            _input = new InputField("", _font, "ip", 15, new Vector2(500, 300), new Vector2(150, 25), new Vector2(5, 5));
+            _inputLabel = new Label("inp", "IP Address", 500, 75, 200, 20, 0, 0, _font);
+            _input = new InputField("", _font, "ip", 15, new Vector2(500, 50), new Vector2(150, 25), new Vector2(5, 5));
 
-            _nameLabel = new Label("name", "Name", 500, 175, 200, 20, 0, 0, _font);
-            _name = new InputField("", _font, "ip", 15, new Vector2(500, 200), new Vector2(150, 25), new Vector2(5, 5));
-            _connect = new Button("Connect", "con", new Vector2(120, 25), new Vector2(500, 350), new Vector2(5, 5), _font);
+            _nameLabel = new Label("name", "Name", 500, 100, 200, 20, 0, 0, _font);
+            _name = new InputField("", _font, "ip", 15, new Vector2(500, 125), new Vector2(150, 25), new Vector2(5, 5));
+            _connect = new Button("Connect", "con", new Vector2(120, 25), new Vector2(500, 450), new Vector2(5, 5), _font);
             _connect.Action = delegate {
                 string ip = _input.Value;
                 if (_name.Value.Length > 0)
@@ -41,6 +42,9 @@ namespace ScalingOctoNemesis.States
                 }
             };
             _cancel = new Button("Cancel", "can", new Vector2(120, 25), new Vector2(500, 390), new Vector2(5, 5), _font);
+            _cancel.Action = delegate {
+                Manager.Game.Exit();
+            };
         }
 
         public override void LoadContent()
@@ -61,7 +65,7 @@ namespace ScalingOctoNemesis.States
         public override void Draw()
         {
 
-            Manager.SpriteBatch.Begin(SpriteSortMode.BackToFront, null);
+            Manager.SpriteBatch.Begin(SpriteSortMode.BackToFront, null, null, null, null, null, Resolution.TransformMatrix);
             _title.Draw(Manager.SpriteBatch);
             _inputLabel.Draw(Manager.SpriteBatch);
             _input.Draw(Manager.SpriteBatch);
