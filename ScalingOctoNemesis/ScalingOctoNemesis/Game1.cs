@@ -27,7 +27,7 @@ namespace ScalingOctoNemesis
         {
 
             graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = true;
+           // graphics.IsFullScreen = true;
             InputSystem.Initialize(this.Window);
             Cursor.Current = Cursors.POINTER;
             Content.RootDirectory = "Content";
@@ -53,12 +53,14 @@ namespace ScalingOctoNemesis
         /// </summary>
         protected override void LoadContent()
         {
+            Resolution.Initialize(ref graphics);
+            Resolution.ChangeVirtualResolution(1024, 768);
+            Resolution.ChangeResolution(1024, 768);
+   
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Resolution.Initialize(this.GraphicsDevice);
-            Resolution.ChangeResolution(1920, 1080);
             _stateManager = new StateManager(this, spriteBatch);
-            _stateManager.AddState(new ConnectTo(_stateManager));
+            _stateManager.AddState(new MainMenu(_stateManager));
             DrawingTools.Init(GraphicsDevice);
             Cursor.Pointer = Content.Load<Texture2D>("pointer");
         }
@@ -91,7 +93,7 @@ namespace ScalingOctoNemesis
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            Resolution.BeginDraw();
             _stateManager.Draw();
 
             spriteBatch.Begin();

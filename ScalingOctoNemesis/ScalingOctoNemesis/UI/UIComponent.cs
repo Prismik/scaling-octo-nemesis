@@ -1,13 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ScalingOctoNemesis.Util;
 namespace ScalingOctoNemesis.UI 
 {
 	public abstract class UIComponent
 	{
-		// Relative to the component's container
-		// Or relative to the main container ?
-		// In all cases, it is the top-left point
-		// of the component.
 		public virtual Vector2 Position { get; set; }
         public virtual Vector2 Padding  { get; set; }
 		public virtual Vector2 Size 	{ get; set; }
@@ -16,14 +13,7 @@ namespace ScalingOctoNemesis.UI
         public string Id 		{ get; private set; }
 
         public virtual bool Visible 	{ get; set; }
-        // An idea to resolve cross-components input handling
-        // would be to add a list of bound components
-        // public List<UIComponent> BoundComponents { get; set; }
-        // OR
-        // Add a parent handler such as chaine de commande
-        // public UIComponent ParentHandler { get; set; }
-        // Main view points to bottom panel. Bottom panel
-        // points to top panel
+
 		public UIComponent(string id, float x, float y,
 			float width, float height, float paddingX, float paddingY)
 		{
@@ -44,8 +34,9 @@ namespace ScalingOctoNemesis.UI
 
         public bool PointInComponent(int x, int y)
         {
+            Point p = Resolution.PointToResolution(new Vector2(x, y));
             Rectangle rec = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X + (int)Padding.X * 2, (int)Size.Y + (int)Padding.Y * 2);
-            return rec.Contains(x, y);
+            return rec.Contains(p.X, p.Y);
         }
 
 		public abstract void Update(GameTime gameTime);

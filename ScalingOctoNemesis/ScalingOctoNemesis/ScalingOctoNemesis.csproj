@@ -114,6 +114,7 @@
     <Compile Include="States\ConnectTo.cs" />
     <Compile Include="States\GameState.cs" />
     <Compile Include="States\GameRoom.cs" />
+    <Compile Include="States\MainMenu.cs" />
     <Compile Include="States\StateManager.cs" />
     <Compile Include="UIComponents\ChatBox.cs" />
     <Compile Include="UIComponents\ColorButton.cs" />
@@ -126,6 +127,10 @@
     <Compile Include="UI\InputField.cs" />
     <Compile Include="UI\Label.cs" />
     <Compile Include="UI\LayerDepths.cs" />
+    <Compile Include="UI\Menus\ColoredMenu.cs" />
+    <Compile Include="UI\Menus\ColoredMenuNode.cs" />
+    <Compile Include="UI\Menus\Menu.cs" />
+    <Compile Include="UI\Menus\MenuNode.cs" />
     <Compile Include="UI\ScrollBar.cs" />
     <Compile Include="UI\StringHelper.cs" />
     <Compile Include="UI\TextBox.cs" />
@@ -138,6 +143,7 @@
     <Compile Include="Util\Delay.cs" />
     <Compile Include="Util\IAudioManager.cs" />
     <Compile Include="Util\InputHook.cs" />
+    <Compile Include="Util\MathUtils.cs" />
     <Compile Include="Util\Resolution.cs" />
     <Compile Include="Util\Timer.cs" />
   </ItemGroup>
