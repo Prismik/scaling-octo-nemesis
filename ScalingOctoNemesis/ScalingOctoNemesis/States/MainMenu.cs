@@ -32,8 +32,8 @@ namespace ScalingOctoNemesis.States
 
             MenuNode optNode = new ColoredMenuNode("Options", "Options", delegate
             {
-                //Manager.AddState(new LocalMultiplayer(Manager));
-                //Manager.RemoveState(this);
+                Manager.AddState(new InnerGame(Manager));
+                Manager.RemoveState(this);
             }, new Vector2(250, 150), _font);
 
             MenuNode extNode = new ColoredMenuNode("Exit", "Exit", delegate

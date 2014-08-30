@@ -140,6 +140,14 @@ namespace ScalingOctoNemesis.Util
             }
         }
 
+        public static Vector2 VirtualViewport
+        {
+            get
+            {
+                return new Vector2(_vWidth, _vHeight);
+            }
+        }
+
         private static void RecreateMatrix()
         {
             _dirtyMatrix = false;

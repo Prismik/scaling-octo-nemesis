@@ -107,18 +107,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Clickable.cs" />
+    <Compile Include="Entities\MockObject.cs" />
+    <Compile Include="Entities\Moveable.cs" />
+    <Compile Include="Entities\Selectable.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="SelectableManager.cs" />
     <Compile Include="States\ConnectTo.cs" />
     <Compile Include="States\GameState.cs" />
     <Compile Include="States\GameRoom.cs" />
+    <Compile Include="States\InnerGame.cs" />
     <Compile Include="States\MainMenu.cs" />
     <Compile Include="States\StateManager.cs" />
+    <Compile Include="UIComponents\BottomPanel.cs" />
     <Compile Include="UIComponents\ChatBox.cs" />
     <Compile Include="UIComponents\ColorButton.cs" />
+    <Compile Include="UIComponents\GamePanel.cs" />
     <Compile Include="UIComponents\GameSlot.cs" />
+    <Compile Include="UIComponents\TopBar.cs" />
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\Cursor.cs" />
     <Compile Include="UI\DrawingTools.cs" />
