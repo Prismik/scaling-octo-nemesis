@@ -26,7 +26,7 @@ namespace ScalingOctoNemesis
             int y = (int)Math.Min(start.Y, end.Y);
             Rectangle zone = new Rectangle(x, y, (int)Math.Abs(start.X - end.X), (int)Math.Abs(start.Y - end.Y));
             foreach (Selectable s in _entities)
-                if (zone.Contains(new Point((int)s.Position.X, (int)s.Position.Y)))
+                if (zone.Intersects(new Rectangle((int)s.Position.X, (int)s.Position.Y, (int)s.Size.X, (int)s.Size.Y)))
                 {
                     _selected.Add(s);
                     s.Select();

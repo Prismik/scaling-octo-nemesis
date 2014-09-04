@@ -14,17 +14,16 @@ namespace ScalingOctoNemesis.UIComponents
         public ColorButton(string value, string id, 
             float width,    float height,   // size
             float x,        float y,        // position
-            float paddingX, float paddingY, // padding
             SpriteFont font, bool handleHover = true) 
-			: base(value, id, width, height, x, y, paddingX, paddingY, font, handleHover)
+			: base(value, id, width, height, x, y, font, handleHover)
 		{
             base.Initialize(font, value, handleHover);
             Color = Color.Black;
 		}
 
         public ColorButton(string value, string id, 
-            Vector2 size, Vector2 pos, Vector2 padding, SpriteFont font, bool handleHover = true)
-            : base(value, id, size, pos, padding, font, handleHover)
+            Vector2 size, Vector2 pos, SpriteFont font, bool handleHover = true)
+            : base(value, id, size, pos, font, handleHover)
         {
             base.Initialize(font, value, handleHover);
             Color = Color.Black;
@@ -32,7 +31,7 @@ namespace ScalingOctoNemesis.UIComponents
 
         public override void DrawInner(SpriteBatch sb)
         {
-            DrawingTools.DrawRectangle(sb, Position, Size + Padding * 2, Color, 0.2f);
+            DrawingTools.DrawRectangle(sb, Position, Size, Color, 0.2f);
         }
     }
 }

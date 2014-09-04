@@ -38,7 +38,7 @@ namespace ScalingOctoNemesis.UI
         }
 
         public DropDownItem(Object o, SpriteFont f)
-            : base("id", Vector2.Zero, Vector2.Zero, Vector2.Zero)
+            : base("id", Vector2.Zero, Vector2.Zero)
         {
             _item = o;
             Size = f.MeasureString(o.ToString());

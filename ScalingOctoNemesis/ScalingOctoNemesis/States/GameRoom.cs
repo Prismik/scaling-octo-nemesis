@@ -33,25 +33,24 @@ namespace ScalingOctoNemesis.States
         public GameRoom(StateManager manager, string player)
             : base(manager)
         {
-            _name = new Label("name", "Name", 45, 5, 120, 20, 0, 0, _font);
-            _civ = new Label("civ", "Civ", 250, 5, 120, 20, 0, 0, _font);
-            _player = new Label("player", "Player", 450, 5, 120, 20, 0, 0, _font);
-            _team = new Label("team", "Team", 550, 5, 120, 20, 0, 0, _font);
+            _name = new Label("name", "Name", 45, 5, 120, 20, _font);
+            _civ = new Label("civ", "Civ", 250, 5, 120, 20, _font);
+            _player = new Label("player", "Player", 450, 5, 120, 20, _font);
+            _team = new Label("team", "Team", 550, 5, 120, 20, _font);
 
             for (int i = 0; i != _slots.Length; ++i)
-                _slots[i] = new GameSlot(_font, new Vector2(40, i * 30 + 50), new Vector2(600, 25), new Vector2(5, 5));
+                _slots[i] = new GameSlot(_font, new Vector2(40, i * 30 + 50), new Vector2(600, 25));
 
-            populate = new Button("Populate", "populate", new Vector2(100, 25), new Vector2(800, 50), new Vector2(5, 5), _font);
+            populate = new Button("Populate", "populate", new Vector2(100, 25), new Vector2(800, 50), _font);
             populate.Action = delegate { Populate("Player"); };
-            chat = new ChatBox("ChatBox", new Vector2(50, 400), new Vector2(600, 300), Vector2.Zero, _font);
-            up = new Button("U", "U", 25, 25, 650, 350, 5, 5, _font);
+            chat = new ChatBox("ChatBox", new Vector2(50, 400), new Vector2(600, 300), _font);
+            up = new Button("U", "U", 25, 25, 650, 350, _font);
             up.Action = chat.UpIndex;
-            down = new Button("D", "D", 25, 25, 650, 720, 5, 5, _font);
+            down = new Button("D", "D", 25, 25, 650, 720, _font);
             down.Action = chat.DownIndex;
             scroll = new ScrollBar("Scroll", 12, (int)(chat.Size.Y),
-                                    (int)(chat.Position.X + chat.Size.X + chat.Padding.X * 2),
-                                    chat.Position.Y,
-                                    chat.Padding.X, chat.Padding.Y, 
+                                    (int)(chat.Position.X + chat.Size.X),
+                                    chat.Position.Y, 
                                     up, down);
             scroll.ScrollUp = delegate {
                 if (!chat.Full)
@@ -85,7 +84,7 @@ namespace ScalingOctoNemesis.States
                 }
             };
 
-            input = new InputField("Test", _font, "input1", 12, 50, 710, 590, 30, 5, 5);
+            input = new InputField("Test", _font, "input1", 12, 50, 710, 590, 30);
             input.AddKeyHandler(delegate(object o, KeyEventArgs args) {
                 if (args.KeyCode == Keys.Enter)
                 {
@@ -100,7 +99,7 @@ namespace ScalingOctoNemesis.States
 
             input.OnFocus();
 
-            exit = new Button ("X", "X", 24, 24, 990, 0, 5, 5, _font);
+            exit = new Button ("X", "X", 24, 24, 990, 0, _font);
             exit.Action = delegate { Manager.Game.Exit(); };
 
             Populate(player);

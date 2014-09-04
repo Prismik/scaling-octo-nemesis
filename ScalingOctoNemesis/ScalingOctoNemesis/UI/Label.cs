@@ -6,8 +6,8 @@ namespace ScalingOctoNemesis.UI
 	{
         SpriteFont _font;
         string value;
-        public Label(string id, string text, float x, float y, float width, float height, float paddingX, float paddingY, SpriteFont font)
-			: base(id, x, y, width, height, paddingX, paddingY)
+        public Label(string id, string text, float x, float y, float width, float height, SpriteFont font)
+			: base(id, x, y, width, height)
 		{
             _font = font;
             value = text;

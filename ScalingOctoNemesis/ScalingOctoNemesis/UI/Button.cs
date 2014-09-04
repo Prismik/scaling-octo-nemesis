@@ -20,16 +20,15 @@ namespace ScalingOctoNemesis.UI
 		public Button(string value, string id, 
             float width,    float height,   // size
             float x,        float y,        // position
-            float paddingX, float paddingY, // padding
             SpriteFont font, bool handleHover = true) 
-			: base(id, x, y, width, height, paddingX, paddingY)
+			: base(id, x, y, width, height)
 		{
             Initialize(font, value, handleHover);
 		}
 
         public Button(string value, string id, 
-            Vector2 size, Vector2 pos, Vector2 padding, SpriteFont font, bool handleHover = true)
-            : base(id, pos, size, padding)
+            Vector2 size, Vector2 pos, SpriteFont font, bool handleHover = true)
+            : base(id, pos, size)
         {
             Initialize(font, value, handleHover);
         }
@@ -91,7 +90,7 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawBorder(SpriteBatch sb)
         {
-            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.LightGray, 0.1f);
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size, Color.LightGray, 0.1f);
         }
 
         public virtual void DrawInner(SpriteBatch sb)
@@ -100,12 +99,12 @@ namespace ScalingOctoNemesis.UI
             if (Hover)
                 c = Color.Blue;
 
-            DrawingTools.DrawRectangle(sb, Position, Size + Padding * 2, c, 0.2f);
+            DrawingTools.DrawRectangle(sb, Position, Size, c, 0.2f);
         }
 
         public virtual void DrawText(SpriteBatch sb)
         {
-            sb.DrawString(_font, Value, Position + Padding, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.01f);
+            sb.DrawString(_font, Value, Position + new Vector2(5, 5), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.01f);
         }
 	}
 }

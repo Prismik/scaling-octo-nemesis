@@ -10,6 +10,7 @@ namespace ScalingOctoNemesis.Entities
     public abstract class Selectable : Clickable
     {
         public Vector2 Position { get; set; }
+        public Vector2 Size { get; set; }
         public bool Selected { get; private set; }
         public abstract void Click(MouseButton button);
 

@@ -21,7 +21,7 @@ namespace ScalingOctoNemesis.UIComponents
         MockObject obj3;
 
         public GamePanel(SelectableManager manager, Vector2 pos, Vector2 size)
-            : base("GamePanel", pos, size, Vector2.Zero)
+            : base("GamePanel", pos, size)
         {
             obj = new MockObject(new Vector2(Position.X + 60, Position.Y + 60));
             obj2 = new MockObject(new Vector2(Position.X + 120, Position.Y + 75));

@@ -2,6 +2,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using ScalingOctoNemesis.Util;
+using System;
+using System.Collections.Generic;
 
 namespace ScalingOctoNemesis.UI
 {
@@ -18,17 +20,17 @@ namespace ScalingOctoNemesis.UI
 
 		public bool Active 	{ get; set; }
 		public string Value { get; private set; }
-
+        public List<char> _forbiddenChars = new List<char>();
 		public InputField(string placeholder, SpriteFont font, string id, int maxLen,
-			float x, float y, float width, float height, float paddingX, float paddingY)
-			: base(id, x, y, width, height, paddingX, paddingY)
+			float x, float y, float width, float height)
+			: base(id, x, y, width, height)
 		{
             Initialize(placeholder, maxLen, font);
 		}
 
 		public InputField(string placeholder, SpriteFont sf, string id, int maxLen,
-			Vector2 pos, Vector2 size, Vector2 padding)
-			: base(id, pos, size, padding)
+			Vector2 pos, Vector2 size)
+			: base(id, pos, size)
 		{
             Initialize(placeholder, maxLen, sf);
 		}
@@ -114,6 +116,11 @@ namespace ScalingOctoNemesis.UI
             return value;
         }
 
+        public void SetForbiddenChars(List<char> chars)
+        {
+            _forbiddenChars = chars;
+        }
+
 		private void RemoveChar()
 		{
             if (Value.Length != 0 && _cursor != 0)
@@ -126,7 +133,7 @@ namespace ScalingOctoNemesis.UI
 
 		private void InsertChar(char c)
         {
-            if (Value.Length != _maxLen)
+            if (_font.Characters.Contains(c) && !_forbiddenChars.Contains(c) && Value.Length != _maxLen)
             {
                 _blinkTimer.Reset();
                 _cursorVisible = true;
@@ -193,24 +200,24 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawBorder(SpriteBatch sb)
         {
-            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.LightGray, LayerDepths.D2);
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size, Color.LightGray, LayerDepths.D2);
         }
 
         public virtual void DrawBackground(SpriteBatch sb)
         {
-        	DrawingTools.DrawRectangle(sb, Position, Size + Padding * 2, Color.DarkSlateGray, LayerDepths.D3);
+        	DrawingTools.DrawRectangle(sb, Position, Size, Color.DarkSlateGray, LayerDepths.D3);
         }
 
         public virtual void DrawText(SpriteBatch sb)
         {
-        	sb.DrawString(_font, Value, Position + Padding, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
+        	sb.DrawString(_font, Value, Position + new Vector2(5, 5), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
         }
 
         public virtual void DrawCursor(SpriteBatch sb)
         {
-            CharInfo info = StringHelper.GetCharInfoFrom(_font, Value, _cursor, Position + Padding, 1f);
+            CharInfo info = StringHelper.GetCharInfoFrom(_font, Value, _cursor, Position + new Vector2(5, 5), 1f);
             if (info == CharInfo.Empty)
-                info = StringHelper.GetCharInfoFrom(_font, " ", 0, Position + Padding, 1f);
+                info = StringHelper.GetCharInfoFrom(_font, " ", 0, Position + new Vector2(5, 5), 1f);
             
             DrawingTools.DrawRectangle(sb, info.area, new Color(0, 0, 0, 0.5f), LayerDepths.FRONT);
         }

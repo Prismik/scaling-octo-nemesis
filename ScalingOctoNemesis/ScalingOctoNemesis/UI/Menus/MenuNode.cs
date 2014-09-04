@@ -21,7 +21,7 @@ namespace ScalingOctoNemesis.UI.Menus
         public float Scale { get; set; }
         public float Rotation { get; set; }
         public MenuNode(string id, Action action, Vector2 position)
-            : base (id, position, new Vector2(0, 0), new Vector2(0, 0))
+            : base (id, position, new Vector2(0, 0))
         {
             Action = action;
             ID = id;

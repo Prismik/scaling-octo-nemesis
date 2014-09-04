@@ -8,14 +8,14 @@ namespace ScalingOctoNemesis.UI
 		public List<UIComponent> _components = new List<UIComponent>();
         public int ComponentsCount { get { return _components.Count; } }
 		public UIContainer(string id, float x, float y,
-            float width, float height, float paddingX, float paddingY)
-			: base(id, x, y, width, height, paddingX, paddingY)
+            float width, float height)
+			: base(id, x, y, width, height)
 		{
 
 		}
 
-        public UIContainer(string id, Vector2 pos, Vector2 size, Vector2 padding)
-            : base(id, pos, size, padding)
+        public UIContainer(string id, Vector2 pos, Vector2 size)
+            : base(id, pos, size)
         {
 
         }

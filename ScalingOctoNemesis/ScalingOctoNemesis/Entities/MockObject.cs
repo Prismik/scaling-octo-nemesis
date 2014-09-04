@@ -17,6 +17,7 @@ namespace ScalingOctoNemesis.Entities
         {
             Position = pos;
             Speed = 1.5f;
+            Size = new Vector2(30, 30);
         }
 
         public override void Click(MouseButton button)
@@ -49,7 +50,6 @@ namespace ScalingOctoNemesis.Entities
             }
         }
 
-        //123//1234567//
         public void Draw(SpriteBatch sb)
         {
             Color c = Selected ? Color.Purple : Color.DarkOliveGreen;

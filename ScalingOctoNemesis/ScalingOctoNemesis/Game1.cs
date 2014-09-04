@@ -27,7 +27,7 @@ namespace ScalingOctoNemesis
         {
 
             graphics = new GraphicsDeviceManager(this);
-           // graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             InputSystem.Initialize(this.Window);
             Cursor.Current = Cursors.POINTER;
             Content.RootDirectory = "Content";
@@ -54,8 +54,8 @@ namespace ScalingOctoNemesis
         protected override void LoadContent()
         {
             Resolution.Initialize(ref graphics);
-            Resolution.ChangeVirtualResolution(1024, 768);
-            Resolution.ChangeResolution(1024, 768);
+            Resolution.ChangeVirtualResolution(1366, 768);
+            Resolution.ChangeResolution(1366, 768);
    
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);

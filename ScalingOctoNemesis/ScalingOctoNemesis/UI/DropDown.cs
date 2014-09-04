@@ -24,23 +24,22 @@ namespace ScalingOctoNemesis.UI
             set
             {
                 base.Position = value;
-                _expandRectangle = new Rectangle((int)Position.X + (int)Size.X + (int)Padding.X - 20, (int)Position.Y, 
-                                                    20 + (int)Padding.X, (int)Size.Y + (int)Padding.Y * 2);
+                _expandRectangle = new Rectangle((int)Position.X + (int)Size.X - 20, (int)Position.Y, 
+                                                    20, (int)Size.Y );
                 for (int i = 0; i != _items.Count; ++i)
-                    _items[i].Position = Position + new Vector2(Padding.X, Size.Y + Padding.Y + i * 30);
+                    _items[i].Position = Position + new Vector2(5, Size.Y + 5 + i * 30);
             }
         }
 
-        public DropDown(string id, Vector2 pos, Vector2 size, Vector2 padding, SpriteFont font)
-            : base(id, pos, size, padding)
+        public DropDown(string id, Vector2 pos, Vector2 size, SpriteFont font)
+            : base(id, pos, size)
         {
             _font = font;
             Initialize();
         }
 
-		public DropDown(string id, float x, float y, float width, float height, 
-                        float paddingX, float paddingY, SpriteFont font)
-			: base(id, x, y, width, height, paddingX, paddingY)
+		public DropDown(string id, float x, float y, float width, float height, SpriteFont font)
+			: base(id, x, y, width, height)
 		{
             _font = font;
             Initialize();
@@ -48,8 +47,8 @@ namespace ScalingOctoNemesis.UI
 
         private void Initialize()
         {
-            _expandRectangle = new Rectangle((int)Position.X + (int)Size.X + (int)Padding.X - 20, (int)Position.Y, 
-                                                20 + (int)Padding.X, (int)Size.Y + (int)Padding.Y * 2);
+            _expandRectangle = new Rectangle((int)Position.X + (int)Size.X - 20, (int)Position.Y, 
+                                                20, (int)Size.Y);
             Expanded = false;
 
             InputSystem.MouseDown += Press;
@@ -63,7 +62,7 @@ namespace ScalingOctoNemesis.UI
         public void AddItem(Object o)
         {
             DropDownItem i = new DropDownItem(o, _font);
-            i.Position =  Position + new Vector2(Padding.X, Size.Y + Padding.Y + _items.Count * 30);
+            i.Position =  Position + new Vector2(5, Size.Y + 5 + _items.Count * 30);
             i.Action = delegate { SetSelected(i); };
             _items.Add(i);
         }
@@ -125,18 +124,18 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawBorder(SpriteBatch sb)
         {
-            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.LightGray, LayerDepths.D2);
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size, Color.LightGray, LayerDepths.D2);
         }
 
         public virtual void DrawBackground(SpriteBatch sb)
         {
-            DrawingTools.DrawRectangle(sb, Position, Size + Padding * 2, Color.DarkSlateGray, LayerDepths.D4);
+            DrawingTools.DrawRectangle(sb, Position, Size, Color.DarkSlateGray, LayerDepths.D4);
         }
 
         public virtual void DrawSelectedItem(SpriteBatch sb)
         {
             if (Selected != null)
-                sb.DrawString(_font, Selected.ToString(), Position + Padding, Color.White, 0, 
+                sb.DrawString(_font, Selected.ToString(), Position + new Vector2(5, 5), Color.White, 0, 
                                 Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
         }
 

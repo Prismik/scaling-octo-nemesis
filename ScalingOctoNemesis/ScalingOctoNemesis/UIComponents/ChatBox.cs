@@ -26,12 +26,12 @@ namespace ScalingOctoNemesis.UIComponents
         // of both Vector and Queue (Direct access + FIFO)
         List<UIComponent> _messages = new List<UIComponent>();
         Timer _timer = new Timer();
-        public ChatBox(string id, Vector2 pos, Vector2 size, Vector2 padding, SpriteFont font)
-            : base(id, pos, size, padding)
+        public ChatBox(string id, Vector2 pos, Vector2 size, SpriteFont font)
+            : base(id, pos, size)
         {
             _font = font;
             _lineHeight = _font.MeasureString(" ").Y;
-            _maxLines = (int)((Size.Y - Padding.Y * 2) / _lineHeight);
+            _maxLines = (int)((Size.Y - 10) / _lineHeight);
         }
 
         public void UpIndex()
@@ -48,7 +48,7 @@ namespace ScalingOctoNemesis.UIComponents
 
         public void AddMessage(string message, string from)
         {
-            Label label = new Label(ComponentsCount.ToString(), from + ": " + message, 0, 0, 0, 0, 0, 0, _font);
+            Label label = new Label(ComponentsCount.ToString(), from + ": " + message, 0, 0, 0, 0, _font);
             //label.Position = new Vector2(Position.X + Padding.X, Position.Y + Padding.Y + ComponentsCount * 20);
             _components.Add(label);
             _messages.Add(label);
@@ -74,12 +74,12 @@ namespace ScalingOctoNemesis.UIComponents
 
         public virtual void DrawInner(SpriteBatch sb)
         {
-            DrawingTools.DrawRectangle(sb, Position, Size + Padding * 2, new Color(0, 0, 0, 0.3f), LayerDepths.D1);
+            DrawingTools.DrawRectangle(sb, Position, Size, new Color(0, 0, 0, 0.3f), LayerDepths.D1);
         }
 
         public virtual void DrawBorder(SpriteBatch sb)
         {
-            DrawingTools.DrawEmptyRectangle(sb, Position, Size + Padding * 2, Color.Black, LayerDepths.D2);
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size, Color.Black, LayerDepths.D2);
         }
 
         public virtual void DrawMessages(SpriteBatch sb)
@@ -90,7 +90,7 @@ namespace ScalingOctoNemesis.UIComponents
             for (int i = _index, j = 0; i != _messages.Count && j != _maxLines; ++i, ++j)
             {
                 _messages[i].Visible = true;
-                _messages[i].Position = Position + Padding + new Vector2(0, j * _lineHeight);
+                _messages[i].Position = Position + new Vector2(5, 5) + new Vector2(0, j * _lineHeight);
                 _messages[i].Draw(sb);
             }
         }

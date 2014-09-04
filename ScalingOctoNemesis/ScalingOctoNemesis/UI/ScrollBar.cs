@@ -38,9 +38,9 @@ namespace ScalingOctoNemesis.UI
         public bool Enabled     { get; set; }
         public Tooltip Tooltip  { get; set; }
         public ScrollBar(string id, float width, float height, 
-                            float x, float y, float paddingX, float paddingY,
+                            float x, float y, 
                             Button up, Button down)
-			: base(id, x, y, width, height, paddingX, paddingY)
+			: base(id, x, y, width, height)
 		{
             _up = up;
             _down = down;
@@ -100,7 +100,7 @@ namespace ScalingOctoNemesis.UI
 
             // Maybe think of a better way to do this. It makes it impossible to have a scroller
             // That starts at y = 0
-            if (move != 0 && _scrollRectangle.Y + delta >= Position.Y && _scrollRectangle.Y + delta + _scrollRectangle.Height <= Position.Y + Size.Y + Padding.Y * 2)
+            if (move != 0 && _scrollRectangle.Y + delta >= Position.Y && _scrollRectangle.Y + delta + _scrollRectangle.Height <= Position.Y + Size.Y)
                 _scrollRectangle.Offset(0, delta);
 
             move = y;

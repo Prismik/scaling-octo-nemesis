@@ -9,14 +9,14 @@ namespace ScalingOctoNemesis.UI
         // Determines if the InputField has the focus
         public bool Focused { get; set; }
 		public UIItem(string id, float x, float y,
-			float width, float height, float paddingX, float paddingY)
-			: base(id, x, y, width, height, paddingX, paddingY)
+			float width, float height)
+			: base(id, x, y, width, height)
 		{
 			
 		}
 
-        public UIItem(string id, Vector2 pos, Vector2 size, Vector2 padding)
-           : base(id, pos, size, padding) 
+        public UIItem(string id, Vector2 pos, Vector2 size)
+           : base(id, pos, size) 
         {
 
         }

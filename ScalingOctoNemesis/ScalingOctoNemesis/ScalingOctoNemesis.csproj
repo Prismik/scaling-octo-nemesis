@@ -129,6 +129,7 @@
     <Compile Include="UIComponents\GameSlot.cs" />
     <Compile Include="UIComponents\TopBar.cs" />
     <Compile Include="UI\Button.cs" />
+    <Compile Include="UI\CheckBox.cs" />
     <Compile Include="UI\Cursor.cs" />
     <Compile Include="UI\DrawingTools.cs" />
     <Compile Include="UI\DropDown.cs" />

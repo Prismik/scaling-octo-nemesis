@@ -11,7 +11,7 @@ namespace ScalingOctoNemesis.UIComponents
     class BottomPanel : UIComponent
     {
         public BottomPanel(Vector2 pos, Vector2 size)
-            : base("TopBar", pos, size, Vector2.Zero)
+            : base("TopBar", pos, size)
         {
 
         }
