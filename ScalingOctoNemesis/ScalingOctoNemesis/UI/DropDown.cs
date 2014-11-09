@@ -10,10 +10,12 @@ namespace ScalingOctoNemesis.UI
         List<DropDownItem> _items = new List<DropDownItem>();
         SpriteFont _font;
         Rectangle _expandRectangle;
-
+        DropDownItem _selectedDropDown = null;
 		Action OnSelect { get; set; }
 
-        public Object Selected { get; set; }
+
+        public Object Selected { get { return _selectedDropDown.Value; } }
+
         public bool Expanded   { get; set; }
         public override Vector2 Position
         {
@@ -67,9 +69,14 @@ namespace ScalingOctoNemesis.UI
             _items.Add(i);
         }
 
+        public object FindItem(Predicate<DropDownItem> match)
+        {
+            return _items.Find(match);
+        }
+
         public void SetSelected(DropDownItem i)
         {
-            Selected = i;
+            _selectedDropDown = i;
         }
 
         public void OnFocus()
@@ -134,8 +141,8 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawSelectedItem(SpriteBatch sb)
         {
-            if (Selected != null)
-                sb.DrawString(_font, Selected.ToString(), Position + new Vector2(5, 5), Color.White, 0, 
+            if (_selectedDropDown != null)
+                sb.DrawString(_font, _selectedDropDown.ToString(), Position + new Vector2(5, 5), Color.White, 0, 
                                 Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
         }
 

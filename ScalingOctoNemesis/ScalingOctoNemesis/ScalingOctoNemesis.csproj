@@ -121,6 +121,7 @@
     <Compile Include="States\GameRoom.cs" />
     <Compile Include="States\InnerGame.cs" />
     <Compile Include="States\MainMenu.cs" />
+    <Compile Include="States\Options.cs" />
     <Compile Include="States\StateManager.cs" />
     <Compile Include="UIComponents\BottomPanel.cs" />
     <Compile Include="UIComponents\ChatBox.cs" />

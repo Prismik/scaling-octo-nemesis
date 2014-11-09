@@ -41,6 +41,7 @@ namespace ScalingOctoNemesis.Util
             ApplyResolutionSettings();
         }
 
+
         private static void ApplyResolutionSettings()
         {
             // If we are using full screen mode, we should check to make sure that the display
@@ -130,6 +131,14 @@ namespace ScalingOctoNemesis.Util
             Vector2 virtualPoint = Vector2.Transform(point, inverseViewMatrix);
 
             return new Point((int)virtualPoint.X, (int)virtualPoint.Y);
+        }
+
+        public static Vector2 CurrentResolution
+        {
+            get
+            {
+                return new Vector2(_width, _height);
+            }
         }
 
         public static Vector2 ViewportCenter

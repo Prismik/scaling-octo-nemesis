@@ -30,27 +30,36 @@ namespace ScalingOctoNemesis.States
                 Manager.RemoveState(this);
             }, new Vector2(250, 50), _font);
 
-            MenuNode optNode = new ColoredMenuNode("Options", "Options", delegate
+            MenuNode playNode = new ColoredMenuNode("Play", "Play Game", delegate
             {
                 Manager.AddState(new InnerGame(Manager));
                 Manager.RemoveState(this);
             }, new Vector2(250, 150), _font);
 
+            MenuNode optNode = new ColoredMenuNode("Options", "Options", delegate
+            {
+                Manager.AddState(new Options(Manager));
+                Manager.RemoveState(this);
+            }, new Vector2(250, 250), _font);
+
             MenuNode extNode = new ColoredMenuNode("Exit", "Exit", delegate
             {
                 Manager.Game.Exit();
-            }, new Vector2(250, 250), _font);
+            }, new Vector2(250, 350), _font);
 
-            conNode.Bottom = optNode;
+            conNode.Bottom = playNode;
             conNode.Top = extNode;
 
+            playNode.Bottom = optNode;
+            playNode.Top = conNode;
+
             optNode.Bottom = extNode;
-            optNode.Top = conNode;
+            optNode.Top = playNode;
 
             extNode.Bottom = conNode;
             extNode.Top = optNode;
 
-            nodes.AddRange(new MenuNode[] { conNode, optNode, extNode });
+            nodes.AddRange(new MenuNode[] { conNode, playNode, optNode, extNode });
             _menu = new ColoredMenu(nodes, _font, Manager.SpriteBatch);
         }
 

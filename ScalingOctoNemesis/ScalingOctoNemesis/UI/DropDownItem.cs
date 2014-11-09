@@ -10,7 +10,7 @@ namespace ScalingOctoNemesis.UI
 {
     public class DropDownItem: UIItem, IDisposable
     {
-        Object _item = null;
+        public Object Value { get; private set; }
         SpriteFont font;
 
         public Action Action    { get; set; }
@@ -38,9 +38,9 @@ namespace ScalingOctoNemesis.UI
         }
 
         public DropDownItem(Object o, SpriteFont f)
-            : base("id", Vector2.Zero, Vector2.Zero)
+            : base(o.ToString(), Vector2.Zero, Vector2.Zero)
         {
-            _item = o;
+            Value = o;
             Size = f.MeasureString(o.ToString());
             Visible = false;
             font = f;
@@ -79,7 +79,7 @@ namespace ScalingOctoNemesis.UI
 
         public virtual void DrawText(SpriteBatch sb)
         {
-            sb.DrawString(font, _item.ToString(), Position, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.FRONT);
+            sb.DrawString(font, Value.ToString(), Position, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.FRONT);
         }
 
         public override void Update(GameTime gameTime)
@@ -102,7 +102,7 @@ namespace ScalingOctoNemesis.UI
 
         public override string ToString()
         {
-            return _item.ToString();
+            return Value.ToString();
         }
     }
 }
