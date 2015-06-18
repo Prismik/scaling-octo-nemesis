@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{B245D6D8-FE73-40A9-A698-58F9C9FBEAF7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>TTUi</RootNamespace>
+    <AssemblyName>TTUi</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile158</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>packages\MonoGame.Framework.Portable.3.2.99.1-Beta\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+MonoTouch10\MonoGame.Framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="UI\ScrollBar.cs" />
+    <Compile Include="UI\StringHelper.cs" />
+    <Compile Include="UI\Tooltip.cs" />
+    <Compile Include="UI\UIComponent.cs" />
+    <Compile Include="UI\UIContainer.cs" />
+    <Compile Include="UI\UIItem.cs" />
+    <Compile Include="UI\UIManager.cs" />
+    <Compile Include="UI\Button.cs" />
+    <Compile Include="UI\CheckBox.cs" />
+    <Compile Include="UI\Cursor.cs" />
+    <Compile Include="UI\DrawingTools.cs" />
+    <Compile Include="UI\DropDown.cs" />
+    <Compile Include="UI\DropDownItem.cs" />
+    <Compile Include="UI\InputField.cs" />
+    <Compile Include="UI\Label.cs" />
+    <Compile Include="UI\LayerDepths.cs" />
+    <Compile Include="UI\Menus\ColoredMenu.cs" />
+    <Compile Include="UI\Menus\ColoredMenuNode.cs" />
+    <Compile Include="UI\Menus\Menu.cs" />
+    <Compile Include="UI\Menus\MenuNode.cs" />
+    <Compile Include="Util\AudioManager.cs" />
+    <Compile Include="Util\Delay.cs" />
+    <Compile Include="Util\IAudioManager.cs" />
+    <Compile Include="Util\InputHelper.cs" />
+    <Compile Include="Util\InputSystem.cs" />
+    <Compile Include="Util\MathUtils.cs" />
+    <Compile Include="Util\Modifiers.cs" />
+    <Compile Include="Util\Resolution.cs" />
+    <Compile Include="Util\Timer.cs" />
+  </ItemGroup>
+</Project>

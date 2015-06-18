@@ -1,0 +1,28 @@
+﻿<Properties StartupItem="TTUi.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Util/Timer.cs">
+    <Files>
+      <File FileName="Util/InputHelper.cs" Line="1" Column="1" />
+      <File FileName="Util/InputSystem.cs" Line="1" Column="1" />
+      <File FileName="Util/MathUtils.cs" Line="1" Column="1" />
+      <File FileName="Util/Modifiers.cs" Line="1" Column="1" />
+      <File FileName="Util/Resolution.cs" Line="1" Column="1" />
+      <File FileName="Util/Timer.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="TTUi" expanded="True" selected="True">
+            <Node name="TTUi" expanded="True">
+              <Node name="Util" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
