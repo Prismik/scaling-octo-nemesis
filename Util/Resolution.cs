@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace TTUI.Util
 {
@@ -29,7 +30,7 @@ namespace TTUI.Util
 
             _dirtyMatrix = true;
         }
-
+            
         public static void ChangeResolution(int width, int height)
         {
             _width = width;
@@ -38,27 +39,27 @@ namespace TTUI.Util
             ApplyResolutionSettings();
         }
 
-
         private static void ApplyResolutionSettings()
         {
             // If we are using full screen mode, we should check to make sure that the display
             // adapter can handle the video mode we are trying to set.  To do this, we will
             // iterate through the display modes supported by the adapter and check them against
             // the mode we want to set.
-            //foreach (DisplayMode dm in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
-            //{
-                // Check the width and height of each mode against the passed values
-            //    if ((dm.Width == _width) && (dm.Height == _height))
-            if ((_width <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width)
-                && (_height <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height))    
+            foreach (DisplayMode dm in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
             {
+                // Check the width and height of each mode against the passed values
+                //    if ((dm.Width == _width) && (dm.Height == _height))
+                if ((_width <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width)
+                    && (_height <= GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height))
+                {
                     // The mode is supported, so set the buffer formats, apply changes and return
                     _device.PreferredBackBufferWidth = _width;
                     _device.PreferredBackBufferHeight = _height;
                     //_device.IsFullScreen = true; // maybe change after
-                    _device.ApplyChanges();
+                    
+                }
             }
-
+            _device.ApplyChanges();
             _dirtyMatrix = true;
 
             _width =   _device.PreferredBackBufferWidth;
@@ -122,7 +123,7 @@ namespace TTUI.Util
             // and clear that
             // This way we are gonna have black bars if aspect ratio requires it and
             // the clear color on the rest
-            _device.GraphicsDevice.Clear(Color.CornflowerBlue);
+            _device.GraphicsDevice.Clear(FlatColors.CLOUDS);
         }
 
 
@@ -132,6 +133,18 @@ namespace TTUI.Util
             Vector2 virtualPoint = Vector2.Transform(point, inverseViewMatrix);
 
             return new Point((int)virtualPoint.X, (int)virtualPoint.Y);
+        }
+
+        public static object SupportedResolutions
+        {
+            get
+            {
+                List<Vector2> resolutions = new List<Vector2>();
+                foreach (DisplayMode dm in GraphicsAdapter.DefaultAdapter.SupportedDisplayModes)
+                    resolutions.Add(new Vector2(dm.Width, dm.Height));
+                
+                return resolutions;
+            }
         }
 
         public static Vector2 CurrentResolution

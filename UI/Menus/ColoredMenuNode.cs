@@ -5,7 +5,7 @@ using TTUI.Util;
 
 namespace TTUI.Menus
 {
-    class ColoredMenuNode : MenuNode
+    public class ColoredMenuNode : MenuNode
     {
         string _text;
         SpriteFont _font; 
@@ -16,14 +16,14 @@ namespace TTUI.Menus
         {
             _text = text;
             _font = font;
-            Color = Color.White;
+            Color = FlatColors.NEPHRITIS;
             Size = _font.MeasureString(_text);
             Visible = true;
         }
 
         internal override void OnToggleActive(bool value)
         {
-            Color = (value == true ? Color.Red : Color.White);
+            Color = (value == true ? FlatColors.EMERALD : FlatColors.NEPHRITIS);
         }
 
         public override Vector2 GetSize()
@@ -60,6 +60,7 @@ namespace TTUI.Menus
         {
             if (Active)
             {
+                // TODO
                 float a = (float)Math.Sin(gameTime.TotalGameTime.TotalSeconds * 5) / 2 + 0.5f;
                 float r = Color.R;
                 float g = Color.G;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -63,10 +64,10 @@ namespace TTUI
             _items.Add(i);
         }
 
-        //public object FindItem(Predicate<DropDownItem> match)
-        //{
-        //    return _items.BinarySearch(
-        //}
+        public object FindItem(String id)
+        {
+            return _items.Where(x => x.Id == id).First();
+        }
 
         public void SetSelected(DropDownItem i)
         {

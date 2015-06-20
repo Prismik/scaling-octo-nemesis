@@ -2,6 +2,7 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+
 namespace TTUI
 {
 	public class Button : UIItem, IDisposable
@@ -9,11 +10,12 @@ namespace TTUI
         bool _pressed = false;
         bool _handleHover = false;
         SpriteFont _font;
+        float _textSize;
 
-        public Action Action    { get; set; }
-        public string Value     { get; set; }
-        public bool Enabled     { get; set; }
-        public Tooltip Tooltip  { get; set; }
+        public Action Action   { get; set; }
+        public string Value    { get; set; }
+        public bool Enabled    { get; set; }
+        public Tooltip Tooltip { get; set; }
 
         public Button(string value, string id, 
             Vector2 size, Vector2 position, SpriteFont font, bool handleHover = true)
@@ -25,6 +27,7 @@ namespace TTUI
         public void Initialize(SpriteFont font, string value, bool handleHover)
         {
             Value = value;
+            _textSize = font.MeasureString(value).X;
             _font = font;
             _handleHover = handleHover;
             InputSystem.MouseDown += Press;
@@ -79,21 +82,22 @@ namespace TTUI
 
         public virtual void DrawBorder(SpriteBatch sb)
         {
-            DrawingTools.DrawEmptyRectangle(sb, Position, Size, Color.LightGray, 0.1f);
+
         }
 
         public virtual void DrawInner(SpriteBatch sb)
-        {
-            Color c = Color.DarkSlateGray;
+        { 
+            Color c = FlatColors.MIDNIGHT_BLUE;
             if (Hover)
-                c = Color.Blue;
+                c = FlatColors.WET_ASPHALT;
 
-            DrawingTools.DrawRectangle(sb, Position, Size, c, 0.2f);
+            DrawingTools.DrawRectangle(sb, Position, Size, c, LayerDepths.D3);
         }
 
         public virtual void DrawText(SpriteBatch sb)
         {
-            sb.DrawString(_font, Value, Position + new Vector2(5, 5), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, 0.01f);
+            Vector2 middle = Position + new Vector2((Size.X - _textSize) / 2, 5);
+            sb.DrawString(_font, Value, middle, FlatColors.SILVER, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
         }
 	}
 }

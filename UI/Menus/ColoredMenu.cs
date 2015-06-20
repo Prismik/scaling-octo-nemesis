@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TTUI.Menus
 {
-    class ColoredMenu : Menu
+    public class ColoredMenu : Menu
     {
         public ColoredMenu(List<MenuNode> linkedNodes, SpriteFont font, SpriteBatch sb)
             : base(linkedNodes, font, sb)
