@@ -15,9 +15,7 @@ namespace TTUI
         DropDownItem _selectedDropDown = null;
 		Action OnSelect { get; set; }
 
-
         public Object Selected { get { return _selectedDropDown.Value; } }
-
         public bool Expanded   { get; set; }
         public override Vector2 Position
         {
@@ -31,7 +29,7 @@ namespace TTUI
                 _expandRectangle = new Rectangle((int)Position.X + (int)Size.X - 20, (int)Position.Y, 
                                                     20, (int)Size.Y );
                 for (int i = 0; i != _items.Count; ++i)
-                    _items[i].Position = Position + new Vector2(5, Size.Y + 5 + i * 30);
+                    _items[i].Position = Position + new Vector2(0, Size.Y + i * _items[i].Size.Y);
             }
         }
 
@@ -58,8 +56,9 @@ namespace TTUI
 
         public void AddItem(Object o)
         {
-            DropDownItem i = new DropDownItem(o, _font);
-            i.Position =  Position + new Vector2(5, Size.Y + 5 + _items.Count * 30);
+            Vector2 itemSize = new Vector2(Size.X, _font.MeasureString(o.ToString()).Y);
+            DropDownItem i = new DropDownItem(o, _font, itemSize);
+            i.Position =  Position + new Vector2(0, Size.Y + _items.Count * i.Size.Y);
             i.Action = delegate { SetSelected(i); };
             _items.Add(i);
         }
@@ -126,12 +125,12 @@ namespace TTUI
 
         public virtual void DrawBorder(SpriteBatch sb)
         {
-            DrawingTools.DrawEmptyRectangle(sb, Position, Size, Color.LightGray, LayerDepths.D2);
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size, FlatColors.MIDNIGHT_BLUE, LayerDepths.D2);
         }
 
         public virtual void DrawBackground(SpriteBatch sb)
         {
-            DrawingTools.DrawRectangle(sb, Position, Size, Color.DarkSlateGray, LayerDepths.D4);
+            DrawingTools.DrawRectangle(sb, Position, Size, FlatColors.MIDNIGHT_BLUE, LayerDepths.D4);
         }
 
         public virtual void DrawSelectedItem(SpriteBatch sb)
@@ -148,10 +147,14 @@ namespace TTUI
 
         public virtual void DrawExpandedList(SpriteBatch sb)
         {
+            /*DrawingTools.DrawRectangle(sb, 
+                new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, + _items.Count * (int)_items.FirstOrDefault().Size.Y),
+                FlatColors.MIDNIGHT_BLUE,
+                LayerDepths.D9);*/
             for (int i = 0; i != _items.Count; ++i)
+            {
                 _items[i].Draw(sb);
-                //sb.DrawString(_font, Objects[i].ToString(), 
-                //Position + new Vector2(Padding.X, Size.Y + Padding.Y + i * 22), Color.White); 
+            }
         }
 	}
 }

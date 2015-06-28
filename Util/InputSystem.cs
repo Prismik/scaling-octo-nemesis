@@ -261,7 +261,7 @@ namespace Microsoft.Xna.Framework.Input
                 }
 
                 if (current.IsKeyUp(key) && _previousKeyboardState.IsKeyDown(key))
-                    RaiseKeyDownEvent(key, modifiers);
+                    RaiseKeyUpEvent(key, modifiers);
             }
 
             // Handle keys being held down and getting multiple KeyTyped events in sequence.

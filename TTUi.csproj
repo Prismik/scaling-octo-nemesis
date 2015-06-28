@@ -41,19 +41,8 @@
   <ItemGroup>
     <Compile Include="UI\ScrollBar.cs" />
     <Compile Include="UI\StringHelper.cs" />
-    <Compile Include="UI\Tooltip.cs" />
-    <Compile Include="UI\UIComponent.cs" />
-    <Compile Include="UI\UIContainer.cs" />
-    <Compile Include="UI\UIItem.cs" />
     <Compile Include="UI\UIManager.cs" />
-    <Compile Include="UI\Button.cs" />
-    <Compile Include="UI\CheckBox.cs" />
-    <Compile Include="UI\Cursor.cs" />
     <Compile Include="UI\DrawingTools.cs" />
-    <Compile Include="UI\DropDown.cs" />
-    <Compile Include="UI\DropDownItem.cs" />
-    <Compile Include="UI\InputField.cs" />
-    <Compile Include="UI\Label.cs" />
     <Compile Include="UI\LayerDepths.cs" />
     <Compile Include="UI\Menus\ColoredMenu.cs" />
     <Compile Include="UI\Menus\ColoredMenuNode.cs" />
@@ -69,5 +58,21 @@
     <Compile Include="Util\Resolution.cs" />
     <Compile Include="Util\Timer.cs" />
     <Compile Include="UI\FlatColors.cs" />
+    <Compile Include="UI\Components\Button.cs" />
+    <Compile Include="UI\Components\CheckBox.cs" />
+    <Compile Include="UI\Components\Cursor.cs" />
+    <Compile Include="UI\Components\DropDown.cs" />
+    <Compile Include="UI\Components\DropDownItem.cs" />
+    <Compile Include="UI\Components\InputField.cs" />
+    <Compile Include="UI\Components\UIComponent.cs" />
+    <Compile Include="UI\Components\UIContainer.cs" />
+    <Compile Include="UI\Components\UIItem.cs" />
+    <Compile Include="UI\Components\Label.cs" />
+    <Compile Include="UI\Components\Tooltip.cs" />
+    <Compile Include="UI\Addin\Console.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UI\Components\" />
+    <Folder Include="UI\Addin\" />
   </ItemGroup>
 </Project>

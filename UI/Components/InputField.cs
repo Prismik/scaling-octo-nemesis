@@ -19,7 +19,30 @@ namespace TTUI
 
 		public bool Active 	{ get; set; }
 		public string Value { get; private set; }
+        public override bool Visible
+        {
+            get
+            {
+                return base.Visible;
+            }
+            set
+            {
+                if (value)
+                {
+                    InputSystem.MouseDown += Press;
+                    InputSystem.MouseUp += Release;
+                    InputSystem.MouseMove += Move;
+                }
+                else
+                {
+                    InputSystem.MouseDown -= Press;
+                    InputSystem.MouseUp -= Release;
+                    InputSystem.MouseMove -= Move;
+                }
 
+                base.Visible = value;
+            }
+        }
 
 		public InputField(string placeholder, SpriteFont sf, string id, int maxLen,
 			Vector2 position, Vector2 size)
@@ -34,9 +57,9 @@ namespace TTUI
             _cursor = placeholder.Length;
             _maxLen = maxLen;
             _font = sf;
-            InputSystem.MouseDown += Press;
-            InputSystem.MouseUp += Release;
-            InputSystem.MouseMove += Move;
+
+            Size = new Vector2(Size.X, _font.MeasureString("A").Y + 10);
+            Visible = true;
         }
 
         public void Dispose()
@@ -184,26 +207,31 @@ namespace TTUI
 
 		public override void Draw(SpriteBatch sb)
 		{
-            DrawBackground(sb);
-            DrawBorder(sb);
-            DrawText(sb);
-            if (Focused && _cursorVisible)
-            	DrawCursor(sb);
+            if (Visible)
+            {
+                DrawBackground(sb);
+                if (Focused)
+                    DrawBorder(sb);
+            
+                DrawText(sb);
+                if (Focused && _cursorVisible)
+                    DrawCursor(sb);
+            }
 		}
 
         public virtual void DrawBorder(SpriteBatch sb)
         {
-            DrawingTools.DrawEmptyRectangle(sb, Position, Size, Color.LightGray, LayerDepths.D2);
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size, FlatColors.SUNFLOWER, LayerDepths.D2);
         }
 
         public virtual void DrawBackground(SpriteBatch sb)
         {
-        	DrawingTools.DrawRectangle(sb, Position, Size, Color.DarkSlateGray, LayerDepths.D3);
+            DrawingTools.DrawRectangle(sb, Position, Size, FlatColors.MIDNIGHT_BLUE, LayerDepths.D3);
         }
 
         public virtual void DrawText(SpriteBatch sb)
         {
-        	sb.DrawString(_font, Value, Position + new Vector2(5, 5), Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
+            sb.DrawString(_font, Value, Position + new Vector2(5, 5), FlatColors.SILVER, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
         }
 
         public virtual void DrawCursor(SpriteBatch sb)

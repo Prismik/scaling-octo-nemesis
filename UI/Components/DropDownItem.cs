@@ -33,12 +33,12 @@ namespace TTUI
             }
         }
 
-        public DropDownItem(Object o, SpriteFont f)
+        public DropDownItem(Object o, SpriteFont f, Vector2 size)
             : base(o.ToString(), Vector2.Zero, Vector2.Zero)
         {
             Value = o;
-            Size = f.MeasureString(o.ToString());
             Visible = false;
+            Size = size;
             _font = f;
             Hover = false;
         }

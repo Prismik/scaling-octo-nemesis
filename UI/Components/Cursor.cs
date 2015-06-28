@@ -23,6 +23,7 @@ namespace TTUI
             switch (Current)
             {
                 case Cursors.POINTER: sb.Draw(Pointer, _area, Color.White); break;
+                case Cursors.INPUT: sb.Draw(Input, _area, Color.White); break;
                 default: break;
             }
         }

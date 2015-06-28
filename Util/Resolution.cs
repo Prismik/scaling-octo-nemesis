@@ -123,7 +123,7 @@ namespace TTUI.Util
             // and clear that
             // This way we are gonna have black bars if aspect ratio requires it and
             // the clear color on the rest
-            _device.GraphicsDevice.Clear(FlatColors.CLOUDS);
+            _device.GraphicsDevice.Clear(Color.Black);//FlatColors.ASBESTOS);
         }
 
 

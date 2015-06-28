@@ -96,6 +96,7 @@ namespace TTUI
 
         public virtual void DrawText(SpriteBatch sb)
         {
+            // TODO Center Y as well
             Vector2 middle = Position + new Vector2((Size.X - _textSize) / 2, 5);
             sb.DrawString(_font, Value, middle, FlatColors.SILVER, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
         }

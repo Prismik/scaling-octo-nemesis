@@ -32,22 +32,20 @@ namespace TTUI
 
         public virtual void DrawBox(SpriteBatch sb)
         {
-            DrawingTools.DrawRectangle(sb, Position, Size, Color.MediumAquamarine, LayerDepths.POST_FRONT);
+            DrawingTools.DrawRectangle(sb, Position, Size, FlatColors.MIDNIGHT_BLUE, LayerDepths.POST_FRONT);
         }
 
         public virtual void DrawCheck(SpriteBatch sb)
         {
-            if (Checked)
-            {
-                DrawingTools.DrawLine(sb, Position + new Vector2(7, 7), Position + Size - new Vector2(3, 3), Color.Black, LayerDepths.FRONT);
-                DrawingTools.DrawLine(sb, Position + Size - new Vector2(3, 3), Position + new Vector2(Size.X + 3, -3), Color.Black, LayerDepths.FRONT);
-            }
+            // TODO Better checked state drawing by default
+            DrawingTools.DrawRectangle(sb, Position + new Vector2(4, 4), Size - new Vector2(8, 8), FlatColors.CONCRETE, LayerDepths.POST_FRONT);
         }
 
         public override void Draw(SpriteBatch sb)
         {
             DrawBox(sb);
-            DrawCheck(sb);
+            if (Checked)
+                DrawCheck(sb);
         }
     }
 }
