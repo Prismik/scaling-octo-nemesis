@@ -73,13 +73,8 @@ namespace TTUI
         }
 
         int move = 0;
-        public virtual void Move(object o, MouseEventArgs args)
+        public override void Move(object o, MouseEventArgs args)
         {
-            if (_scrollRectangle.Contains(args.Location))
-                Hover = true;
-            else
-                Hover = false;
-
             if (_pressed)
                     MoveScroller(args.Y);
         }

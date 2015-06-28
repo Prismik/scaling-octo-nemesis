@@ -2,6 +2,9 @@
 
 namespace TTUI
 {
+    /// <summary>
+    /// Metro-like colors.
+    /// </summary>
     public static class FlatColors
     {
         public static Color CONCRETE = new Color(149, 165, 166);

@@ -7,12 +7,13 @@ using Microsoft.Xna.Framework;
 namespace TTUI.Util
 {
     /// <summary> 
-    /// Handles delay on actions. Enable to call a function after a given time.
+    /// Handles delay on actions.
     /// </summary>
     public static class Delay
     {
         static List<DelayOps> _ops = new List<DelayOps>();
         static List<DelayOps> _opsDone = new List<DelayOps>();
+
         /// <summary>
         /// Adds an operation to be called after a delay.
         /// </summary>
@@ -45,6 +46,9 @@ namespace TTUI.Util
         }
     }
 
+    /// <summary>
+    /// An operation to be called after a certain treshold.
+    /// </summary>
     public struct DelayOps
     {
         public Action ops;

@@ -2,10 +2,18 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-
+/// <summary>
+/// Provides a set of helper functions to draw into a graphics device.
+/// </summary>
 public static class DrawingTools
 {
 	private static Texture2D t;
+
+    /// <summary>
+    /// Initializes the DrawingTools with the specified GraphicsDevice. It is mandatory to
+    /// call this function prior to any other DrawingTools functions.
+    /// </summary>
+    /// <param name="gc">The graphics device.</param>
 	public static void Init(GraphicsDevice gc)
 	{
         // create 1x1 texture for line drawing
@@ -13,6 +21,14 @@ public static class DrawingTools
         t.SetData<Color>(new Color[] { Color.White });// fill the texture with white
 	}
 
+    /// <summary>
+    /// Draws a line.
+    /// </summary>
+    /// <param name="sb">Sb.</param>
+    /// <param name="start">Start.</param>
+    /// <param name="end">End.</param>
+    /// <param name="c">C.</param>
+    /// <param name="layer">Layer.</param>
 	public static void DrawLine(SpriteBatch sb, Vector2 start, Vector2 end, Color c, float layer)
 	{
 		Vector2 edge = end - start;
@@ -27,11 +43,26 @@ public static class DrawingTools
             null, c, angle, new Vector2(0, 0), SpriteEffects.None, layer);
 	}
 
+    /// <summary>
+    /// Draws a rectangle.
+    /// </summary>
+    /// <param name="sb">Sb.</param>
+    /// <param name="rect">Rect.</param>
+    /// <param name="c">C.</param>
+    /// <param name="layer">Layer.</param>
 	public static void DrawRectangle(SpriteBatch sb, Rectangle rect, Color c, float layer)
 	{
 		sb.Draw(t, rect, null, c, 0, Vector2.Zero, SpriteEffects.None, layer);
 	}
 
+    /// <summary>
+    /// Draws a rectangle.
+    /// </summary>
+    /// <param name="sb">Sb.</param>
+    /// <param name="position">Position.</param>
+    /// <param name="size">Size.</param>
+    /// <param name="c">C.</param>
+    /// <param name="layer">Layer.</param>
     public static void DrawRectangle(SpriteBatch sb, Vector2 position, Vector2 size, Color c, float layer)
     {
         Rectangle r = new Rectangle((int)position.X, (int)position.Y, // position
@@ -39,6 +70,14 @@ public static class DrawingTools
         DrawRectangle(sb, r, c, layer);
     }
 
+    /// <summary>
+    /// Draws a rectangle without filling the middle.
+    /// </summary>
+    /// <param name="sb">The SpriteBatch used for this rectangle draw.</param>
+    /// <param name="pos">The position, top-left, of the rectangle.</param>
+    /// <param name="size">The size of the rectangle.</param>
+    /// <param name="c">The color of the rectangle.</param>
+    /// <param name="layer">The layer on which to draw the rectangle.</param>
 	public static void DrawEmptyRectangle(SpriteBatch sb, Vector2 pos, Vector2 size, Color c, float layer)
 	{
         Vector2 topLeft     = pos;

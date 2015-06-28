@@ -65,14 +65,6 @@ namespace TTUI
            // }
         }
 
-        public virtual void Move(object o, MouseEventArgs args)
-        {
-            if (PointInComponent(args.X, args.Y))
-                Hover = true;
-            else
-                Hover = false;
-        }
-
         public virtual void DrawText(SpriteBatch sb)
         {
             sb.DrawString(_font, Value.ToString(), Position, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, LayerDepths.FRONT);

@@ -16,6 +16,10 @@
             Time = 0;
         }
 
+        /// <summary>
+        /// Update the timer with an elapsed time.
+        /// </summary>
+        /// <param name="elapsed">Elapsed time since last call.</param>
         public void Update(double elapsed)
         {
             if (!_paused)

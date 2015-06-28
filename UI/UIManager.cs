@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TTUI
 {
+    // TODO Allows to have UI over other UI elements and only handle the top UI elements events.
     class UIManager
     {
-    	UIComponent _focused = null;
     	List<UIComponent> _components = new List<UIComponent>();
 
     	public UIManager()

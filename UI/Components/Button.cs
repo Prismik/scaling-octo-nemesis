@@ -60,14 +60,6 @@ namespace TTUI
             }
         }
 
-        public virtual void Move(object o, MouseEventArgs args)
-        {
-            if (PointInComponent(args.X, args.Y))
-                Hover = true;
-            else
-                Hover = false;
-        }
-
         public override void Update(GameTime timer)
         {
 

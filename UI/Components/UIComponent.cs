@@ -36,15 +36,8 @@ namespace TTUI
             Hover = PointInComponent(e.X, e.Y);
         }
 
-        public virtual void HandleInputEvents()
-        {
-
-        }
-
-        public virtual void IgnoreInputEvents()
-        {
-
-        }
+        public virtual void HandleInputEvents() { }
+        public virtual void IgnoreInputEvents() { }
 
 		public abstract void Update(GameTime gameTime);
 		public abstract void Draw(SpriteBatch sb);	

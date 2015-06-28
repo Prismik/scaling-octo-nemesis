@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace TTUI.Util
 {
+    /// <summary>
+    /// Allows a game to be resolution independant.
+    /// </summary>
     public static class Resolution
     {
         static int _width = 800;
@@ -14,6 +17,11 @@ namespace TTUI.Util
         static bool _dirtyMatrix;
         static GraphicsDeviceManager _device;
         static Matrix _globalTransformation;
+
+        /// <summary>
+        /// Initialize the resolution independency class. It must be called prior to any other function calls.
+        /// </summary>
+        /// <param name="device">The graphics device manager.</param>
         public static void Initialize(ref GraphicsDeviceManager device)
         {
             _device = device;
@@ -23,6 +31,11 @@ namespace TTUI.Util
             ApplyResolutionSettings();
         }
 
+        /// <summary>
+        /// Changes the virtual resolution.
+        /// </summary>
+        /// <param name="width">Width.</param>
+        /// <param name="height">Height.</param>
         public static void ChangeVirtualResolution(int width, int height)
         {
             _vWidth = width;
@@ -31,6 +44,11 @@ namespace TTUI.Util
             _dirtyMatrix = true;
         }
             
+        /// <summary>
+        /// Changes the resolution.
+        /// </summary>
+        /// <param name="width">Width.</param>
+        /// <param name="height">Height.</param>
         public static void ChangeResolution(int width, int height)
         {
             _width = width;
@@ -126,7 +144,11 @@ namespace TTUI.Util
             _device.GraphicsDevice.Clear(Color.Black);//FlatColors.ASBESTOS);
         }
 
-
+        /// <summary>
+        /// Returns a point that represents a given position within the current resolution settings.
+        /// </summary>
+        /// <returns>The point within the current resolution settings.</returns>
+        /// <param name="point">The absolute position to be converted.</param>
         public static Point PointToResolution(Vector2 point)
         {
             Matrix inverseViewMatrix = Matrix.Invert(_globalTransformation);
@@ -135,6 +157,9 @@ namespace TTUI.Util
             return new Point((int)virtualPoint.X, (int)virtualPoint.Y);
         }
 
+        /// <summary>
+        /// Gets the list of supported resolutions.
+        /// </summary>
         public static object SupportedResolutions
         {
             get
@@ -147,6 +172,9 @@ namespace TTUI.Util
             }
         }
 
+        /// <summary>
+        /// Gets the current resolution.
+        /// </summary>
         public static Vector2 CurrentResolution
         {
             get
@@ -155,6 +183,9 @@ namespace TTUI.Util
             }
         }
 
+        /// <summary>
+        /// Gets the viewport center.
+        /// </summary>
         public static Vector2 ViewportCenter
         {
             get
@@ -163,6 +194,9 @@ namespace TTUI.Util
             }
         }
 
+        /// <summary>
+        /// Gets the virtual viewport.
+        /// </summary>
         public static Vector2 VirtualViewport
         {
             get
@@ -180,6 +214,9 @@ namespace TTUI.Util
                            1f);
         }
 
+        /// <summary>
+        /// Gets or sets the transform matrix to be used by Draw calls.
+        /// </summary>
         public static Matrix TransformMatrix 
         { 
             get 

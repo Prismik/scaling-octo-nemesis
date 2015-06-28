@@ -6,12 +6,12 @@ namespace TTUI
 	public class Label : UIItem
 	{
         SpriteFont _font;
-        string value;
+        string _value;
         public Label(string id, string text, Vector2 position, Vector2 size, SpriteFont font)
             : base(id, position, size)
 		{
             _font = font;
-            value = text;
+            _value = text;
 		}
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
@@ -26,7 +26,7 @@ namespace TTUI
 
         public virtual void DrawText(SpriteBatch sb)
         {
-            sb.DrawString(_font, value, Position, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
+            sb.DrawString(_font, _value, Position, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
         }
 	}
 }
