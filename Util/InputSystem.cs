@@ -270,7 +270,8 @@ namespace Microsoft.Xna.Framework.Input
             if (current.IsKeyDown(_lastKey) && 
                 ((_isInitial && elapsedTime > _initialDelay) || (!_isInitial && elapsedTime > _repeatDelay)))
             {
-                var lastKeyChar = KeyboardUtil.ToChar(_lastKey, modifiers);
+                RaiseKeyDownEvent(_lastKey, modifiers);
+                char? lastKeyChar = KeyboardUtil.ToChar(_lastKey, modifiers);
                 if (lastKeyChar.HasValue) 
                 {
                     RaiseCharacterEvent(lastKeyChar.Value);

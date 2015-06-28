@@ -38,7 +38,7 @@ namespace TTUI
 
         public void HandleKeys(object sender, KeyEventArgs e)
         {
-            if (e.KeyModifiers == Modifiers.Control && e.KeyCode == Keys.Back)
+            if (e.KeyModifiers == Modifiers.Control && e.KeyCode == Keys.I)
                 Toggle();
         }
 

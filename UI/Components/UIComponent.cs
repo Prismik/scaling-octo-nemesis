@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using TTUI.Util;
+using Microsoft.Xna.Framework.Input;
 
 namespace TTUI 
 {
@@ -20,6 +21,7 @@ namespace TTUI
             Id = id;
             Position = position;
             Size = size;
+            InputSystem.MouseMove += Move;
         }
 
         public bool PointInComponent(int x, int y)
@@ -27,6 +29,21 @@ namespace TTUI
             Point p = Resolution.PointToResolution(new Vector2(x, y));
             Rectangle rec = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
             return rec.Contains(p.X, p.Y);
+        }
+
+        public virtual void Move(object o, MouseEventArgs e)
+        {
+            Hover = PointInComponent(e.X, e.Y);
+        }
+
+        public virtual void HandleInputEvents()
+        {
+
+        }
+
+        public virtual void IgnoreInputEvents()
+        {
+
         }
 
 		public abstract void Update(GameTime gameTime);

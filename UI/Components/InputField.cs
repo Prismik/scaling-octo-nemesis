@@ -19,30 +19,6 @@ namespace TTUI
 
 		public bool Active 	{ get; set; }
 		public string Value { get; private set; }
-        public override bool Visible
-        {
-            get
-            {
-                return base.Visible;
-            }
-            set
-            {
-                if (value)
-                {
-                    InputSystem.MouseDown += Press;
-                    InputSystem.MouseUp += Release;
-                    InputSystem.MouseMove += Move;
-                }
-                else
-                {
-                    InputSystem.MouseDown -= Press;
-                    InputSystem.MouseUp -= Release;
-                    InputSystem.MouseMove -= Move;
-                }
-
-                base.Visible = value;
-            }
-        }
 
 		public InputField(string placeholder, SpriteFont sf, string id, int maxLen,
 			Vector2 position, Vector2 size)
@@ -80,14 +56,6 @@ namespace TTUI
         public virtual void Release(object o, MouseEventArgs args)
         {
 
-        }
-
-        public virtual void Move(object o, MouseEventArgs args)
-        {
-            if (PointInComponent(args.X, args.Y))
-                Hover = true;
-            else
-                Hover = false;
         }
 
 		public void OnFocus()
@@ -195,6 +163,21 @@ namespace TTUI
                 IncrementCursor();
         }
 
+        public override void HandleInputEvents()
+        {
+            base.HandleInputEvents();
+            InputSystem.MouseDown += Press;
+            InputSystem.MouseUp += Release;
+            InputSystem.MouseMove += Move;
+        }
+
+        public override void IgnoreInputEvents()
+        {
+            base.IgnoreInputEvents();
+            InputSystem.MouseDown -= Press;
+            InputSystem.MouseUp -= Release;
+            InputSystem.MouseMove -= Move;
+        }
 		public override void Update(GameTime timer)
 		{
             _blinkTimer.Update(timer.ElapsedGameTime.TotalMilliseconds);

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace TTUI
 {
-	public abstract class UIContainer : UIComponent
+	public class UIContainer : UIComponent
 	{ 
 		public List<UIComponent> _components = new List<UIComponent>();
         public int ComponentsCount { get { return _components.Count; } }
@@ -45,6 +46,27 @@ namespace TTUI
 
 			return null;
 		}
+
+        private void ActivateComponentsEventListening()
+        {
+            foreach (UIComponent gc in _components)
+                gc.HandleInputEvents();
+        }
+
+        private void DeactivateComponentsEventListening()
+        {
+            foreach (UIComponent gc in _components)
+                gc.IgnoreInputEvents();
+        }
+
+        public override void Move(object o, MouseEventArgs e)
+        {
+            base.Move(o, e);
+            if (Hover)
+                ActivateComponentsEventListening();
+            else
+                DeactivateComponentsEventListening();
+        }
 
 		public override void Update(GameTime elapsedTime)
 		{
