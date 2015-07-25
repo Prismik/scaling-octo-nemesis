@@ -11,10 +11,10 @@ namespace TTUI
         public CheckBox(string id, Vector2 position, Vector2 size)
             : base(id, position, size)
         {
-            InputSystem.MouseDown += Click;
+
         }
 
-        private void Click(object o, MouseEventArgs args)
+        public override void Press(object o, MouseEventArgs args)
         {
             if (PointInComponent(args.X, args.Y))
                 Checked = !Checked;
@@ -22,7 +22,7 @@ namespace TTUI
 
         public void Dispose()
         {
-            InputSystem.MouseDown -= Click;
+            InputSystem.MouseDown -= Press;
         }
 
         public override void Update(GameTime gameTime)

@@ -29,28 +29,22 @@ namespace TTUI
             Value = value;
             _textSize = font.MeasureString(value).X;
             _font = font;
-            _handleHover = handleHover;
-            InputSystem.MouseDown += Press;
-            InputSystem.MouseUp += Release;
-            if (_handleHover)
-                InputSystem.MouseMove += Move;
         }
 
         public void Dispose()
         {
             InputSystem.MouseDown  -= Press;
             InputSystem.MouseUp -= Release;
-            if (_handleHover)
-                InputSystem.MouseMove -= Move;
+            InputSystem.MouseMove -= Move;
         }
 
-		public virtual void Press(object o, MouseEventArgs args)
+		public override void Press(object o, MouseEventArgs args)
 		{
             if (PointInComponent(args.X, args.Y))
                 _pressed = true;
 		}
 
-        public virtual void Release(object o, MouseEventArgs args)
+        public override void Release(object o, MouseEventArgs args)
         {
             if (_pressed)
             {

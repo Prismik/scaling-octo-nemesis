@@ -45,8 +45,6 @@ namespace TTUI
             _expandRectangle = new Rectangle((int)Position.X + (int)Size.X - 20, (int)Position.Y, 
                                                 20, (int)Size.Y);
             Expanded = false;
-
-            InputSystem.MouseDown += Press;
         }
 
         public void Dispose()
@@ -89,11 +87,24 @@ namespace TTUI
             }
         }
 
-        private void Press(object sender, MouseEventArgs e)
+        public sealed override bool PointInComponent(int x, int y)
+        {
+            bool inSubcomponent = false;
+            if (Expanded)
+            {
+                foreach (DropDownItem item in _items)
+                    if (item.PointInComponent(x, y))
+                        inSubcomponent = true;
+            }
+
+            return base.PointInComponent(x, y) || inSubcomponent;
+        }
+
+        public override void Press(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButton.Left)
             {
-                if (PointInComponent(e.X, e.Y))
+                if (base.PointInComponent(e.X, e.Y))
                 {
                     Expanded = true;
                     foreach (DropDownItem i in _items)

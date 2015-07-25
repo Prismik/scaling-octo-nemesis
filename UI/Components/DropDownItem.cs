@@ -19,16 +19,19 @@ namespace TTUI
             }
             set
             {
-                base.Visible = value;
-                if (Visible)
+                if (value != Visible)
                 {
-                    InputSystem.MouseDown += Press;
-                    InputSystem.MouseMove += Move;
-                }
-                else
-                {
-                    InputSystem.MouseDown -= Press;
-                    InputSystem.MouseMove -= Move;
+                    base.Visible = value;
+                    if (Visible)
+                    {
+                        InputSystem.MouseDown += Press;
+                        InputSystem.MouseMove += Move;
+                    }
+                    else
+                    {
+                        InputSystem.MouseDown -= Press;
+                        InputSystem.MouseMove -= Move;
+                    }
                 }
             }
         }
@@ -49,13 +52,13 @@ namespace TTUI
             InputSystem.MouseMove -= Move;
         }
 
-        public virtual void Press(object o, MouseEventArgs args)
+        public override void Press(object o, MouseEventArgs args)
         {
             if (PointInComponent(args.X, args.Y))
                 Action();
         }
 
-        public virtual void Release(object o, MouseEventArgs args)
+        public override void Release(object o, MouseEventArgs args)
         {
             //if (_pressed)
             //{

@@ -2,14 +2,16 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace TTUI
 {
-	public class UIContainer : UIComponent
+    public class UIContainer : UIComponent
 	{ 
 		public List<UIComponent> _components = new List<UIComponent>();
         public int ComponentsCount { get { return _components.Count; } }
-
+        private UIComponent _active = null;
+            
         public UIContainer(string id, Vector2 position, Vector2 size)
             : base(id, position, size)
         {
@@ -46,26 +48,44 @@ namespace TTUI
 
 			return null;
 		}
-
-        private void ActivateComponentsEventListening()
-        {
-            foreach (UIComponent gc in _components)
-                gc.HandleInputEvents();
-        }
-
-        private void DeactivateComponentsEventListening()
-        {
-            foreach (UIComponent gc in _components)
-                gc.IgnoreInputEvents();
-        }
-
+           
         public override void Move(object o, MouseEventArgs e)
         {
             base.Move(o, e);
-            if (Hover)
-                ActivateComponentsEventListening();
+            foreach (UIComponent c in _components)
+                c.Move(o, e);
+        }
+
+        public override void Press(object o, MouseEventArgs e)
+        {
+            base.Press(o, e);
+            if (_active == null)
+            {
+                foreach (UIComponent c in _components)
+                {
+                    c.Press(o, e);
+                    if (c.PointInComponent(e.X, e.Y))
+                        _active = c;
+                }
+            }
             else
-                DeactivateComponentsEventListening();
+            {
+                if (!_active.PointInComponent(e.X, e.Y))
+                {
+                    foreach (UIComponent c in _components)
+                        c.Press(o, e);
+                }
+
+                _active.Press(o, e);
+                _active = null;
+            }
+        }
+
+        public override void Release(object o, MouseEventArgs e)
+        {
+            base.Release(o, e);
+            foreach (UIComponent c in _components)
+                c.Release(o, e);
         }
 
 		public override void Update(GameTime elapsedTime)

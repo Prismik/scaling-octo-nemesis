@@ -45,7 +45,7 @@ namespace TTUI
             InputSystem.MouseMove -= Move;
         }
 
-        public virtual void Press(object o, MouseEventArgs args)
+        public override void Press(object o, MouseEventArgs args)
         {
             if (PointInComponent(args.X, args.Y))
                 OnFocus();
@@ -53,7 +53,7 @@ namespace TTUI
                 OnLostFocus();
         }
 
-        public virtual void Release(object o, MouseEventArgs args)
+        public override void Release(object o, MouseEventArgs args)
         {
 
         }

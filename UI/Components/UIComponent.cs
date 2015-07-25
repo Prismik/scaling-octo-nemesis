@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TTUI 
 {
-	public abstract class UIComponent
+    public abstract class UIComponent
 	{
 		public virtual Vector2 Position { get; set; }
 		public virtual Vector2 Size { get; set; }
@@ -21,14 +21,23 @@ namespace TTUI
             Id = id;
             Position = position;
             Size = size;
-            InputSystem.MouseMove += Move;
         }
 
-        public bool PointInComponent(int x, int y)
+        public virtual bool PointInComponent(int x, int y)
         {
             Point p = Resolution.PointToResolution(new Vector2(x, y));
             Rectangle rec = new Rectangle((int)Position.X, (int)Position.Y, (int)Size.X, (int)Size.Y);
             return rec.Contains(p.X, p.Y);
+        }
+
+        public virtual void Press(object o, MouseEventArgs args)
+        {
+            
+        }
+
+        public virtual void Release(object o, MouseEventArgs args)
+        {
+
         }
 
         public virtual void Move(object o, MouseEventArgs e)

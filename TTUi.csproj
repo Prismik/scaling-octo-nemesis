@@ -41,7 +41,6 @@
   <ItemGroup>
     <Compile Include="UI\ScrollBar.cs" />
     <Compile Include="UI\StringHelper.cs" />
-    <Compile Include="UI\UIManager.cs" />
     <Compile Include="UI\DrawingTools.cs" />
     <Compile Include="UI\LayerDepths.cs" />
     <Compile Include="UI\Menus\ColoredMenu.cs" />
@@ -70,6 +69,7 @@
     <Compile Include="UI\Components\Label.cs" />
     <Compile Include="UI\Components\Tooltip.cs" />
     <Compile Include="UI\Addin\Console.cs" />
+    <Compile Include="UI\UIEventDispatcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\Components\" />
