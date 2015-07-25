@@ -14,8 +14,20 @@ namespace TTUI
         SpriteFont _font;
         float _textSize;
 
+        /// <summary>
+        /// Gets or sets the action triggered when the button is pressed.
+        /// </summary>
         public Action Action   { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value shown within the button.
+        /// </summary>
         public string Value    { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this button is enabled.
+        /// </summary>
+        /// <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
         public bool Enabled    { get; set; }
         public Tooltip Tooltip { get; set; }
 

@@ -18,8 +18,19 @@ namespace TTUI
         DropDownItem _selectedDropDown = null;
         private bool _expanded = false;
 
+        /// <summary>
+        /// Gets or sets the action triggered when an item is selected.
+        /// </summary>
 		Action OnSelect { get; set; }
+
+        /// <summary>
+        /// Gets the currently selected item.
+        /// </summary>
         public Object Selected { get { return _selectedDropDown.Value; } }
+
+        /// <summary>
+        /// Gets a value indicating whether this dropdown is expanded.
+        /// </summary>
         public bool Expanded 
         { 
             get { return _expanded; } 
@@ -33,7 +44,7 @@ namespace TTUI
                 }
             }
         }
-
+            
         public override Vector2 Position
         {
             get { return base.Position; }

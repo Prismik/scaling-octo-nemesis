@@ -6,7 +6,9 @@ using System;
 
 namespace TTUI
 {
-    // TODO Allows to have UI over other UI elements and only handle the top UI elements events.
+    /// <summary>
+    /// Dispatches UI events to subscribed UIContainers.
+    /// </summary>
     public class UIEventDispatcher: IDisposable
     {
         private List<UIContainer> _containers = new List<UIContainer>();

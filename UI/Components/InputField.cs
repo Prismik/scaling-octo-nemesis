@@ -20,7 +20,15 @@ namespace TTUI
         Timer _blinkTimer = new Timer();
         SpriteFont _font;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this input field is active.
+        /// </summary>
+        /// <value><c>true</c> if active; otherwise, <c>false</c>.</value>
 		public bool Active 	{ get; set; }
+
+        /// <summary>
+        /// Gets the text value within this input field.
+        /// </summary>
 		public string Value { get; private set; }
 
 		public InputField(string placeholder, SpriteFont sf, string id, int maxLen,
@@ -95,6 +103,9 @@ namespace TTUI
 				_cursor = StringHelper.GetCharInfoAt(_font, Value, pos.X).position;
 		}
 
+        /// <summary>
+        /// Clear the text within this input field and returns it.
+        /// </summary>
         public string Clear()
         {
             _cursor = 0;
@@ -103,6 +114,9 @@ namespace TTUI
             return value;
         }
 
+        /// <summary>
+        /// Sets the forbidden characters that will be ignored when added to this input field.
+        /// </summary>
         public void SetForbiddenChars(List<char> chars)
         {
             _forbiddenChars = chars;

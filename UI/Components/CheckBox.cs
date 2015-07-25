@@ -11,6 +11,10 @@ namespace TTUI
     /// </summary>
     public class CheckBox : UIItem, IDisposable
     {
+        /// <summary>
+        /// Gets a value indicating whether this checkbox is checked.
+        /// </summary>
+        /// <value><c>true</c> if checked; otherwise, <c>false</c>.</value>
         public bool Checked { get; private set; }
         public CheckBox(string id, Vector2 position, Vector2 size)
             : base(id, position, size)

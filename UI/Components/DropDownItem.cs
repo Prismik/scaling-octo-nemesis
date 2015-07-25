@@ -10,10 +10,18 @@ namespace TTUI
     /// </summary>
     public class DropDownItem: UIItem, IDisposable
     {
+        /// <summary>
+        /// Gets the value held by this item.
+        /// </summary>
         public Object Value { get; private set; }
         SpriteFont _font;
 
         public Action Action    { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this item is visible.
+        /// </summary>
+        /// <value><c>true</c> if visible; otherwise, <c>false</c>.</value>
         public override bool Visible
         {
             get

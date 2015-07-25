@@ -70,6 +70,7 @@
     <Compile Include="UI\Components\Tooltip.cs" />
     <Compile Include="UI\Addin\Console.cs" />
     <Compile Include="UI\UIEventDispatcher.cs" />
+    <Compile Include="Util\Cancelable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\Components\" />

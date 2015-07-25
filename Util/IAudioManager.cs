@@ -3,7 +3,7 @@ using System;
 namespace TTUI.Util
 {
     /// <summary>
-    /// Interface that exposes methods needed to manipulate audio in the game.
+    /// Exposes methods needed to manipulate audio in the game.
     /// </summary>
     public interface IAudioManager
     {

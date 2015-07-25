@@ -34,7 +34,9 @@ namespace TTUI.Util
                 o.timer.Update(time.ElapsedGameTime.TotalMilliseconds);
                 if (o.timer.Time >= o.treshold)
                 {
-                    o.ops();
+                    if (!o.Canceled)
+                        o.ops();
+                    
                     _opsDone.Add(o);
                 }
             }
@@ -49,17 +51,36 @@ namespace TTUI.Util
     /// <summary>
     /// An operation to be called after a certain treshold.
     /// </summary>
-    public struct DelayOps
+    public class DelayOps: Cancelable
     {
+        /// <summary>
+        /// Action called after the treshold is reached.
+        /// </summary>
         public Action ops;
+
+        /// <summary>
+        /// Timer to start the countdown.
+        /// </summary>
         public Timer timer;
+
+        /// <summary>
+        /// Total time in milliseconds before the action is called.
+        /// </summary>
         public int treshold;
+
+        public bool Canceled { get; private set; }
 
         public DelayOps(Action a, Timer t, int max)
         {
             ops = a;
             timer = t;
             treshold = max;
+            Canceled = false;
+        }
+
+        public void Cancel()
+        {
+            Canceled = true;
         }
     }
 }

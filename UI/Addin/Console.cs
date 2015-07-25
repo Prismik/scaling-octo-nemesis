@@ -3,8 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace TTUI
+namespace TTUI.Addin
 {
+    /// <summary>
+    /// Adds a basic console to the game.
+    /// </summary>
     public class Console
     {
         private int _height;
@@ -18,6 +21,12 @@ namespace TTUI
                 new Vector2(0, _height), 
                 new Vector2((int)Util.Resolution.VirtualViewport.Length(), font.MeasureString("A").Y));
             _input.Visible = false;
+            _input.AddKeyHandler(delegate(object o, KeyEventArgs args) {
+                if (args.KeyCode == Keys.Enter)
+                {
+                    string val = _input.Clear();
+                }
+            });
             InputSystem.KeyDown += HandleKeys;
         }
 
@@ -28,11 +37,13 @@ namespace TTUI
             {
                 _input.Visible = true;
                 _input.OnFocus();
+                _input.Clear();
             }
             else
             {
                 _input.Visible = false;
                 _input.OnLostFocus();
+                _input.Clear();
             }
         }
 
