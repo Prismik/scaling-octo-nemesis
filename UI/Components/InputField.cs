@@ -7,6 +7,9 @@ using TTUI.Util;
 
 namespace TTUI
 {
+    /// <summary>
+    /// Graphical control element that enables the user to input text information.
+    /// </summary>
 	public class InputField : UIItem
     {
         int _cursor;

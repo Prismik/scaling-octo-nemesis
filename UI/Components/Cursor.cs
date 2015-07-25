@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TTUI
 {
+    /// <summary>
+    /// Allows to change the cursor's image.
+    /// </summary>
     public static class Cursor
     {
         public static Texture2D Pointer { get; set; }

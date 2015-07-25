@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TTUI
 {
+    /// <summary>
+    /// Graphical control element which displays text
+    /// </summary>
 	public class Label : UIItem
 	{
         SpriteFont _font;

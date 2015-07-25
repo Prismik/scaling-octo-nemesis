@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace TTUI 
 {
+    /// <summary>
+    /// Graphical user interface element that can be contained in a UIContainer.
+    /// </summary>
 	public abstract class UIItem : UIComponent
 	{
         internal List<KeyEventHandler> _handlers = new List<KeyEventHandler>();

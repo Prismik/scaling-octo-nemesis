@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TTUI 
 {
+    /// <summary>
+    /// Graphical user interface element that handles UI events.
+    /// </summary>
     public abstract class UIComponent
 	{
 		public virtual Vector2 Position { get; set; }

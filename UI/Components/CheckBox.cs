@@ -5,6 +5,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TTUI
 {
+    /// <summary>
+    /// Graphical control element that permits the user to make a choice between 
+    /// one of two possible mutually exclusive options.
+    /// </summary>
     public class CheckBox : UIItem, IDisposable
     {
         public bool Checked { get; private set; }

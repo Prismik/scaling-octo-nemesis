@@ -5,6 +5,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TTUI
 {
+    /// <summary>
+    /// Graphical control element within a DropDown.
+    /// </summary>
     public class DropDownItem: UIItem, IDisposable
     {
         public Object Value { get; private set; }

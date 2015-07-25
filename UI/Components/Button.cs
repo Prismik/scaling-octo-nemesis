@@ -5,10 +5,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TTUI
 {
+    /// <summary>
+    /// Graphical control element that provides the user a simple way to trigger an event.
+    /// </summary>
 	public class Button : UIItem, IDisposable
 	{
         bool _pressed = false;
-        bool _handleHover = false;
         SpriteFont _font;
         float _textSize;
 

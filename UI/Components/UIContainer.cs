@@ -6,6 +6,9 @@ using System;
 
 namespace TTUI
 {
+    /// <summary>
+    /// Graphical user interface element that handle a list of UIComponent.
+    /// </summary>
     public class UIContainer : UIComponent
 	{ 
 		public List<UIComponent> _components = new List<UIComponent>();

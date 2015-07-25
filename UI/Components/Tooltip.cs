@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace TTUI
 {
+    /// <summary>
+    /// Graphical user interface element showed when the user hovers the cursor over an item for a 
+    /// certain time without clicking it.
     public class Tooltip : UIItem
     {
         public Tooltip(string id, Vector2 position, Vector2 size)

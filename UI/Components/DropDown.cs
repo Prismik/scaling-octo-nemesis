@@ -7,17 +7,19 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TTUI
 {
+    /// <summary>
+    /// Graphical control element that allows the user to choose a value from a list.
+    /// </summary>
 	public class DropDown : UIItem
 	{
         List<DropDownItem> _items = new List<DropDownItem>();
         SpriteFont _font;
         Rectangle _expandRectangle;
         DropDownItem _selectedDropDown = null;
-		Action OnSelect { get; set; }
-
-        public Object Selected { get { return _selectedDropDown.Value; } }
-
         private bool _expanded = false;
+
+		Action OnSelect { get; set; }
+        public Object Selected { get { return _selectedDropDown.Value; } }
         public bool Expanded 
         { 
             get { return _expanded; } 
@@ -31,6 +33,7 @@ namespace TTUI
                 }
             }
         }
+
         public override Vector2 Position
         {
             get { return base.Position; }
