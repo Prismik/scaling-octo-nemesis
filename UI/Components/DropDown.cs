@@ -16,13 +16,24 @@ namespace TTUI
 		Action OnSelect { get; set; }
 
         public Object Selected { get { return _selectedDropDown.Value; } }
-        public bool Expanded   { get; set; }
+
+        private bool _expanded = false;
+        public bool Expanded 
+        { 
+            get { return _expanded; } 
+            private set
+            {
+                if (_expanded != value)
+                {
+                    _expanded = value;
+                    foreach (DropDownItem i in _items)
+                        i.Visible = value;
+                }
+            }
+        }
         public override Vector2 Position
         {
-            get
-            {
-                return base.Position;
-            }
+            get { return base.Position; }
             set
             {
                 base.Position = value;
@@ -103,20 +114,7 @@ namespace TTUI
         public override void Press(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButton.Left)
-            {
-                if (base.PointInComponent(e.X, e.Y))
-                {
-                    Expanded = true;
-                    foreach (DropDownItem i in _items)
-                        i.Visible = true;
-                }
-                else
-                {
-                    Expanded = false;
-                    foreach (DropDownItem i in _items)
-                        i.Visible = false;
-                }
-            }
+                Expanded = base.PointInComponent(e.X, e.Y) && !_expanded;
         }
 
         public override void Update(GameTime gameTime)
