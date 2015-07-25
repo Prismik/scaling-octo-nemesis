@@ -10,7 +10,7 @@ namespace TTUI
     /// <summary>
     /// Graphical control element that enables the user to input text information.
     /// </summary>
-	public class InputField : UIItem
+    public class InputField : UIItem
     {
         int _cursor;
         int _maxLen;
@@ -24,19 +24,19 @@ namespace TTUI
         /// Gets or sets a value indicating whether this input field is active.
         /// </summary>
         /// <value><c>true</c> if active; otherwise, <c>false</c>.</value>
-		public bool Active 	{ get; set; }
+        public bool Active     { get; set; }
 
         /// <summary>
         /// Gets the text value within this input field.
         /// </summary>
-		public string Value { get; private set; }
+        public string Value { get; private set; }
 
-		public InputField(string placeholder, SpriteFont sf, string id, int maxLen,
-			Vector2 position, Vector2 size)
-			: base(id, position, size)
-		{
+        public InputField(string placeholder, SpriteFont sf, string id, int maxLen,
+            Vector2 position, Vector2 size)
+            : base(id, position, size)
+        {
             Initialize(placeholder, maxLen, sf);
-		}
+        }
 
         private void Initialize(string placeholder, int maxLen, SpriteFont sf)
         {
@@ -69,8 +69,8 @@ namespace TTUI
 
         }
 
-		public void OnFocus()
-		{
+        public void OnFocus()
+        {
             if (!Focused)
             {
                 Focused = true;
@@ -80,7 +80,7 @@ namespace TTUI
                 foreach (KeyEventHandler h in _handlers)
                     InputSystem.KeyDown += h;
             }
-		}
+        }
 
         public void OnLostFocus()
         {
@@ -95,13 +95,13 @@ namespace TTUI
             }
         }
 
-		// Specify the position of the mouse click
-		// that initiated a focus event
-		public void Focus(Vector2 pos)
-		{
-			if (!Focused)
-				_cursor = StringHelper.GetCharInfoAt(_font, Value, pos.X).position;
-		}
+        // Specify the position of the mouse click
+        // that initiated a focus event
+        public void Focus(Vector2 pos)
+        {
+            if (!Focused)
+                _cursor = StringHelper.GetCharInfoAt(_font, Value, pos.X).position;
+        }
 
         /// <summary>
         /// Clear the text within this input field and returns it.
@@ -122,17 +122,17 @@ namespace TTUI
             _forbiddenChars = chars;
         }
 
-		private void RemoveChar()
-		{
+        private void RemoveChar()
+        {
             if (Value.Length != 0 && _cursor != 0)
             {
                 _blinkTimer.Reset();
                 _cursorVisible = true;
                 Value = Value.Remove(--_cursor, 1);
             }
-		}
+        }
 
-		private void InsertChar(char c)
+        private void InsertChar(char c)
         {
             if (_font.Characters.Contains(c) && !_forbiddenChars.Contains(c) && Value.Length != _maxLen)
             {
@@ -141,19 +141,19 @@ namespace TTUI
                 string str = c.ToString();
                 Value = Value.Insert(_cursor++, str);
             }
-		}
+        }
 
-		private int IncrementCursor()
+        private int IncrementCursor()
         {
             _blinkTimer.Reset();
             _cursorVisible = true;
-			if (_cursor < Value.Length)
-				_cursor++;
+            if (_cursor < Value.Length)
+                _cursor++;
 
             return _cursor;
-		}
+        }
 
-		private int DecrementCursor()
+        private int DecrementCursor()
         {
             _blinkTimer.Reset();
             _cursorVisible = true;
@@ -161,7 +161,7 @@ namespace TTUI
                 _cursor--;
 
             return _cursor;
-		}
+        }
 
         private void HandleInput(object sender, CharacterEventArgs e)
         {
@@ -195,18 +195,18 @@ namespace TTUI
             InputSystem.MouseUp -= Release;
             InputSystem.MouseMove -= Move;
         }
-		public override void Update(GameTime timer)
-		{
+        public override void Update(GameTime timer)
+        {
             _blinkTimer.Update(timer.ElapsedGameTime.TotalMilliseconds);
             if (_blinkTimer.Time >= 500)
             {
                 _cursorVisible = !_cursorVisible;
                 _blinkTimer.Reset();
             }
-		}
+        }
 
-		public override void Draw(SpriteBatch sb)
-		{
+        public override void Draw(SpriteBatch sb)
+        {
             if (Visible)
             {
                 DrawBackground(sb);
@@ -217,7 +217,7 @@ namespace TTUI
                 if (Focused && _cursorVisible)
                     DrawCursor(sb);
             }
-		}
+        }
 
         public virtual void DrawBorder(SpriteBatch sb)
         {
@@ -242,5 +242,5 @@ namespace TTUI
             
             DrawingTools.DrawRectangle(sb, info.area, new Color(0, 0, 0, 0.5f), LayerDepths.FRONT);
         }
-	}
+    }
 }

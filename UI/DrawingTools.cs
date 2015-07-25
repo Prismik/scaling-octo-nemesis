@@ -7,19 +7,19 @@ using Microsoft.Xna.Framework.Graphics;
 /// </summary>
 public static class DrawingTools
 {
-	private static Texture2D t;
+    private static Texture2D t;
 
     /// <summary>
     /// Initializes the DrawingTools with the specified GraphicsDevice. It is mandatory to
     /// call this function prior to any other DrawingTools functions.
     /// </summary>
     /// <param name="gc">The graphics device.</param>
-	public static void Init(GraphicsDevice gc)
-	{
+    public static void Init(GraphicsDevice gc)
+    {
         // create 1x1 texture for line drawing
         t = new Texture2D(gc, 1, 1);
         t.SetData<Color>(new Color[] { Color.White });// fill the texture with white
-	}
+    }
 
     /// <summary>
     /// Draws a line.
@@ -29,9 +29,9 @@ public static class DrawingTools
     /// <param name="end">End.</param>
     /// <param name="c">C.</param>
     /// <param name="layer">Layer.</param>
-	public static void DrawLine(SpriteBatch sb, Vector2 start, Vector2 end, Color c, float layer)
-	{
-		Vector2 edge = end - start;
+    public static void DrawLine(SpriteBatch sb, Vector2 start, Vector2 end, Color c, float layer)
+    {
+        Vector2 edge = end - start;
 
         // calculate angle to rotate line
         float angle = (float)Math.Atan2(edge.Y , edge.X);
@@ -41,7 +41,7 @@ public static class DrawingTools
         // width of line, change this to make thicker line
         sb.Draw(t, new Rectangle((int)start.X, (int)start.Y, (int)edge.Length(), 1), 
             null, c, angle, new Vector2(0, 0), SpriteEffects.None, layer);
-	}
+    }
 
     /// <summary>
     /// Draws a rectangle.
@@ -50,10 +50,10 @@ public static class DrawingTools
     /// <param name="rect">Rect.</param>
     /// <param name="c">C.</param>
     /// <param name="layer">Layer.</param>
-	public static void DrawRectangle(SpriteBatch sb, Rectangle rect, Color c, float layer)
-	{
-		sb.Draw(t, rect, null, c, 0, Vector2.Zero, SpriteEffects.None, layer);
-	}
+    public static void DrawRectangle(SpriteBatch sb, Rectangle rect, Color c, float layer)
+    {
+        sb.Draw(t, rect, null, c, 0, Vector2.Zero, SpriteEffects.None, layer);
+    }
 
     /// <summary>
     /// Draws a rectangle.
@@ -78,15 +78,15 @@ public static class DrawingTools
     /// <param name="size">The size of the rectangle.</param>
     /// <param name="c">The color of the rectangle.</param>
     /// <param name="layer">The layer on which to draw the rectangle.</param>
-	public static void DrawEmptyRectangle(SpriteBatch sb, Vector2 pos, Vector2 size, Color c, float layer)
-	{
+    public static void DrawEmptyRectangle(SpriteBatch sb, Vector2 pos, Vector2 size, Color c, float layer)
+    {
         Vector2 topLeft     = pos;
         Vector2 topRight    = new Vector2(pos.X + size.X, pos.Y);
         Vector2 bottomRight = new Vector2(pos.X + size.X, pos.Y + size.Y);
         Vector2 bottomLeft  = new Vector2(pos.X, pos.Y + size.Y); 
-    	DrawingTools.DrawLine(sb, topLeft, topRight, c, layer);
-    	DrawingTools.DrawLine(sb, topRight, bottomRight, c, layer);
-    	DrawingTools.DrawLine(sb, bottomRight, bottomLeft, c, layer);
-    	DrawingTools.DrawLine(sb, bottomLeft, topLeft, c, layer);
-	}
+        DrawingTools.DrawLine(sb, topLeft, topRight, c, layer);
+        DrawingTools.DrawLine(sb, topRight, bottomRight, c, layer);
+        DrawingTools.DrawLine(sb, bottomRight, bottomLeft, c, layer);
+        DrawingTools.DrawLine(sb, bottomLeft, topLeft, c, layer);
+    }
 }

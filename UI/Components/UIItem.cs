@@ -7,8 +7,8 @@ namespace TTUI
     /// <summary>
     /// Graphical user interface element that can be contained in a UIContainer.
     /// </summary>
-	public abstract class UIItem : UIComponent
-	{
+    public abstract class UIItem : UIComponent
+    {
         internal List<KeyEventHandler> _handlers = new List<KeyEventHandler>();
 
         public bool Focused { get; set; }
@@ -28,5 +28,5 @@ namespace TTUI
         {
             _handlers.Remove(func);
         }
-	}
+    }
 }

@@ -10,8 +10,8 @@ namespace TTUI
     /// Graphical user interface element that handle a list of UIComponent.
     /// </summary>
     public class UIContainer : UIComponent
-	{ 
-		public List<UIComponent> _components = new List<UIComponent>();
+    { 
+        public List<UIComponent> _components = new List<UIComponent>();
         public int ComponentsCount { get { return _components.Count; } }
         private UIComponent _active = null;
             
@@ -21,36 +21,36 @@ namespace TTUI
 
         }
 
-		public void Add(UIComponent component)
-		{
+        public void Add(UIComponent component)
+        {
             component.Position += this.Position;
-			_components.Add(component);
-		}
+            _components.Add(component);
+        }
 
-		public bool Remove(UIComponent component)
-		{
-			return _components.Remove(component);
-		}
+        public bool Remove(UIComponent component)
+        {
+            return _components.Remove(component);
+        }
 
-		public UIComponent Find(string id, bool recursive)
-		{
-			foreach (UIComponent gc in _components)
-				if (gc.Name == id)
-					return gc;
+        public UIComponent Find(string id, bool recursive)
+        {
+            foreach (UIComponent gc in _components)
+                if (gc.Name == id)
+                    return gc;
 
-			return null;
-		}
+            return null;
+        }
 
-		private UIComponent FindRecursive(string id)
-		{
-			foreach (UIComponent gc in _components)
-				if (gc.Name == id)
-					return gc;
-				else if (gc.GetType() == typeof(UIContainer))
-					return ((UIContainer)gc).FindRecursive(id);
+        private UIComponent FindRecursive(string id)
+        {
+            foreach (UIComponent gc in _components)
+                if (gc.Name == id)
+                    return gc;
+                else if (gc.GetType() == typeof(UIContainer))
+                    return ((UIContainer)gc).FindRecursive(id);
 
-			return null;
-		}
+            return null;
+        }
            
         public override void Move(object o, MouseEventArgs e)
         {
@@ -91,16 +91,16 @@ namespace TTUI
                 c.Release(o, e);
         }
 
-		public override void Update(GameTime elapsedTime)
-		{
-			foreach (UIComponent gc in _components)
-				gc.Update(elapsedTime);
-		}
+        public override void Update(GameTime elapsedTime)
+        {
+            foreach (UIComponent gc in _components)
+                gc.Update(elapsedTime);
+        }
 
-		public override void Draw(SpriteBatch sb)
-		{
-			foreach (UIComponent gc in _components)
-				gc.Draw(sb);
-		}
-	}
+        public override void Draw(SpriteBatch sb)
+        {
+            foreach (UIComponent gc in _components)
+                gc.Draw(sb);
+        }
+    }
 }

@@ -27,20 +27,20 @@ namespace TTUI
             InputSystem.MouseUp -= Release;
         }
 
-    	public UIComponent GetComponentAtPosition(Vector2 pos)
-    	{
+        public UIComponent GetComponentAtPosition(Vector2 pos)
+        {
             return null;
-    	}
+        }
 
         public void Add(UIContainer container)
         {
             _containers.Add(container);
         }
 
-    	public void Update()
-    	{
-    		
-    	}
+        public void Update()
+        {
+            
+        }
 
         public void Draw(SpriteBatch sb)
         {

@@ -9,18 +9,18 @@ namespace TTUI
     /// Graphical user interface element that handles UI events.
     /// </summary>
     public abstract class UIComponent
-	{
+    {
         /// <summary>
         /// Gets or sets the component position.
         /// </summary>
-		public virtual Vector2 Position { get; set; }
+        public virtual Vector2 Position { get; set; }
 
         /// <summary>
         /// Gets or sets the component size.
         /// </summary>
-		public virtual Vector2 Size { get; set; }
+        public virtual Vector2 Size { get; set; }
 
-		public string Name { get; set; }
+        public string Name { get; set; }
         public string Id { get; private set; }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace TTUI
         public virtual void HandleInputEvents() { }
         public virtual void IgnoreInputEvents() { }
 
-		public abstract void Update(GameTime gameTime);
-		public abstract void Draw(SpriteBatch sb);	
-	}
+        public abstract void Update(GameTime gameTime);
+        public abstract void Draw(SpriteBatch sb);    
+    }
 }

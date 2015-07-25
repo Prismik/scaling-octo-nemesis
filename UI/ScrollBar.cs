@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 namespace TTUI
 {
     public class ScrollBar : UIItem, IDisposable
-	{
+    {
         bool _pressed = false;
 
         Rectangle _scrollRectangle;
@@ -128,5 +128,5 @@ namespace TTUI
             _up.Draw(sb);
             _down.Draw(sb);
         }
-	}
+    }
 }

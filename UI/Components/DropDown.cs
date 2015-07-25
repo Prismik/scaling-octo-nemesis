@@ -10,8 +10,8 @@ namespace TTUI
     /// <summary>
     /// Graphical control element that allows the user to choose a value from a list.
     /// </summary>
-	public class DropDown : UIItem
-	{
+    public class DropDown : UIItem
+    {
         List<DropDownItem> _items = new List<DropDownItem>();
         SpriteFont _font;
         Rectangle _expandRectangle;
@@ -21,7 +21,7 @@ namespace TTUI
         /// <summary>
         /// Gets or sets the action triggered when an item is selected.
         /// </summary>
-		Action OnSelect { get; set; }
+        Action OnSelect { get; set; }
 
         /// <summary>
         /// Gets the currently selected item.
@@ -179,5 +179,5 @@ namespace TTUI
                 _items[i].Draw(sb);
             }
         }
-	}
+    }
 }
