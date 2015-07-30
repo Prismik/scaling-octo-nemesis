@@ -39,7 +39,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UI\ScrollBar.cs" />
     <Compile Include="UI\StringHelper.cs" />
     <Compile Include="UI\DrawingTools.cs" />
     <Compile Include="UI\LayerDepths.cs" />
@@ -71,9 +70,12 @@
     <Compile Include="UI\Addin\Console.cs" />
     <Compile Include="UI\UIEventDispatcher.cs" />
     <Compile Include="Util\Cancelable.cs" />
+    <Compile Include="UI\Components\ScrollBar.cs" />
+    <Compile Include="UI\Skins\Skin.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\Components\" />
     <Folder Include="UI\Addin\" />
+    <Folder Include="UI\Skins\" />
   </ItemGroup>
 </Project>

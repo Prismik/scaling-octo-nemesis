@@ -24,7 +24,7 @@ namespace TTUI
         /// Gets or sets a value indicating whether this input field is active.
         /// </summary>
         /// <value><c>true</c> if active; otherwise, <c>false</c>.</value>
-        public bool Active     { get; set; }
+        public bool Active { get; set; }
 
         /// <summary>
         /// Gets the text value within this input field.
@@ -49,22 +49,15 @@ namespace TTUI
             Visible = true;
         }
 
-        public void Dispose()
+        public override void Press(object o, MouseEventArgs e)
         {
-            InputSystem.MouseDown -= Press;
-            InputSystem.MouseUp -= Release;
-            InputSystem.MouseMove -= Move;
-        }
-
-        public override void Press(object o, MouseEventArgs args)
-        {
-            if (PointInComponent(args.X, args.Y))
+            if (PointInComponent(e.X, e.Y))
                 OnFocus();
             else
                 OnLostFocus();
         }
 
-        public override void Release(object o, MouseEventArgs args)
+        public override void Release(object o, MouseEventArgs e)
         {
 
         }
@@ -138,8 +131,7 @@ namespace TTUI
             {
                 _blinkTimer.Reset();
                 _cursorVisible = true;
-                string str = c.ToString();
-                Value = Value.Insert(_cursor++, str);
+                Value = Value.Insert(_cursor++, c.ToString());
             }
         }
 
@@ -179,22 +171,7 @@ namespace TTUI
             else if (key == Keys.Right)
                 IncrementCursor();
         }
-
-        public override void HandleInputEvents()
-        {
-            base.HandleInputEvents();
-            InputSystem.MouseDown += Press;
-            InputSystem.MouseUp += Release;
-            InputSystem.MouseMove += Move;
-        }
-
-        public override void IgnoreInputEvents()
-        {
-            base.IgnoreInputEvents();
-            InputSystem.MouseDown -= Press;
-            InputSystem.MouseUp -= Release;
-            InputSystem.MouseMove -= Move;
-        }
+            
         public override void Update(GameTime timer)
         {
             _blinkTimer.Update(timer.ElapsedGameTime.TotalMilliseconds);

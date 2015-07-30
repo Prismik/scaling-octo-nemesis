@@ -8,7 +8,7 @@ namespace TTUI
     /// <summary>
     /// Graphical control element within a DropDown.
     /// </summary>
-    public class DropDownItem: UIItem, IDisposable
+    public class DropDownItem: UIItem
     {
         /// <summary>
         /// Gets the value held by this item.
@@ -57,19 +57,13 @@ namespace TTUI
             Hover = false;
         }
 
-        public void Dispose()
+        public override void Press(object o, MouseEventArgs e)
         {
-            InputSystem.MouseDown -= Press;
-            InputSystem.MouseMove -= Move;
-        }
-
-        public override void Press(object o, MouseEventArgs args)
-        {
-            if (PointInComponent(args.X, args.Y))
+            if (PointInComponent(e.X, e.Y))
                 Action();
         }
 
-        public override void Release(object o, MouseEventArgs args)
+        public override void Release(object o, MouseEventArgs e)
         {
             //if (_pressed)
             //{

@@ -5,10 +5,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace TTUI
 {
-    public class ScrollBar : UIItem, IDisposable
+    public class ScrollBar : UIItem
     {
         bool _pressed = false;
 
+        Vector2? _pressPosition = null;
         Rectangle _scrollRectangle;
         Button _up;
         Button _down;
@@ -40,60 +41,53 @@ namespace TTUI
             _down = down;
             InnerLength = 0;
             _scrollRectangle = new Rectangle((int)Position.X + (int)Size.X / 2, (int)Position.Y + (int)Size.Y - 64, 12, 64);
-            Initialize();
         }
-
-        private void Initialize()
+         
+        public override void Press(object o, MouseEventArgs e)
         {
-            InputSystem.MouseDown += Press;
-            InputSystem.MouseUp += Release;
-            InputSystem.MouseMove += Move;
-        }
-
-        public void Dispose()
-        {
-            InputSystem.MouseDown -= Press;
-            InputSystem.MouseUp -= Release;
-            InputSystem.MouseMove -= Move;
-        }
-
-        public virtual void Press(object o, MouseEventArgs args)
-        {
-            if (_scrollRectangle.Contains(args.Location))
+            if (_scrollRectangle.Contains(e.Location))
+            {
                 _pressed = true;
+                // TODO Move only when Y is at press Y within rectangle
+                _pressPosition = new Vector2(e.X, e.Y) - new Vector2 (_scrollRectangle.X, _scrollRectangle.Y);
+            }
         }
 
-        public virtual void Release(object o, MouseEventArgs args)
+        public override void Release(object o, MouseEventArgs e)
         {
             if (_pressed)
             {
                 _pressed = false;
+                _pressPosition = null;
                 move = 0;
             } 
         }
 
         int move = 0;
-        public override void Move(object o, MouseEventArgs args)
+        public override void Move(object o, MouseEventArgs e)
         {
             if (_pressed)
-                    MoveScroller(args.Y);
+                MoveScroller(e.Y);
         }
 
         private void MoveScroller(int y)
         {
-            int delta = y - move;
-            if (delta < 0)
-                ScrollUp();
-            else
-                ScrollDown();
+            // TODO Move only when Y is at press Y within rectangle
+            if (_pressPosition.HasValue && _pressPosition.Value.Y == y - _scrollRectangle.Top)
+            {
+                int delta = y - move;
+                if (delta < 0)
+                    ScrollUp();
+                else
+                    ScrollDown();
 
-            // Maybe think of a better way to do this. It makes it impossible to have a scroller
-            // That starts at y = 0
-            if (move != 0 && _scrollRectangle.Y + delta >= Position.Y && _scrollRectangle.Y + delta + _scrollRectangle.Height <= Position.Y + Size.Y)
-                _scrollRectangle.Offset(0, delta);
+                // Maybe think of a better way to do this. It makes it impossible to have a scroller
+                // That starts at y = 0
+                if (move != 0 && _scrollRectangle.Y + delta >= Position.Y && _scrollRectangle.Y + delta + _scrollRectangle.Height <= Position.Y + Size.Y)
+                    _scrollRectangle.Offset(0, delta);
 
-            move = y;
-
+                move = y;
+            }
         }
 
         public override void Update(GameTime timer)
@@ -113,6 +107,7 @@ namespace TTUI
             Color c = Hover ? Color.Coral : Color.BlueViolet;
             if (Hover)
                 c = _pressed ? Color.BurlyWood : Color.Coral;
+            
             DrawingTools.DrawRectangle(sb, _scrollRectangle, c, LayerDepths.FRONT);
         }
 

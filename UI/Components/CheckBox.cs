@@ -22,9 +22,9 @@ namespace TTUI
 
         }
 
-        public override void Press(object o, MouseEventArgs args)
+        public override void Press(object o, MouseEventArgs e)
         {
-            if (PointInComponent(args.X, args.Y))
+            if (PointInComponent(e.X, e.Y))
                 Checked = !Checked;
         }
 

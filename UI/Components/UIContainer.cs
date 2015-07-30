@@ -11,40 +11,59 @@ namespace TTUI
     /// </summary>
     public class UIContainer : UIComponent
     { 
-        public List<UIComponent> _components = new List<UIComponent>();
-        public int ComponentsCount { get { return _components.Count; } }
         private UIComponent _active = null;
-            
+        private List<UIComponent> _components = new List<UIComponent>();
+
+        /// <summary>
+        /// Gets a value indicating whether this container contains any component.
+        /// </summary>
+        /// <value><c>true</c> if this container is empty; otherwise, <c>false</c>.</value>
+        public bool IsEmpty { get { return _components.Count == 0; } }
+
         public UIContainer(string id, Vector2 position, Vector2 size)
             : base(id, position, size)
         {
 
         }
 
+        /// <summary>
+        /// Adds a component to this container and adjusts his position accordingly.
+        /// </summary>
+        /// <param name="component">The component to add.</param>
         public void Add(UIComponent component)
         {
             component.Position += this.Position;
             _components.Add(component);
         }
 
+        /// <summary>
+        /// Removes the specified component from this container.
+        /// </summary>
+        /// <param name="component">The component to remove.</param>
         public bool Remove(UIComponent component)
         {
             return _components.Remove(component);
         }
 
+        public void Each(Action<UIComponent> apply)
+        {
+            foreach (UIComponent c in _components)
+                apply(c);
+        }
+
         public UIComponent Find(string id, bool recursive)
         {
             foreach (UIComponent gc in _components)
-                if (gc.Name == id)
+                if (gc.Id == id)
                     return gc;
 
             return null;
         }
-
+            
         private UIComponent FindRecursive(string id)
         {
             foreach (UIComponent gc in _components)
-                if (gc.Name == id)
+                if (gc.Id == id)
                     return gc;
                 else if (gc.GetType() == typeof(UIContainer))
                     return ((UIContainer)gc).FindRecursive(id);

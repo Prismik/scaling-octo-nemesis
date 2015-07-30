@@ -8,7 +8,7 @@ namespace TTUI
     /// <summary>
     /// Graphical control element that provides the user a simple way to trigger an event.
     /// </summary>
-    public class Button : UIItem, IDisposable
+    public class Button : UIItem
     {
         bool _pressed = false;
         SpriteFont _font;
@@ -45,25 +45,18 @@ namespace TTUI
             _font = font;
         }
 
-        public void Dispose()
+        public override void Press(object o, MouseEventArgs e)
         {
-            InputSystem.MouseDown  -= Press;
-            InputSystem.MouseUp -= Release;
-            InputSystem.MouseMove -= Move;
-        }
-
-        public override void Press(object o, MouseEventArgs args)
-        {
-            if (PointInComponent(args.X, args.Y))
+            if (PointInComponent(e.X, e.Y))
                 _pressed = true;
         }
 
-        public override void Release(object o, MouseEventArgs args)
+        public override void Release(object o, MouseEventArgs e)
         {
             if (_pressed)
             {
                 _pressed = false;
-                if (PointInComponent(args.X, args.Y))
+                if (PointInComponent(e.X, e.Y))
                     Action();
             }
         }

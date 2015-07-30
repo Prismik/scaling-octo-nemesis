@@ -20,7 +20,9 @@ namespace TTUI
         /// </summary>
         public virtual Vector2 Size { get; set; }
 
-        public string Name { get; set; }
+        /// <summary>
+        /// Gets the component identifier.
+        /// </summary>
         public string Id { get; private set; }
 
         /// <summary>
@@ -55,25 +57,46 @@ namespace TTUI
             return rec.Contains(p.X, p.Y);
         }
 
-        public virtual void Press(object o, MouseEventArgs args)
-        {
-            
+        /// <summary>
+        /// Handles a mouse down event.
+        /// </summary>
+        /// <param name="o">The concerned object.</param>
+        /// <param name="e">The event arguments.</param>
+        public virtual void Press(object o, MouseEventArgs e) 
+        { 
+        
         }
 
-        public virtual void Release(object o, MouseEventArgs args)
-        {
-
+        /// <summary>
+        /// Handles a mouse up event.
+        /// </summary>
+        /// <param name="o">The concerned object.</param>
+        /// <param name="e">The event arguments.</param>
+        public virtual void Release(object o, MouseEventArgs e) 
+        { 
+        
         }
 
+        /// <summary>
+        /// Handles a mouse move event.
+        /// </summary>
+        /// <param name="o">The concerned object.</param>
+        /// <param name="e">The event arguments.</param>
         public virtual void Move(object o, MouseEventArgs e)
         {
             Hover = PointInComponent(e.X, e.Y);
         }
 
-        public virtual void HandleInputEvents() { }
-        public virtual void IgnoreInputEvents() { }
-
+        /// <summary>
+        /// Updates the component.
+        /// </summary>
+        /// <param name="gameTime">The elapsed game time since the last update.</param>
         public abstract void Update(GameTime gameTime);
+
+        /// <summary>
+        /// Draws the component.
+        /// </summary>
+        /// <param name="sb">The spritebatch.</param>
         public abstract void Draw(SpriteBatch sb);    
     }
 }

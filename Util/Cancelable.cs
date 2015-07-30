@@ -7,7 +7,7 @@ namespace TTUI.Util
     /// </summary>
     public interface Cancelable
     {
-        public void Cancel();
+        void Cancel();
     }
 }
 
