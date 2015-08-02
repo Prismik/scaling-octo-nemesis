@@ -16,7 +16,7 @@ namespace TTUI
         SpriteFont _font;
         Rectangle _expandRectangle;
         DropDownItem _selectedDropDown = null;
-        private bool _expanded = false;
+        bool _expanded = false;
 
         /// <summary>
         /// Gets or sets the action triggered when an item is selected.
@@ -70,11 +70,6 @@ namespace TTUI
             _expandRectangle = new Rectangle((int)Position.X + (int)Size.X - 20, (int)Position.Y, 
                                                 20, (int)Size.Y);
             Expanded = false;
-        }
-
-        public void Dispose()
-        {
-            InputSystem.MouseDown -= Press;
         }
 
         public void AddItem(Object o)

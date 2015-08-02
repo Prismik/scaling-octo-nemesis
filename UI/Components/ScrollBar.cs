@@ -9,10 +9,11 @@ namespace TTUI
     {
         bool _pressed = false;
 
+        // TODO Implement steps
         Vector2? _pressPosition = null;
-        Rectangle _scrollRectangle;
-        Button _up;
-        Button _down;
+        Rectangle _scrollRectangle; // TODO Replace with a button
+        Button _up; // TODO Create here
+        Button _down; // TODO Create here
 
         public override Vector2 Position
         {
@@ -34,11 +35,11 @@ namespace TTUI
         public bool Enabled      { get; set; }
         public Tooltip Tooltip   { get; set; }
 
-        public ScrollBar(string id, Vector2 position, Vector2 size, Button up, Button down)
+        public ScrollBar(string id, Vector2 position, Vector2 size)
             : base(id, position, size)
         {
-            _up = up;
-            _down = down;
+            //_up = new Button("^", "upBtn", new Vector2(10, 10), Position, ;
+            //_down = down;
             InnerLength = 0;
             _scrollRectangle = new Rectangle((int)Position.X + (int)Size.X / 2, (int)Position.Y + (int)Size.Y - 64, 12, 64);
         }

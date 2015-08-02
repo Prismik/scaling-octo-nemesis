@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using TTUI.Util;
+using TTUI.Skins.Defaults;
 
 namespace TTUI
 {
@@ -12,9 +13,9 @@ namespace TTUI
     /// </summary>
     public class InputField : UIItem
     {
-        int _cursor;
+        internal int _cursor;
         int _maxLen;
-        bool _cursorVisible = true;
+        internal bool _cursorVisible = true;
 
         List<char> _forbiddenChars = new List<char>();
         Timer _blinkTimer = new Timer();
@@ -47,10 +48,13 @@ namespace TTUI
 
             Size = new Vector2(Size.X, _font.MeasureString("A").Y + 10);
             Visible = true;
+
+            Skin = new InputSkin(this, _font);
         }
 
         public override void Press(object o, MouseEventArgs e)
         {
+            base.Press(o, e);
             if (PointInComponent(e.X, e.Y))
                 OnFocus();
             else
@@ -59,7 +63,10 @@ namespace TTUI
 
         public override void Release(object o, MouseEventArgs e)
         {
-
+            base.Release(o, e);
+            if (!PointInComponent(e.X, e.Y))
+                OnLostFocus();
+                
         }
 
         public void OnFocus()
@@ -184,40 +191,7 @@ namespace TTUI
 
         public override void Draw(SpriteBatch sb)
         {
-            if (Visible)
-            {
-                DrawBackground(sb);
-                if (Focused)
-                    DrawBorder(sb);
-            
-                DrawText(sb);
-                if (Focused && _cursorVisible)
-                    DrawCursor(sb);
-            }
-        }
-
-        public virtual void DrawBorder(SpriteBatch sb)
-        {
-            DrawingTools.DrawEmptyRectangle(sb, Position, Size, FlatColors.SUNFLOWER, LayerDepths.D2);
-        }
-
-        public virtual void DrawBackground(SpriteBatch sb)
-        {
-            DrawingTools.DrawRectangle(sb, Position, Size, FlatColors.MIDNIGHT_BLUE, LayerDepths.D3);
-        }
-
-        public virtual void DrawText(SpriteBatch sb)
-        {
-            sb.DrawString(_font, Value, Position + new Vector2(5, 5), FlatColors.SILVER, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
-        }
-
-        public virtual void DrawCursor(SpriteBatch sb)
-        {
-            CharInfo info = StringHelper.GetCharInfoFrom(_font, Value, _cursor, Position + new Vector2(5, 5), 1f);
-            if (info == CharInfo.Empty)
-                info = StringHelper.GetCharInfoFrom(_font, " ", 0, Position + new Vector2(5, 5), 1f);
-            
-            DrawingTools.DrawRectangle(sb, info.area, new Color(0, 0, 0, 0.5f), LayerDepths.FRONT);
+            Skin.Draw(sb);
         }
     }
 }

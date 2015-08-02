@@ -10,13 +10,14 @@ namespace TTUI
     /// </summary>
     public class DropDownItem: UIItem
     {
+        SpriteFont _font;
+
         /// <summary>
         /// Gets the value held by this item.
         /// </summary>
         public Object Value { get; private set; }
-        SpriteFont _font;
 
-        public Action Action    { get; set; }
+        public Action Action { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this item is visible.

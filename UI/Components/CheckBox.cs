@@ -9,13 +9,14 @@ namespace TTUI
     /// Graphical control element that permits the user to make a choice between 
     /// one of two possible mutually exclusive options.
     /// </summary>
-    public class CheckBox : UIItem, IDisposable
+    public class CheckBox : UIItem
     {
         /// <summary>
         /// Gets a value indicating whether this checkbox is checked.
         /// </summary>
         /// <value><c>true</c> if checked; otherwise, <c>false</c>.</value>
         public bool Checked { get; private set; }
+
         public CheckBox(string id, Vector2 position, Vector2 size)
             : base(id, position, size)
         {
@@ -27,12 +28,7 @@ namespace TTUI
             if (PointInComponent(e.X, e.Y))
                 Checked = !Checked;
         }
-
-        public void Dispose()
-        {
-            InputSystem.MouseDown -= Press;
-        }
-
+            
         public override void Update(GameTime gameTime)
         {
            

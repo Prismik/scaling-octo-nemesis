@@ -1,20 +1,22 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using TTUI.Skins.Defaults;
 
 namespace TTUI
 {
     /// <summary>
     /// Graphical control element which displays text
     /// </summary>
-    public class Label : UIItem
+    public class Label: UIItem
     {
         SpriteFont _font;
-        string _value;
+        public string Value { get; set; }
         public Label(string id, string text, Vector2 position, Vector2 size, SpriteFont font)
             : base(id, position, size)
         {
             _font = font;
-            _value = text;
+            Value = text;
+            Skin = new LabelSkin(this, _font);
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
@@ -24,12 +26,7 @@ namespace TTUI
 
         public override void Draw(SpriteBatch sb)
         {
-            DrawText(sb);
-        }
-
-        public virtual void DrawText(SpriteBatch sb)
-        {
-            sb.DrawString(_font, _value, Position, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
+            Skin.Draw(sb);
         }
     }
 }
