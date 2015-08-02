@@ -77,6 +77,7 @@
     <Compile Include="UI\Skins\Defaults\ButtonSkin.cs" />
     <Compile Include="UI\Skins\Defaults\InputSkin.cs" />
     <Compile Include="UI\Skins\Defaults\LabelSkin.cs" />
+    <Compile Include="UI\TTUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\Components\" />

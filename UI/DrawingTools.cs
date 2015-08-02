@@ -67,7 +67,7 @@ public static class DrawingTools
     {
         Rectangle r = new Rectangle((int)position.X, (int)position.Y, // position
                                     (int)size.X, (int)size.Y);
-        DrawRectangle(sb, r, c, layer);
+        DrawingTools.DrawRectangle(sb, r, c, layer);
     }
 
     /// <summary>
@@ -88,5 +88,14 @@ public static class DrawingTools
         DrawingTools.DrawLine(sb, topRight, bottomRight, c, layer);
         DrawingTools.DrawLine(sb, bottomRight, bottomLeft, c, layer);
         DrawingTools.DrawLine(sb, bottomLeft, topLeft, c, layer);
+    }
+
+
+    public static void DrawImage(Texture2D image, SpriteBatch sb, Vector2 position, Vector2 size, Color c, float layer)
+    {
+        Rectangle r = new Rectangle((int)position.X, (int)position.Y, // position
+            (int)size.X, (int)size.Y);
+        
+        sb.Draw(image, position, r, c, 0, Vector2.Zero, new Vector2(1, 1), SpriteEffects.None, layer);
     }
 }

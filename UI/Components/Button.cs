@@ -30,6 +30,9 @@ namespace TTUI
         /// </summary>
         /// <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
         public bool Enabled { get; set; }
+
+        public Texture2D Image { get; set; }
+
         public Tooltip Tooltip { get; set; }
 
         public Button(string value, string id, 
@@ -45,6 +48,7 @@ namespace TTUI
             TextSize = font.MeasureString(value).X;
             _font = font;
             Skin = new ButtonSkin(this, _font);
+            Action = delegate { };
         }
 
         public override void Press(object o, MouseEventArgs e)

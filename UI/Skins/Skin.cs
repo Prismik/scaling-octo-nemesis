@@ -12,7 +12,7 @@ namespace TTUI.Skins
             State = SkinStates.ENABLED;
         }
 
-        internal SkinStates State { get; set; }
+        public SkinStates State { get; internal set; }
 
         public virtual void Update(GameTime elapsedTime)
         {

@@ -9,6 +9,7 @@ namespace TTUI.Skins.Defaults
         public Vector2 Size { get { return _skinnedButton.Size; } }
         public Vector2 Position { get { return _skinnedButton.Position; } }
         public String Value { get { return _skinnedButton.Value; } }
+        public Texture2D Image { get { return _skinnedButton.Image; } }
         public float TextSize { get { return _skinnedButton.TextSize; } }
 
         private Button _skinnedButton;
@@ -34,11 +35,18 @@ namespace TTUI.Skins.Defaults
 
         private void DrawButton(SpriteBatch sb)
         { 
-            Color c = FlatColors.MIDNIGHT_BLUE;
-            if (State == SkinStates.HOVER)
-                c = FlatColors.WET_ASPHALT;
+            if (Image != null)
+            {
+                sb.Draw(Image, Position, Color.White);
+            }
+            else
+            {
+                Color c = FlatColors.MIDNIGHT_BLUE;
+                if (State == SkinStates.HOVER)
+                    c = FlatColors.WET_ASPHALT;
 
-            DrawingTools.DrawRectangle(sb, Position, Size, c, LayerDepths.D3);
+                DrawingTools.DrawRectangle(sb, Position, Size, c, LayerDepths.D3);
+            }
         }
 
         private void DrawText(SpriteBatch sb)

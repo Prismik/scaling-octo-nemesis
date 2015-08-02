@@ -32,7 +32,7 @@ namespace TTUI.Skins.Defaults
 
         public virtual void DrawText(SpriteBatch sb)
         {
-            sb.DrawString(_font, Value, Position, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
+            sb.DrawString(_font, Value, Position, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.POST_FRONT);
         }
     }
 }
