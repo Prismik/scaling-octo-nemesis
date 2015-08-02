@@ -11,6 +11,7 @@ namespace TTUI.Skins.Defaults
         public Vector2 Position { get { return _skinnedInput.Position; } }
         public String Value { get { return _skinnedInput.Value; } }
         public bool CursorVisible { get { return _skinnedInput._cursorVisible; } }
+        public int Cursor { get { return _skinnedInput._cursor; } }
 
         private InputField _skinnedInput;
         private SpriteFont _font;

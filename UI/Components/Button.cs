@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using TTUI.Skins.Defaults;
+using TTUI.Skins;
 
 namespace TTUI
 {
@@ -53,6 +54,7 @@ namespace TTUI
 
         public override void Press(object o, MouseEventArgs e)
         {
+            base.Press(o, e);
             if (PointInComponent(e.X, e.Y))
                 _pressed = true;
         }
@@ -61,9 +63,15 @@ namespace TTUI
         {
             if (_pressed)
             {
+                if (Hover)
+                    Skin.State = SkinStates.HOVER;
+                else
+                    Skin.State = Skin.State != SkinStates.DISABLED ? SkinStates.ENABLED : SkinStates.DISABLED;
+                
                 _pressed = false;
                 if (PointInComponent(e.X, e.Y))
                     Action();
+                
             }
         }
 
