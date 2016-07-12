@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using TTUI.Util;
-using TTUI.Skins.Defaults;
 
 namespace TTUI
 {
@@ -48,8 +47,6 @@ namespace TTUI
 
             Size = new Vector2(Size.X, _font.MeasureString("A").Y + 10);
             Visible = true;
-
-            Skin = new InputSkin(this, _font);
         }
 
         public override void Press(object o, MouseEventArgs e)
@@ -191,7 +188,40 @@ namespace TTUI
 
         public override void Draw(SpriteBatch sb)
         {
-            Skin.Draw(sb);
+            if (Visible)
+            {
+                DrawBackground(sb);
+                if (State == ComponentState.ACTIVE || State == ComponentState.PRESSED)
+                    DrawBorder(sb);
+
+                DrawText(sb);
+                if ((State == ComponentState.ACTIVE || State == ComponentState.PRESSED) && _cursorVisible)
+                    DrawCursor(sb);
+            }
+        }
+
+        public virtual void DrawBorder(SpriteBatch sb)
+        {
+            DrawingTools.DrawEmptyRectangle(sb, Position, Size, FlatColors.SUNFLOWER, LayerDepths.D2);
+        }
+
+        public virtual void DrawBackground(SpriteBatch sb)
+        {
+            DrawingTools.DrawRectangle(sb, Position, Size, FlatColors.MIDNIGHT_BLUE, LayerDepths.D3);
+        }
+
+        public virtual void DrawText(SpriteBatch sb)
+        {
+            sb.DrawString(_font, Value, Position + new Vector2(5, 5), FlatColors.SILVER, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
+        }
+
+        public virtual void DrawCursor(SpriteBatch sb)
+        {
+            CharInfo info = StringHelper.GetCharInfoFrom(_font, Value, _cursor, Position + new Vector2(5, 5), 1f);
+            if (info == CharInfo.Empty)
+                info = StringHelper.GetCharInfoFrom(_font, " ", 0, Position + new Vector2(5, 5), 1f);
+
+            DrawingTools.DrawRectangle(sb, info.area, new Color(0, 0, 0, 0.5f), LayerDepths.FRONT);
         }
     }
 }

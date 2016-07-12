@@ -3,10 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 using TTUI.Util;
 using Microsoft.Xna.Framework.Input;
 using System;
-using TTUI.Skins;
 
 namespace TTUI 
 {
+    public enum ComponentState { ENABLED, DISABLED, ACTIVE, HOVER, PRESSED }
+
     /// <summary>
     /// Graphical user interface element that handles UI events.
     /// </summary>
@@ -39,14 +40,14 @@ namespace TTUI
         /// <value><c>true</c> if hover; otherwise, <c>false</c>.</value>
         public virtual bool Hover { get; set; }
 
-        public Skin Skin { get; set; }
+        public virtual ComponentState State { get; set; }
 
         public UIComponent(string id, Vector2 position, Vector2 size)
         {
             Id = id;
             Position = position;
             Size = size;
-            Skin = new Skin();
+            State = ComponentState.ENABLED;
         }
 
         /// <summary>
@@ -69,10 +70,10 @@ namespace TTUI
         /// <param name="e">The event arguments.</param>
         public virtual void Press(object o, MouseEventArgs e) 
         { 
-            if (Hover && Skin.State != SkinStates.DISABLED)
-                Skin.State = SkinStates.PRESSED;
+            if (Hover && State != ComponentState.DISABLED)
+                State = ComponentState.PRESSED;
             else
-                Skin.State = Skin.State != SkinStates.DISABLED ? SkinStates.ENABLED : SkinStates.DISABLED;
+                State = State != ComponentState.DISABLED ? ComponentState.ENABLED : ComponentState.DISABLED;
         }
 
         /// <summary>
@@ -82,10 +83,10 @@ namespace TTUI
         /// <param name="e">The event arguments.</param>
         public virtual void Release(object o, MouseEventArgs e) 
         { 
-            if (Hover && Skin.State == SkinStates.PRESSED)
-                Skin.State = SkinStates.ACTIVE;
+            if (Hover && State == ComponentState.PRESSED)
+                State = ComponentState.ACTIVE;
             else
-                Skin.State = Skin.State != SkinStates.DISABLED ? SkinStates.ENABLED : SkinStates.DISABLED;
+                State = State != ComponentState.DISABLED ? ComponentState.ENABLED : ComponentState.DISABLED;
         }
 
         /// <summary>
@@ -96,12 +97,12 @@ namespace TTUI
         public virtual void Move(object o, MouseEventArgs e)
         {
             Hover = PointInComponent(e.X, e.Y);
-            if (Skin.State != SkinStates.ACTIVE && Skin.State != SkinStates.PRESSED)
+            if (State != ComponentState.ACTIVE && State != ComponentState.PRESSED)
             {
-                if (Hover && Skin.State != SkinStates.DISABLED)
-                    Skin.State = SkinStates.HOVER;
+                if (Hover && State != ComponentState.DISABLED)
+                    State = ComponentState.HOVER;
                 else
-                    Skin.State = Skin.State != SkinStates.DISABLED ? SkinStates.ENABLED : SkinStates.DISABLED;
+                    State = State != ComponentState.DISABLED ? ComponentState.ENABLED : ComponentState.DISABLED;
             }
         }
 

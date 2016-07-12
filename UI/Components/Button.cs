@@ -2,8 +2,6 @@ using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using TTUI.Skins.Defaults;
-using TTUI.Skins;
 
 namespace TTUI
 {
@@ -48,7 +46,6 @@ namespace TTUI
             Value = value;
             TextSize = font.MeasureString(value).X;
             _font = font;
-            Skin = new ButtonSkin(this, _font);
             Action = delegate { };
         }
 
@@ -64,9 +61,9 @@ namespace TTUI
             if (_pressed)
             {
                 if (Hover)
-                    Skin.State = SkinStates.HOVER;
+                    State = ComponentState.HOVER;
                 else
-                    Skin.State = Skin.State != SkinStates.DISABLED ? SkinStates.ENABLED : SkinStates.DISABLED;
+                    State = State != ComponentState.DISABLED ? ComponentState.ENABLED : ComponentState.DISABLED;
                 
                 _pressed = false;
                 if (PointInComponent(e.X, e.Y))
@@ -74,15 +71,43 @@ namespace TTUI
                 
             }
         }
-
-        public override void Update(GameTime timer)
+            
+        public override void Update(GameTime gameTime)
         {
-            Skin.Update(timer);
+            
         }
 
+        /// <summary>
+        /// Draws the Button with it's default look and feel. Override if you want to draw your own button.
+        /// </summary>
+        /// <param name="sb">The spritebatch.</param>
         public override void Draw(SpriteBatch sb)
         {
-            Skin.Draw(sb);
+            DrawButton(sb);
+            DrawText(sb);
+        }
+
+        private void DrawButton(SpriteBatch sb)
+        { 
+            if (Image != null)
+            {
+                sb.Draw(Image, Position, Color.White);
+            }
+            else
+            {
+                Color c = FlatColors.MIDNIGHT_BLUE;
+                if (State == ComponentState.HOVER)
+                    c = FlatColors.WET_ASPHALT;
+
+                DrawingTools.DrawRectangle(sb, Position, Size, c, LayerDepths.D3);
+            }
+        }
+
+        private void DrawText(SpriteBatch sb)
+        {
+            // TODO Center Y as well
+            Vector2 middle = Position + new Vector2((Size.X - TextSize) / 2, 5);
+            sb.DrawString(_font, Value, middle, FlatColors.SILVER, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.D1);
         }
     }
 }

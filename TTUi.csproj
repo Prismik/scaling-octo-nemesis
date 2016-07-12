@@ -71,18 +71,10 @@
     <Compile Include="UI\UIEventDispatcher.cs" />
     <Compile Include="Util\Cancelable.cs" />
     <Compile Include="UI\Components\ScrollBar.cs" />
-    <Compile Include="UI\Skins\Skin.cs" />
-    <Compile Include="UI\Skins\SkinState.cs" />
-    <Compile Include="UI\Skins\Theme.cs" />
-    <Compile Include="UI\Skins\Defaults\ButtonSkin.cs" />
-    <Compile Include="UI\Skins\Defaults\InputSkin.cs" />
-    <Compile Include="UI\Skins\Defaults\LabelSkin.cs" />
     <Compile Include="UI\TTUI.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\Components\" />
     <Folder Include="UI\Addin\" />
-    <Folder Include="UI\Skins\" />
-    <Folder Include="UI\Skins\Defaults\" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using TTUI.Skins.Defaults;
 
 namespace TTUI
 {
@@ -16,7 +15,6 @@ namespace TTUI
         {
             _font = font;
             Value = text;
-            Skin = new LabelSkin(this, _font);
         }
 
         public override void Update(Microsoft.Xna.Framework.GameTime gameTime)
@@ -26,7 +24,12 @@ namespace TTUI
 
         public override void Draw(SpriteBatch sb)
         {
-            Skin.Draw(sb);
+            DrawText(sb);
+        }
+
+        public virtual void DrawText(SpriteBatch sb)
+        {
+            sb.DrawString(_font, Value, Position, Color.White, 0, Vector2.Zero, 1f, SpriteEffects.None, LayerDepths.POST_FRONT);
         }
     }
 }
